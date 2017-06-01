@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="POS.Client.View.V_Dictionary"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:c="clr-namespace:POS.Client.Components" 
+             xmlns:dto="clr-namespace:POS.Data.Model;assembly=POS.Data" 
+             xmlns:v="clr-namespace:POS.Client.View" 
+             xmlns:vm="clr-namespace:POS.Client.ViewModel" 
+             mc:Ignorable="d" 
+             d:DesignHeight="301" d:DesignWidth="800">
+	<!--		
+	-->
+	<UserControl.Resources>		
+
+		<!--	DicTemplate	-->
+		<DataTemplate x:Key="DicTemplate">
+			<!--DockPanel -->
+			<DockPanel ButtonBase.Click="On_Click">
+				<c:UC_NavPanel DockPanel.Dock="Bottom" Content="{Binding}" />
+				<ListBox DockPanel.Dock="Top" ItemsSource="{Binding Path=Items}" 
+							  Margin="1"
+							  />
+				<!--	
+				IsSynchronizedWithCurrentItem="True" 
+				ItemTemplate="{StaticResource ClosableTabItemTemplate}"	
+				-->
+			</DockPanel>
+		</DataTemplate>
+
+		<DataTemplate DataType="{x:Type vm:VM_Dic_UserGroup}">
+			<v:V_Edit_List />
+		</DataTemplate>
+		
+		<DataTemplate DataType="{x:Type vm:VM_Dic_Division}">
+			<v:V_Edit_List />
+		</DataTemplate>
+		
+		<DataTemplate DataType="{x:Type vm:VM_Dic_User}">
+			<v:V_Edit_List />
+		</DataTemplate>
+		
+		<!--	DTO Templates	-->
+		
+		<!--	UserGroup	-->
+		<DataTemplate DataType="{x:Type dto:UserGroup}">
+			<TextBlock>
+				<!--TextBlock Text="(" />
+				<TextBlock Text="{Binding Path=Id}" />
+				<TextBlock Text=") = " /-->
+				<TextBlock Text="{Binding Path=Name}" />			
+			</TextBlock>
+		</DataTemplate>
+		
+		<!--	Users	-->
+		<DataTemplate DataType="{x:Type dto:User}">
+			<CheckBox IsChecked="{Binding Path=Hidden}" Content="{Binding Path=Name}" />			
+		</DataTemplate>
+		
+		<!--	Division	-->
+		<DataTemplate DataType="{x:Type dto:Division}">
+			<CheckBox IsChecked="{Binding Path=Hidden}" Content="{Binding Path=Name}" />			
+		</DataTemplate>
+		
+	</UserControl.Resources>
+	<!--	Button.Click="{Binding Path=buttons_Click()}"	-->
+	<Grid >
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+
+		<HeaderedContentControl Content="{Binding Path=Commands}" Header="Справочники"
+								ContentTemplate="{StaticResource NavTemplate}"
+								Style="{StaticResource MainHCCStyle}"/>
+
+		<TabControl Name="DicSpaces"
+					Grid.Column="1"
+					IsSynchronizedWithCurrentItem="True" 
+					Margin="1"
+					ItemTemplate="{StaticResource ClosableTabItemTemplate}"
+					ItemsSource="{Binding Path=Workspaces}" Background="#00000000" BorderThickness="1" />
+		<!--			
+		<HeaderedContentControl Grid.Column="1"
+								Header="{Binding Path=Caption}"
+								Style="{StaticResource MainHCCStyle}"
+								>
+		</HeaderedContentControl>
+			<ContentControl Content="{Binding Path=CurrentDic}" />
+			<ContentControl DataContext="{Binding Path=CurrentDic, Mode=TwoWay}" Content="{Binding Path=CurrentDic, Mode=TwoWay}" />
+								Content="{Binding Path=CurentDic}" 
+								ContentTemplate="{StaticResource DicTemplate}"
+								Button.Click="DataContext.buttons_Click"
+		-->
+	</Grid>
+</UserControl>

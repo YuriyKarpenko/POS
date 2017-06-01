@@ -1,0 +1,41 @@
+﻿<Window x:Class="POS.Client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:pc="clr-namespace:POS.Client"
+        Title="MainWindow" Height="350" Width="525" xmlns:my="clr-namespace:POS.Client.Components">
+	<!--Window.Resources>
+		<ResourceDictionary Source="DictionaryData.xaml" />
+	</Window.Resources-->
+	
+    <Grid Background="{StaticResource ExpandStyle}">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition Height="20"/>
+		</Grid.RowDefinitions>
+
+		<Expander Header="Комманды" Margin="0" Name="expander1" VerticalAlignment="Top" 
+				  Content="{Binding Path=Commands}" 
+				  ContentTemplate="{StaticResource NavTemplate}" IsExpanded="True" 
+				  Background="{StaticResource ExpandStyle}">
+		</Expander>
+		<!--HeaderedContentControl Content="{Binding Path=Commands}" Header="Навигация" 
+								ContentTemplate="{StaticResource NavTemplate}"
+								Style="{StaticResource MainHCCStyle}"/>
+		<ContentControl Content="{Binding Path=Workspaces}" Grid.Column="1"
+								ContentTemplate="{StaticResource WorkspacesTemplate}"
+						/-->
+		<TabControl Name="WorkSpaces"
+					Grid.Column="1"
+					IsSynchronizedWithCurrentItem="True" ItemTemplate="{StaticResource ClosableTabItemTemplate}"
+					ItemsSource="{Binding Path=Workspaces}" Background="Transparent" BorderThickness="1" />
+
+		<!--
+					ItemsSource="{Binding}" 
+								Style="{StaticResource MainHCCStyle}"
+		-->
+	</Grid>
+</Window>

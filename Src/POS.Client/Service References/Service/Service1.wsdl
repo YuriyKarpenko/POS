@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service1" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:27141/Service1.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:27141/Service1.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:27141/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/POS.Data.Model" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="Service1_DivisionDel_InputMessage">
+    <wsdl:part name="parameters" element="tns:DivisionDel" />
+  </wsdl:message>
+  <wsdl:message name="Service1_DivisionDel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DivisionDelResponse" />
+  </wsdl:message>
+  <wsdl:message name="Service1_DivisionIns_InputMessage">
+    <wsdl:part name="parameters" element="tns:DivisionIns" />
+  </wsdl:message>
+  <wsdl:message name="Service1_DivisionIns_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DivisionInsResponse" />
+  </wsdl:message>
+  <wsdl:message name="Service1_DivisionUpd_InputMessage">
+    <wsdl:part name="parameters" element="tns:DivisionUpd" />
+  </wsdl:message>
+  <wsdl:message name="Service1_DivisionUpd_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DivisionUpdResponse" />
+  </wsdl:message>
+  <wsdl:message name="Service1_DivisionsGet_InputMessage">
+    <wsdl:part name="parameters" element="tns:DivisionsGet" />
+  </wsdl:message>
+  <wsdl:message name="Service1_DivisionsGet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DivisionsGetResponse" />
+  </wsdl:message>
+  <wsdl:message name="Service1_UserGroupDel_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserGroupDel" />
+  </wsdl:message>
+  <wsdl:message name="Service1_UserGroupDel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserGroupDelResponse" />
+  </wsdl:message>
+  <wsdl:message name="Service1_UserGroupIns_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserGroupIns" />
+  </wsdl:message>
+  <wsdl:message name="Service1_UserGroupIns_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserGroupInsResponse" />
+  </wsdl:message>
+  <wsdl:message name="Service1_UserGroupUpd_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserGroupUpd" />
+  </wsdl:message>
+  <wsdl:message name="Service1_UserGroupUpd_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserGroupUpdResponse" />
+  </wsdl:message>
+  <wsdl:message name="Service1_UserGroupGet_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserGroupGet" />
+  </wsdl:message>
+  <wsdl:message name="Service1_UserGroupGet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserGroupGetResponse" />
+  </wsdl:message>
+  <wsdl:message name="Service1_UserDel_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserDel" />
+  </wsdl:message>
+  <wsdl:message name="Service1_UserDel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserDelResponse" />
+  </wsdl:message>
+  <wsdl:message name="Service1_UserIns_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserIns" />
+  </wsdl:message>
+  <wsdl:message name="Service1_UserIns_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserInsResponse" />
+  </wsdl:message>
+  <wsdl:message name="Service1_UserSel_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserSel" />
+  </wsdl:message>
+  <wsdl:message name="Service1_UserSel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserSelResponse" />
+  </wsdl:message>
+  <wsdl:message name="Service1_UserUpd_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserUpd" />
+  </wsdl:message>
+  <wsdl:message name="Service1_UserUpd_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserUpdResponse" />
+  </wsdl:message>
+  <wsdl:portType name="Service1">
+    <wsdl:operation name="DivisionDel">
+      <wsdl:input wsaw:Action="http://tempuri.org/Service1/DivisionDel" message="tns:Service1_DivisionDel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Service1/DivisionDelResponse" message="tns:Service1_DivisionDel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DivisionIns">
+      <wsdl:input wsaw:Action="http://tempuri.org/Service1/DivisionIns" message="tns:Service1_DivisionIns_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Service1/DivisionInsResponse" message="tns:Service1_DivisionIns_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DivisionUpd">
+      <wsdl:input wsaw:Action="http://tempuri.org/Service1/DivisionUpd" message="tns:Service1_DivisionUpd_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Service1/DivisionUpdResponse" message="tns:Service1_DivisionUpd_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DivisionsGet">
+      <wsdl:input wsaw:Action="http://tempuri.org/Service1/DivisionsGet" message="tns:Service1_DivisionsGet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Service1/DivisionsGetResponse" message="tns:Service1_DivisionsGet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserGroupDel">
+      <wsdl:input wsaw:Action="http://tempuri.org/Service1/UserGroupDel" message="tns:Service1_UserGroupDel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Service1/UserGroupDelResponse" message="tns:Service1_UserGroupDel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserGroupIns">
+      <wsdl:input wsaw:Action="http://tempuri.org/Service1/UserGroupIns" message="tns:Service1_UserGroupIns_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Service1/UserGroupInsResponse" message="tns:Service1_UserGroupIns_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserGroupUpd">
+      <wsdl:input wsaw:Action="http://tempuri.org/Service1/UserGroupUpd" message="tns:Service1_UserGroupUpd_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Service1/UserGroupUpdResponse" message="tns:Service1_UserGroupUpd_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserGroupGet">
+      <wsdl:input wsaw:Action="http://tempuri.org/Service1/UserGroupGet" message="tns:Service1_UserGroupGet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Service1/UserGroupGetResponse" message="tns:Service1_UserGroupGet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserDel">
+      <wsdl:input wsaw:Action="http://tempuri.org/Service1/UserDel" message="tns:Service1_UserDel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Service1/UserDelResponse" message="tns:Service1_UserDel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserIns">
+      <wsdl:input wsaw:Action="http://tempuri.org/Service1/UserIns" message="tns:Service1_UserIns_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Service1/UserInsResponse" message="tns:Service1_UserIns_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserSel">
+      <wsdl:input wsaw:Action="http://tempuri.org/Service1/UserSel" message="tns:Service1_UserSel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Service1/UserSelResponse" message="tns:Service1_UserSel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserUpd">
+      <wsdl:input wsaw:Action="http://tempuri.org/Service1/UserUpd" message="tns:Service1_UserUpd_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Service1/UserUpdResponse" message="tns:Service1_UserUpd_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_Service1" type="tns:Service1">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DivisionDel">
+      <soap:operation soapAction="http://tempuri.org/Service1/DivisionDel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DivisionIns">
+      <soap:operation soapAction="http://tempuri.org/Service1/DivisionIns" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DivisionUpd">
+      <soap:operation soapAction="http://tempuri.org/Service1/DivisionUpd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DivisionsGet">
+      <soap:operation soapAction="http://tempuri.org/Service1/DivisionsGet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserGroupDel">
+      <soap:operation soapAction="http://tempuri.org/Service1/UserGroupDel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserGroupIns">
+      <soap:operation soapAction="http://tempuri.org/Service1/UserGroupIns" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserGroupUpd">
+      <soap:operation soapAction="http://tempuri.org/Service1/UserGroupUpd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserGroupGet">
+      <soap:operation soapAction="http://tempuri.org/Service1/UserGroupGet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserDel">
+      <soap:operation soapAction="http://tempuri.org/Service1/UserDel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserIns">
+      <soap:operation soapAction="http://tempuri.org/Service1/UserIns" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserSel">
+      <soap:operation soapAction="http://tempuri.org/Service1/UserSel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserUpd">
+      <soap:operation soapAction="http://tempuri.org/Service1/UserUpd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="BasicHttpBinding_Service1" binding="tns:BasicHttpBinding_Service1">
+      <soap:address location="http://localhost:27141/Service1.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

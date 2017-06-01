@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="POS.Client.View.V_Edit_List"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:c="clr-namespace:POS.Client.Components" 
+             xmlns:dto="clr-namespace:POS.Data.Model;assembly=POS.Data.Model"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="300">
+    <Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="auto" />
+		</Grid.RowDefinitions>		
+		
+		<DockPanel ButtonBase.Click="On_Click" 
+				   >
+			<c:UC_NavPanel x:Name="navPanel" 
+						   DockPanel.Dock="Bottom" 
+						   DataContext="{Binding}" 
+						   SelectedItem="{Binding ElementName=list, Path=SelectedItem}" />
+			<ListBox Name="list" DockPanel.Dock="Top"
+					 ItemsSource="{Binding Path=Items}" 
+					 SelectedItem="{Binding Path=SelectedItem}"
+					 >
+				<ListBox.ItemContainerStyle>					
+					<Style TargetType="ListBoxItem">
+						<EventSetter Event="MouseDoubleClick" Handler="Listbox_DoubleClick"/>
+					</Style>
+				</ListBox.ItemContainerStyle>
+			</ListBox>
+		</DockPanel>
+		<!--
+				   ListBox.SelectionChanged="DockPanel_Selected"
+						   DataContext="{Binding ElementName=list, Path=SelectedItem}" 
+						   c:UC_NavPanel.="{Binding ElementName=list, Path=SelectedItem}" 
+		<ContentControl Grid.Column="1" DataContext="{Binding ElementName=list, Path=SelectedItem}">
+		-->		
+	</Grid>
+</UserControl>

@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="POS.Client.View.V_UserGroupEdit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Height="141" Width="273">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Label Content="Id : " Height="28" HorizontalAlignment="Right" Margin="0" Name="label1" VerticalAlignment="Bottom" />
+		<Label Content="Наименовнаие : " Height="28" HorizontalAlignment="Right" Margin="0" Name="label2" VerticalAlignment="Bottom" Grid.Row="1" />
+		<Button Content="Ok" Grid.Row="2" Height="23" HorizontalAlignment="Center" Margin="0" Name="button1" VerticalAlignment="Bottom" Width="75" IsDefault="True" />
+		<Button Content="Отмена" Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Center" Margin="0" Name="button2" VerticalAlignment="Bottom" Width="75" />
+		<TextBox Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="0" Name="textId" VerticalAlignment="Bottom" IsReadOnly="True" />
+		<TextBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="0" Name="textName" VerticalAlignment="Bottom" />
+	</Grid>
+</UserControl>

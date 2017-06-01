@@ -1,0 +1,65 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:vm="clr-namespace:POS.Client.ViewModel"
+					xmlns:v="clr-namespace:POS.Client.View"
+					>
+	<!--	VM_Dictionary	-->
+	<DataTemplate DataType="{x:Type vm:VM_Dictionary}">
+		<v:V_Dictionary />
+	</DataTemplate>
+	
+	
+	
+	<!--	x:Key="NavTemplate"	-->
+	<DataTemplate x:Key="NavTemplate">
+		<ItemsControl ItemsSource="{Binding}" />
+	</DataTemplate>
+
+	<!--	VM_Command	-->
+	<DataTemplate DataType="{x:Type vm:VM_Command}" >
+		<Button Content="{Binding Path=Caption}" 
+				Command="{Binding Path=Command}" />
+	</DataTemplate>
+	
+	<!--	x:Key="ClosableTabItemTemplate"	-->
+	<DataTemplate x:Key="ClosableTabItemTemplate" DataType="{x:Type vm:VM_Workspace}">
+		<DockPanel MinWidth="50">
+			<Button Name="btnClose"
+				Command="{Binding Path=CloseCommand}"
+				Content="X"
+				DockPanel.Dock="Right"
+				Width="16" Height="16" 
+				Padding="0,-2"
+				/>
+			<!--ContentPresenter Content="{Binding Path=Caption}" Margin="2" /-->
+			<TextBlock Name="tbCaption" Text="{Binding Path=Caption}" DockPanel.Dock="Left" Margin="0,0,5,0" />
+		</DockPanel>
+
+		<DataTemplate.Triggers>
+			<DataTrigger Binding="{Binding Path=IsModifed}" Value="true">
+					<Setter TargetName="tbCaption" Property="Foreground" Value="Red" />
+					<Setter TargetName="tbCaption" Property="ToolTip" Value="Документ изменен!" />
+				<Setter TargetName="btnClose" Property="Foreground" Value="Red" />
+				<Setter TargetName="btnClose" Property="ToolTip" Value="Документ изменен!" />
+				<Setter TargetName="btnClose" Property="FontWeight" Value="Bold" />
+			</DataTrigger>
+		</DataTemplate.Triggers>
+	</DataTemplate>
+
+	<DataTemplate x:Key="WorkspacesTemplate">
+		<TabControl Name="WorkSpaces"
+			IsSynchronizedWithCurrentItem="True" 
+			ItemsSource="{Binding}" 
+			Margin="1"
+			ItemTemplate="{StaticResource ClosableTabItemTemplate}"/>
+		<!--	
+		-->
+	</DataTemplate>
+
+
+
+
+	<!--	Styles	-->
+
+
+</ResourceDictionary>

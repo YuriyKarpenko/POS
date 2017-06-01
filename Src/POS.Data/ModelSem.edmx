@@ -1,0 +1,1018 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="semModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="semModelStoreContainer">
+    <EntitySet Name="Bills" EntityType="semModel.Store.Bills" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BillItems" EntityType="semModel.Store.BillItems" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Checks" EntityType="semModel.Store.Checks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Divisions" EntityType="semModel.Store.Divisions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MenuGroups" EntityType="semModel.Store.MenuGroups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MenuItems" EntityType="semModel.Store.MenuItems" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Options" EntityType="semModel.Store.Options" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Prices" EntityType="semModel.Store.Prices" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PriceLists" EntityType="semModel.Store.PriceLists" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="semModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserGroups" EntityType="semModel.Store.UserGroups" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Bill_2_PriceLis" Association="semModel.Store.FK_Bill_2_PriceLis">
+      <End Role="PriceList" EntitySet="PriceLists" />
+      <End Role="Bill" EntitySet="Bills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bill_CretedByUser_2_User" Association="semModel.Store.FK_Bill_CretedByUser_2_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Bill" EntitySet="Bills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BillItem_2_Bill" Association="semModel.Store.FK_BillItem_2_Bill">
+      <End Role="Bill" EntitySet="Bills" />
+      <End Role="BillItem" EntitySet="BillItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BillItem_CretedBy_2_User" Association="semModel.Store.FK_BillItem_CretedBy_2_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="BillItem" EntitySet="BillItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BillItem_MenuItem" Association="semModel.Store.FK_BillItem_MenuItem">
+      <End Role="MenuItem" EntitySet="MenuItems" />
+      <End Role="BillItem" EntitySet="BillItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BillItem_ModifirdBy_User" Association="semModel.Store.FK_BillItem_ModifirdBy_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="BillItem" EntitySet="BillItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Check_2_PriceLis" Association="semModel.Store.FK_Check_2_PriceLis">
+      <End Role="PriceList" EntitySet="PriceLists" />
+      <End Role="Check" EntitySet="Checks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Check_CreatedBy_2_User" Association="semModel.Store.FK_Check_CreatedBy_2_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Check" EntitySet="Checks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Division_Id_2_MenuItem_DivisionId" Association="semModel.Store.FK_Division_Id_2_MenuItem_DivisionId">
+      <End Role="Division" EntitySet="Divisions" />
+      <End Role="MenuItem" EntitySet="MenuItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MenuGroup_Id_2_MenuGroup_Parent" Association="semModel.Store.FK_MenuGroup_Id_2_MenuGroup_Parent">
+      <End Role="MenuGroup" EntitySet="MenuGroups" />
+      <End Role="MenuGroup1" EntitySet="MenuGroups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MenuGroup_Id_2_MenuItem_MenuGroupId" Association="semModel.Store.FK_MenuGroup_Id_2_MenuItem_MenuGroupId">
+      <End Role="MenuGroup" EntitySet="MenuGroups" />
+      <End Role="MenuItem" EntitySet="MenuItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MenuItem_Id_2_Price_MenuItemId" Association="semModel.Store.FK_MenuItem_Id_2_Price_MenuItemId">
+      <End Role="MenuItem" EntitySet="MenuItems" />
+      <End Role="Price" EntitySet="Prices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Id_2_MenuItem_UserCreatedId" Association="semModel.Store.FK_User_Id_2_MenuItem_UserCreatedId">
+      <End Role="User" EntitySet="Users" />
+      <End Role="MenuItem" EntitySet="MenuItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PriceList_Id_2_Price_PriceListId" Association="semModel.Store.FK_PriceList_Id_2_Price_PriceListId">
+      <End Role="PriceList" EntitySet="PriceLists" />
+      <End Role="Price" EntitySet="Prices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserGroup_Id_2_User_UserGroupId" Association="semModel.Store.FK_UserGroup_Id_2_User_UserGroupId">
+      <End Role="UserGroup" EntitySet="UserGroups" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Bills">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="CreatedByUserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="BillNumber" Type="int" Nullable="false" />
+    <Property Name="PriceListId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Total" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Guests" Type="int" Nullable="false" />
+    <Property Name="Printered" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BillItems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="CreatedByUser" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="BillId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="MenuItemId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="ModifiedTime" Type="datetime" Nullable="true" />
+    <Property Name="ModifiedByUser" Type="uniqueidentifier" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Checks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="CreatedByUserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="BillNumber" Type="int" Nullable="false" />
+    <Property Name="PriceListId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Total" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Guests" Type="int" Nullable="false" />
+    <Property Name="Printered" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Divisions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Printer" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Hidden" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MenuGroups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Parent" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Order" Type="int" Nullable="false" />
+    <Property Name="Hidden" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MenuItems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="MenuGroupId" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="DivisionId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Code" Type="int" Nullable="true" />
+    <Property Name="BarCode" Type="nvarchar" Nullable="true" MaxLength="13" />
+    <Property Name="Image" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="UserCreatedId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Hidden" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Options">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Value" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Prices">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PriceListId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="MenuItemId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Price1" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="PriceLists">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserGroupId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Code" Type="int" Nullable="true" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Card" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="SexMale" Type="bit" Nullable="false" />
+    <Property Name="Hidden" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserGroups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Bill_2_PriceLis">
+    <End Role="PriceList" Type="semModel.Store.PriceLists" Multiplicity="1" />
+    <End Role="Bill" Type="semModel.Store.Bills" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriceList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="PriceListId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bill_CretedByUser_2_User">
+    <End Role="User" Type="semModel.Store.Users" Multiplicity="1" />
+    <End Role="Bill" Type="semModel.Store.Bills" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="CreatedByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BillItem_2_Bill">
+    <End Role="Bill" Type="semModel.Store.Bills" Multiplicity="1" />
+    <End Role="BillItem" Type="semModel.Store.BillItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bill">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BillItem">
+        <PropertyRef Name="BillId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BillItem_CretedBy_2_User">
+    <End Role="User" Type="semModel.Store.Users" Multiplicity="1" />
+    <End Role="BillItem" Type="semModel.Store.BillItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BillItem">
+        <PropertyRef Name="CreatedByUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BillItem_MenuItem">
+    <End Role="MenuItem" Type="semModel.Store.MenuItems" Multiplicity="1" />
+    <End Role="BillItem" Type="semModel.Store.BillItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MenuItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BillItem">
+        <PropertyRef Name="MenuItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BillItem_ModifirdBy_User">
+    <End Role="User" Type="semModel.Store.Users" Multiplicity="0..1" />
+    <End Role="BillItem" Type="semModel.Store.BillItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BillItem">
+        <PropertyRef Name="ModifiedByUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Check_2_PriceLis">
+    <End Role="PriceList" Type="semModel.Store.PriceLists" Multiplicity="1" />
+    <End Role="Check" Type="semModel.Store.Checks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriceList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Check">
+        <PropertyRef Name="PriceListId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Check_CreatedBy_2_User">
+    <End Role="User" Type="semModel.Store.Users" Multiplicity="1" />
+    <End Role="Check" Type="semModel.Store.Checks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Check">
+        <PropertyRef Name="CreatedByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Division_Id_2_MenuItem_DivisionId">
+    <End Role="Division" Type="semModel.Store.Divisions" Multiplicity="1" />
+    <End Role="MenuItem" Type="semModel.Store.MenuItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Division">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MenuItem">
+        <PropertyRef Name="DivisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MenuGroup_Id_2_MenuGroup_Parent">
+    <End Role="MenuGroup" Type="semModel.Store.MenuGroups" Multiplicity="0..1" />
+    <End Role="MenuGroup1" Type="semModel.Store.MenuGroups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MenuGroup">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MenuGroup1">
+        <PropertyRef Name="Parent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MenuGroup_Id_2_MenuItem_MenuGroupId">
+    <End Role="MenuGroup" Type="semModel.Store.MenuGroups" Multiplicity="0..1" />
+    <End Role="MenuItem" Type="semModel.Store.MenuItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MenuGroup">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MenuItem">
+        <PropertyRef Name="MenuGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MenuItem_Id_2_Price_MenuItemId">
+    <End Role="MenuItem" Type="semModel.Store.MenuItems" Multiplicity="1" />
+    <End Role="Price" Type="semModel.Store.Prices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MenuItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Price">
+        <PropertyRef Name="MenuItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Id_2_MenuItem_UserCreatedId">
+    <End Role="User" Type="semModel.Store.Users" Multiplicity="1" />
+    <End Role="MenuItem" Type="semModel.Store.MenuItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MenuItem">
+        <PropertyRef Name="UserCreatedId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PriceList_Id_2_Price_PriceListId">
+    <End Role="PriceList" Type="semModel.Store.PriceLists" Multiplicity="1" />
+    <End Role="Price" Type="semModel.Store.Prices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriceList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Price">
+        <PropertyRef Name="PriceListId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserGroup_Id_2_User_UserGroupId">
+    <End Role="UserGroup" Type="semModel.Store.UserGroups" Multiplicity="1" />
+    <End Role="User" Type="semModel.Store.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserGroup">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="UserGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="semModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ModelSem" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bills" EntityType="semModel.Bill" />
+          <EntitySet Name="BillItems" EntityType="semModel.BillItem" />
+          <EntitySet Name="Checks" EntityType="semModel.Check" />
+          <EntitySet Name="Divisions" EntityType="semModel.Division" />
+          <EntitySet Name="MenuGroups" EntityType="semModel.MenuGroup" />
+          <EntitySet Name="MenuItems" EntityType="semModel.MenuItem" />
+          <EntitySet Name="Options" EntityType="semModel.Option" />
+          <EntitySet Name="Prices" EntityType="semModel.Price" />
+          <EntitySet Name="PriceLists" EntityType="semModel.PriceList" />
+          <EntitySet Name="Users" EntityType="semModel.User" />
+          <EntitySet Name="UserGroups" EntityType="semModel.UserGroup" />
+          <AssociationSet Name="FK_Bill_2_PriceLis" Association="semModel.FK_Bill_2_PriceLis">
+            <End Role="PriceList" EntitySet="PriceLists" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_CretedByUser_2_User" Association="semModel.FK_Bill_CretedByUser_2_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillItem_2_Bill" Association="semModel.FK_BillItem_2_Bill">
+            <End Role="Bill" EntitySet="Bills" />
+            <End Role="BillItem" EntitySet="BillItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillItem_CretedBy_2_User" Association="semModel.FK_BillItem_CretedBy_2_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="BillItem" EntitySet="BillItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillItem_MenuItem" Association="semModel.FK_BillItem_MenuItem">
+            <End Role="MenuItem" EntitySet="MenuItems" />
+            <End Role="BillItem" EntitySet="BillItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillItem_ModifirdBy_User" Association="semModel.FK_BillItem_ModifirdBy_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="BillItem" EntitySet="BillItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Check_2_PriceLis" Association="semModel.FK_Check_2_PriceLis">
+            <End Role="PriceList" EntitySet="PriceLists" />
+            <End Role="Check" EntitySet="Checks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Check_CreatedBy_2_User" Association="semModel.FK_Check_CreatedBy_2_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Check" EntitySet="Checks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Division_Id_2_MenuItem_DivisionId" Association="semModel.FK_Division_Id_2_MenuItem_DivisionId">
+            <End Role="Division" EntitySet="Divisions" />
+            <End Role="MenuItem" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuGroup_Id_2_MenuGroup_Parent" Association="semModel.FK_MenuGroup_Id_2_MenuGroup_Parent">
+            <End Role="MenuGroup" EntitySet="MenuGroups" />
+            <End Role="MenuGroup1" EntitySet="MenuGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuGroup_Id_2_MenuItem_MenuGroupId" Association="semModel.FK_MenuGroup_Id_2_MenuItem_MenuGroupId">
+            <End Role="MenuGroup" EntitySet="MenuGroups" />
+            <End Role="MenuItem" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuItem_Id_2_Price_MenuItemId" Association="semModel.FK_MenuItem_Id_2_Price_MenuItemId">
+            <End Role="MenuItem" EntitySet="MenuItems" />
+            <End Role="Price" EntitySet="Prices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Id_2_MenuItem_UserCreatedId" Association="semModel.FK_User_Id_2_MenuItem_UserCreatedId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="MenuItem" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceList_Id_2_Price_PriceListId" Association="semModel.FK_PriceList_Id_2_Price_PriceListId">
+            <End Role="PriceList" EntitySet="PriceLists" />
+            <End Role="Price" EntitySet="Prices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserGroup_Id_2_User_UserGroupId" Association="semModel.FK_UserGroup_Id_2_User_UserGroupId">
+            <End Role="UserGroup" EntitySet="UserGroups" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <FunctionImport Name="UserGroupsGet" EntitySet="UserGroups" ReturnType="Collection(semModel.UserGroup)">
+            <Parameter Name="Id" Mode="In" Type="Guid" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DivisionsGet" EntitySet="Divisions" ReturnType="Collection(semModel.Division)">
+            <Parameter Name="Id" Mode="In" Type="Guid" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Printer" Mode="In" Type="String" />
+            <Parameter Name="Hidden" Mode="In" Type="Boolean" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" />
+          <Property Name="CreatedByUserId" Type="Guid" Nullable="false" />
+          <Property Name="BillNumber" Type="Int32" Nullable="false" />
+          <Property Name="PriceListId" Type="Guid" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Guests" Type="Int32" Nullable="false" />
+          <Property Name="Printered" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PriceList" Relationship="semModel.FK_Bill_2_PriceLis" FromRole="Bill" ToRole="PriceList" />
+          <NavigationProperty Name="User" Relationship="semModel.FK_Bill_CretedByUser_2_User" FromRole="Bill" ToRole="User" />
+          <NavigationProperty Name="BillItems" Relationship="semModel.FK_BillItem_2_Bill" FromRole="Bill" ToRole="BillItem" />
+        </EntityType>
+        <EntityType Name="BillItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" />
+          <Property Name="CreatedByUser" Type="Guid" Nullable="false" />
+          <Property Name="BillId" Type="Guid" Nullable="false" />
+          <Property Name="MenuItemId" Type="Guid" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ModifiedTime" Type="DateTime" />
+          <Property Name="ModifiedByUser" Type="Guid" />
+          <NavigationProperty Name="Bill" Relationship="semModel.FK_BillItem_2_Bill" FromRole="BillItem" ToRole="Bill" />
+          <NavigationProperty Name="User" Relationship="semModel.FK_BillItem_CretedBy_2_User" FromRole="BillItem" ToRole="User" />
+          <NavigationProperty Name="MenuItem" Relationship="semModel.FK_BillItem_MenuItem" FromRole="BillItem" ToRole="MenuItem" />
+          <NavigationProperty Name="User1" Relationship="semModel.FK_BillItem_ModifirdBy_User" FromRole="BillItem" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Check">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" />
+          <Property Name="CreatedByUserId" Type="Guid" Nullable="false" />
+          <Property Name="BillNumber" Type="Int32" Nullable="false" />
+          <Property Name="PriceListId" Type="Guid" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Guests" Type="Int32" Nullable="false" />
+          <Property Name="Printered" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PriceList" Relationship="semModel.FK_Check_2_PriceLis" FromRole="Check" ToRole="PriceList" />
+          <NavigationProperty Name="User" Relationship="semModel.FK_Check_CreatedBy_2_User" FromRole="Check" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Printer" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Hidden" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="MenuItems" Relationship="semModel.FK_Division_Id_2_MenuItem_DivisionId" FromRole="Division" ToRole="MenuItem" />
+        </EntityType>
+        <EntityType Name="MenuGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Parent" Type="Guid" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="Hidden" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="MenuGroup1" Relationship="semModel.FK_MenuGroup_Id_2_MenuGroup_Parent" FromRole="MenuGroup" ToRole="MenuGroup1" />
+          <NavigationProperty Name="MenuGroup2" Relationship="semModel.FK_MenuGroup_Id_2_MenuGroup_Parent" FromRole="MenuGroup1" ToRole="MenuGroup" />
+          <NavigationProperty Name="MenuItems" Relationship="semModel.FK_MenuGroup_Id_2_MenuItem_MenuGroupId" FromRole="MenuGroup" ToRole="MenuItem" />
+        </EntityType>
+        <EntityType Name="MenuItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="MenuGroupId" Type="Guid" />
+          <Property Name="DivisionId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Code" Type="Int32" />
+          <Property Name="BarCode" Type="String" MaxLength="13" Unicode="true" FixedLength="false" />
+          <Property Name="Image" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="UserCreatedId" Type="Guid" Nullable="false" />
+          <Property Name="Hidden" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BillItems" Relationship="semModel.FK_BillItem_MenuItem" FromRole="MenuItem" ToRole="BillItem" />
+          <NavigationProperty Name="Division" Relationship="semModel.FK_Division_Id_2_MenuItem_DivisionId" FromRole="MenuItem" ToRole="Division" />
+          <NavigationProperty Name="MenuGroup" Relationship="semModel.FK_MenuGroup_Id_2_MenuItem_MenuGroupId" FromRole="MenuItem" ToRole="MenuGroup" />
+          <NavigationProperty Name="Prices" Relationship="semModel.FK_MenuItem_Id_2_Price_MenuItemId" FromRole="MenuItem" ToRole="Price" />
+          <NavigationProperty Name="User" Relationship="semModel.FK_User_Id_2_MenuItem_UserCreatedId" FromRole="MenuItem" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Option">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PriceListId" Type="Guid" Nullable="false" />
+          <Property Name="MenuItemId" Type="Guid" Nullable="false" />
+          <Property Name="Price1" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="MenuItem" Relationship="semModel.FK_MenuItem_Id_2_Price_MenuItemId" FromRole="Price" ToRole="MenuItem" />
+          <NavigationProperty Name="PriceList" Relationship="semModel.FK_PriceList_Id_2_Price_PriceListId" FromRole="Price" ToRole="PriceList" />
+        </EntityType>
+        <EntityType Name="PriceList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Bills" Relationship="semModel.FK_Bill_2_PriceLis" FromRole="PriceList" ToRole="Bill" />
+          <NavigationProperty Name="Checks" Relationship="semModel.FK_Check_2_PriceLis" FromRole="PriceList" ToRole="Check" />
+          <NavigationProperty Name="Prices" Relationship="semModel.FK_PriceList_Id_2_Price_PriceListId" FromRole="PriceList" ToRole="Price" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="UserGroupId" Type="Guid" Nullable="false" />
+          <Property Name="Code" Type="Int32" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Card" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="SexMale" Type="Boolean" Nullable="false" />
+          <Property Name="Hidden" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Bills" Relationship="semModel.FK_Bill_CretedByUser_2_User" FromRole="User" ToRole="Bill" />
+          <NavigationProperty Name="BillItems" Relationship="semModel.FK_BillItem_CretedBy_2_User" FromRole="User" ToRole="BillItem" />
+          <NavigationProperty Name="BillItems1" Relationship="semModel.FK_BillItem_ModifirdBy_User" FromRole="User" ToRole="BillItem" />
+          <NavigationProperty Name="Checks" Relationship="semModel.FK_Check_CreatedBy_2_User" FromRole="User" ToRole="Check" />
+          <NavigationProperty Name="MenuItems" Relationship="semModel.FK_User_Id_2_MenuItem_UserCreatedId" FromRole="User" ToRole="MenuItem" />
+          <NavigationProperty Name="UserGroup" Relationship="semModel.FK_UserGroup_Id_2_User_UserGroupId" FromRole="User" ToRole="UserGroup" />
+        </EntityType>
+        <EntityType Name="UserGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Users" Relationship="semModel.FK_UserGroup_Id_2_User_UserGroupId" FromRole="UserGroup" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Bill_2_PriceLis">
+          <End Role="PriceList" Type="semModel.PriceList" Multiplicity="1" />
+          <End Role="Bill" Type="semModel.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceList">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="PriceListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_CretedByUser_2_User">
+          <End Role="User" Type="semModel.User" Multiplicity="1" />
+          <End Role="Bill" Type="semModel.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="CreatedByUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillItem_2_Bill">
+          <End Role="Bill" Type="semModel.Bill" Multiplicity="1" />
+          <End Role="BillItem" Type="semModel.BillItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillItem">
+              <PropertyRef Name="BillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillItem_CretedBy_2_User">
+          <End Role="User" Type="semModel.User" Multiplicity="1" />
+          <End Role="BillItem" Type="semModel.BillItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillItem">
+              <PropertyRef Name="CreatedByUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillItem_MenuItem">
+          <End Role="MenuItem" Type="semModel.MenuItem" Multiplicity="1" />
+          <End Role="BillItem" Type="semModel.BillItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillItem">
+              <PropertyRef Name="MenuItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillItem_ModifirdBy_User">
+          <End Role="User" Type="semModel.User" Multiplicity="0..1" />
+          <End Role="BillItem" Type="semModel.BillItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillItem">
+              <PropertyRef Name="ModifiedByUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Check_2_PriceLis">
+          <End Role="PriceList" Type="semModel.PriceList" Multiplicity="1" />
+          <End Role="Check" Type="semModel.Check" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceList">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Check">
+              <PropertyRef Name="PriceListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Check_CreatedBy_2_User">
+          <End Role="User" Type="semModel.User" Multiplicity="1" />
+          <End Role="Check" Type="semModel.Check" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Check">
+              <PropertyRef Name="CreatedByUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Division_Id_2_MenuItem_DivisionId">
+          <End Role="Division" Type="semModel.Division" Multiplicity="1" />
+          <End Role="MenuItem" Type="semModel.MenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItem">
+              <PropertyRef Name="DivisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuGroup_Id_2_MenuGroup_Parent">
+          <End Role="MenuGroup" Type="semModel.MenuGroup" Multiplicity="0..1" />
+          <End Role="MenuGroup1" Type="semModel.MenuGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuGroup1">
+              <PropertyRef Name="Parent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuGroup_Id_2_MenuItem_MenuGroupId">
+          <End Role="MenuGroup" Type="semModel.MenuGroup" Multiplicity="0..1" />
+          <End Role="MenuItem" Type="semModel.MenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItem">
+              <PropertyRef Name="MenuGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuItem_Id_2_Price_MenuItemId">
+          <End Role="MenuItem" Type="semModel.MenuItem" Multiplicity="1" />
+          <End Role="Price" Type="semModel.Price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Price">
+              <PropertyRef Name="MenuItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Id_2_MenuItem_UserCreatedId">
+          <End Role="User" Type="semModel.User" Multiplicity="1" />
+          <End Role="MenuItem" Type="semModel.MenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuItem">
+              <PropertyRef Name="UserCreatedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceList_Id_2_Price_PriceListId">
+          <End Role="PriceList" Type="semModel.PriceList" Multiplicity="1" />
+          <End Role="Price" Type="semModel.Price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceList">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Price">
+              <PropertyRef Name="PriceListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserGroup_Id_2_User_UserGroupId">
+          <End Role="UserGroup" Type="semModel.UserGroup" Multiplicity="1" />
+          <End Role="User" Type="semModel.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="semModelStoreContainer" CdmEntityContainer="ModelSem">
+    <EntitySetMapping Name="Bills">
+      <EntityTypeMapping TypeName="IsTypeOf(semModel.Bill)">
+        <MappingFragment StoreEntitySet="Bills">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+          <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+          <ScalarProperty Name="BillNumber" ColumnName="BillNumber" />
+          <ScalarProperty Name="PriceListId" ColumnName="PriceListId" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Guests" ColumnName="Guests" />
+          <ScalarProperty Name="Printered" ColumnName="Printered" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BillItems">
+      <EntityTypeMapping TypeName="IsTypeOf(semModel.BillItem)">
+        <MappingFragment StoreEntitySet="BillItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+          <ScalarProperty Name="CreatedByUser" ColumnName="CreatedByUser" />
+          <ScalarProperty Name="BillId" ColumnName="BillId" />
+          <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="ModifiedTime" ColumnName="ModifiedTime" />
+          <ScalarProperty Name="ModifiedByUser" ColumnName="ModifiedByUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Checks">
+      <EntityTypeMapping TypeName="IsTypeOf(semModel.Check)">
+        <MappingFragment StoreEntitySet="Checks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+          <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+          <ScalarProperty Name="BillNumber" ColumnName="BillNumber" />
+          <ScalarProperty Name="PriceListId" ColumnName="PriceListId" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Guests" ColumnName="Guests" />
+          <ScalarProperty Name="Printered" ColumnName="Printered" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Divisions">
+      <EntityTypeMapping TypeName="IsTypeOf(semModel.Division)">
+        <MappingFragment StoreEntitySet="Divisions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Printer" ColumnName="Printer" />
+          <ScalarProperty Name="Hidden" ColumnName="Hidden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MenuGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(semModel.MenuGroup)">
+        <MappingFragment StoreEntitySet="MenuGroups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Parent" ColumnName="Parent" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="Hidden" ColumnName="Hidden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MenuItems">
+      <EntityTypeMapping TypeName="IsTypeOf(semModel.MenuItem)">
+        <MappingFragment StoreEntitySet="MenuItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MenuGroupId" ColumnName="MenuGroupId" />
+          <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="BarCode" ColumnName="BarCode" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="UserCreatedId" ColumnName="UserCreatedId" />
+          <ScalarProperty Name="Hidden" ColumnName="Hidden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Options">
+      <EntityTypeMapping TypeName="IsTypeOf(semModel.Option)">
+        <MappingFragment StoreEntitySet="Options">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prices">
+      <EntityTypeMapping TypeName="IsTypeOf(semModel.Price)">
+        <MappingFragment StoreEntitySet="Prices">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PriceListId" ColumnName="PriceListId" />
+          <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
+          <ScalarProperty Name="Price1" ColumnName="Price1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PriceLists">
+      <EntityTypeMapping TypeName="IsTypeOf(semModel.PriceList)">
+        <MappingFragment StoreEntitySet="PriceLists">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(semModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserGroupId" ColumnName="UserGroupId" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Card" ColumnName="Card" />
+          <ScalarProperty Name="SexMale" ColumnName="SexMale" />
+          <ScalarProperty Name="Hidden" ColumnName="Hidden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(semModel.UserGroup)">
+        <MappingFragment StoreEntitySet="UserGroups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="ModelSem" ZoomLevel="74">
+        <EntityTypeShape EntityType="semModel.Bill" Width="1.5" PointX="8.625" PointY="7" Height="3.1340950520833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="semModel.BillItem" Width="1.5" PointX="10.75" PointY="5.875" Height="3.3263964843749991" IsExpanded="true" />
+        <EntityTypeShape EntityType="semModel.Check" Width="1.5" PointX="6.5" PointY="7.25" Height="2.9417936197916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="semModel.Division" Width="1.5" PointX="1.125" PointY="13.375" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="semModel.MenuGroup" Width="1.5" PointX="1.125" PointY="10.375" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="semModel.MenuItem" Width="1.5" PointX="5.5" PointY="11.5" Height="3.7109993489583326" IsExpanded="true" />
+        <EntityTypeShape EntityType="semModel.Option" Width="1.5" PointX="0.5" PointY="8.625" Height="1.4033821614583317" IsExpanded="true" />
+        <EntityTypeShape EntityType="semModel.Price" Width="1.5" PointX="8.625" PointY="10.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="semModel.PriceList" Width="1.5" PointX="3.625" PointY="9.625" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="semModel.User" Width="1.5" PointX="2.625" PointY="5.875" Height="3.5186979166666656" IsExpanded="true" />
+        <EntityTypeShape EntityType="semModel.UserGroup" Width="1.5" PointX="0.5" PointY="6.625" Height="1.5956835937500031" IsExpanded="true" />
+        <AssociationConnector Association="semModel.FK_Bill_2_PriceLis" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.125" PointY="10.415271966708195" />
+          <ConnectorPoint PointX="9.375" PointY="10.415271966708195" />
+          <ConnectorPoint PointX="9.375" PointY="10.134095052083332" />
+        </AssociationConnector>
+        <AssociationConnector Association="semModel.FK_Bill_CretedByUser_2_User" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.125" PointY="7.09375" />
+          <ConnectorPoint PointX="8.625" PointY="7.09375" />
+        </AssociationConnector>
+        <AssociationConnector Association="semModel.FK_BillItem_2_Bill" ManuallyRouted="false">
+          <ConnectorPoint PointX="10.125" PointY="8.1006982421875" />
+          <ConnectorPoint PointX="10.75" PointY="8.1006982421875" />
+        </AssociationConnector>
+        <AssociationConnector Association="semModel.FK_BillItem_CretedBy_2_User" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.125" PointY="6.3004227701822915" />
+          <ConnectorPoint PointX="10.75" PointY="6.3004227701822915" />
+        </AssociationConnector>
+        <AssociationConnector Association="semModel.FK_BillItem_MenuItem" ManuallyRouted="false">
+          <ConnectorPoint PointX="7" PointY="14.098043619791666" />
+          <ConnectorPoint PointX="11.585978298651311" PointY="14.098043619791666" />
+          <ConnectorPoint PointX="11.585978298651311" PointY="9.201396484375" />
+        </AssociationConnector>
+        <AssociationConnector Association="semModel.FK_BillItem_ModifirdBy_User" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.125" PointY="6.8508455403645829" />
+          <ConnectorPoint PointX="10.75" PointY="6.8508455403645829" />
+        </AssociationConnector>
+        <AssociationConnector Association="semModel.FK_Check_2_PriceLis" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.125" PointY="9.9785310383539443" />
+          <ConnectorPoint PointX="6.5" PointY="9.9785310383539443" />
+        </AssociationConnector>
+        <AssociationConnector Association="semModel.FK_Check_CreatedBy_2_User" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.125" PointY="8.3218489583333337" />
+          <ConnectorPoint PointX="6.5" PointY="8.3218489583333337" />
+        </AssociationConnector>
+        <AssociationConnector Association="semModel.FK_Division_Id_2_MenuItem_DivisionId" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.625" PointY="14.292999674479166" />
+          <ConnectorPoint PointX="5.5" PointY="14.292999674479166" />
+        </AssociationConnector>
+        <AssociationConnector Association="semModel.FK_MenuGroup_Id_2_MenuGroup_Parent" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.6569230769230767" PointY="12.932190755208332" />
+          <ConnectorPoint PointX="1.6569230769230767" PointY="13.182190755208332" />
+          <ConnectorPoint PointX="2.1034615384615383" PointY="13.182190755208332" />
+          <ConnectorPoint PointX="2.1034615384615383" PointY="12.932190755208332" />
+        </AssociationConnector>
+        <AssociationConnector Association="semModel.FK_MenuGroup_Id_2_MenuItem_MenuGroupId" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.625" PointY="12.581398639850788" />
+          <ConnectorPoint PointX="5.5" PointY="12.581398639850788" />
+        </AssociationConnector>
+        <AssociationConnector Association="semModel.FK_MenuItem_Id_2_Price_MenuItemId" ManuallyRouted="false">
+          <ConnectorPoint PointX="7" PointY="12.2112939453125" />
+          <ConnectorPoint PointX="8.625" PointY="12.2112939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="semModel.FK_User_Id_2_MenuItem_UserCreatedId" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.125" PointY="9.3936979166666656" />
+          <ConnectorPoint PointX="3.125" PointY="12.175993234445382" />
+          <ConnectorPoint PointX="5.5" PointY="12.175993234445382" />
+        </AssociationConnector>
+        <AssociationConnector Association="semModel.FK_PriceList_Id_2_Price_PriceListId" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.125" PointY="10.83759211392503" />
+          <ConnectorPoint PointX="8.625" PointY="10.83759211392503" />
+        </AssociationConnector>
+        <AssociationConnector Association="semModel.FK_UserGroup_Id_2_User_UserGroupId" ManuallyRouted="false">
+          <ConnectorPoint PointX="2" PointY="7.4228417968750016" />
+          <ConnectorPoint PointX="2.625" PointY="7.4228417968750016" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
