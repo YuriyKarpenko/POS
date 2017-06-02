@@ -1,94 +1,32 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace POS.Data.Model
 {
-	[DataContract(IsReference = true)]
-	[KnownType(typeof(Bill))]
-	[KnownType(typeof(BillItem))]
-	[KnownType(typeof(MenuItem))]
-	[KnownType(typeof(UserGroup))]
-	public partial class User : DictionaryModel
+	public partial class User : PersistedModel
 	{
-		#region Primitive Properties
+#if USE_GUID
+		public Guid UserGroupId { get; set; }
+#else
+		public int UserGroupId { get; set; }
+#endif
+		public int? Code { get; set; }
+		public Role Role { get; set; }
 
-		[DataMember]
-		public Guid UserGroupId
+		public PersonInfo PersonInfo { get; set; }
+
+		public UserGroup UserGroup { get; set; }
+		//public ICollection<Bill> Bills { get; set; }
+		//public ICollection<BillItem> CreatedBillItems { get; set; }
+		//public ICollection<BillItem> ModifiedBillItems { get; set; }
+		//public ICollection<Price> CreatedPrices { get; set; }
+		//public ICollection<Price> ModifiedPrices { get; set; }
+		//public ICollection<MenuItem> CreatedMenuItems { get; set; }
+
+
+		public User()
 		{
-			get { return _UserGroupId; }
-			set { Set(nameof(UserGroupId), value); }
+			Role = Role.None;
 		}
-		private Guid _UserGroupId;
-
-		[DataMember]
-		public int? Code
-		{
-			get { return _Code; }
-			set { Set(nameof(Code), value); }
-		}
-		private Nullable<int> _Code;
-
-		[DataMember]
-		public string Card
-		{
-			get { return _Card; }
-			set { Set(nameof(Card), value); }
-		}
-		private string _Card;
-
-		[DataMember]
-		public bool? SexMale
-		{
-			get { return _SexMale; }
-			set { Set(nameof(SexMale), value); }
-		}
-		private bool _SexMale;
-
-		#endregion
-
-		#region Navigation Properties
-
-		[DataMember]
-		public IEnumerable<Bill> Bills
-		{
-			get { return _Bills; }
-			set { SetNav(nameof(Bills), value); }
-		}
-		private IEnumerable<Bill> _Bills;
-
-		[DataMember]
-		public IEnumerable<BillItem> BillItems
-		{
-			get { return _BillItems; }
-			set { SetNav(nameof(BillItems), value); }
-		}
-		private IEnumerable<BillItem> _BillItems;
-
-		[DataMember]
-		public IEnumerable<BillItem> BillItems1
-		{
-			get { return _BillItems1; }
-			set { SetNav(nameof(BillItems1), value); }
-		}
-		private IEnumerable<BillItem> _BillItems1;
-
-		[DataMember]
-		public IEnumerable<MenuItem> MenuItems
-		{
-			get { return _MenuItems; }
-			set { SetNav(nameof(MenuItems), value); }
-		}
-		private IEnumerable<MenuItem> _MenuItems;
-
-		[DataMember]
-		public UserGroup UserGroup
-		{
-			get { return _UserGroup; }
-			set { SetNav(nameof(UserGroup), value); }
-		}
-		private UserGroup _UserGroup;
-
-		#endregion
 	}
 }

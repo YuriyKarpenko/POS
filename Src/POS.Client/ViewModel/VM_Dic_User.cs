@@ -62,15 +62,15 @@ namespace POS.Client.ViewModel
 			public List_Current_Helper<Data.Model.UserGroup> Helper { get; protected set; }
 			public UserFacade(Data.Model.User user)
 			{
-				this.BillItems = user.BillItems;
-				this.BillItems1 = user.BillItems1;
+				this.CreatedBillItems = user.CreatedBillItems;
+				this.ModifiedBillItems = user.ModifiedBillItems;
 				this.Bills = user.Bills;
 				this.Card = user.Card;
 				this.Checks = user.Checks;
 				this.Code = user.Code;
 				this.Hidden = user.Hidden;
 				this.Id = user.Id;
-				this.MenuItems = user.MenuItems;
+				this.CreatedMenuItems = user.CreatedMenuItems;
 				this.Name = user.Name;
 				this.SexMale = user.SexMale;
 				//this.TrackingState = user.TrackingState;

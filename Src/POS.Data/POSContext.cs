@@ -1,16 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Infrastructure.Annotations;
 
 using POS.Data.Model;
+using POS.Data.Model.Mapping;
 
 namespace POS.Data
 {
     class POSContext : DbContext
     {
+		static POSContext()
+		{
+			Database.SetInitializer(new DropCreateDatabaseIfModelChanges<POSContext>());
+		}
+
         public DbSet<Bill> Bills { get; set; }
         public DbSet<BillItem> BillItems { get; set; }
-        public DbSet<Check> Checks { get; set; }
         public DbSet<Division> Divisions { get; set; }
         public DbSet<MenuGroup> MenuGroups { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
@@ -21,9 +28,20 @@ namespace POS.Data
         public DbSet<UserGroup> UserGroups { get; set; }
         public DbSet<User> Users { get; set; }
 
-        void Mapping()
-        {
-            System.Data.Entity.ModelConfiguration.Configuration.
-        }
-    }
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.ComplexType<PersonInfo>();
+
+			modelBuilder.Configurations.Add(new BillMapping());
+			modelBuilder.Configurations.Add(new BillItemMapping());
+			modelBuilder.Configurations.Add(new DivisionMapping());
+			modelBuilder.Configurations.Add(new MenuGroupMapping());
+			modelBuilder.Configurations.Add(new MenuItemMapping());
+			modelBuilder.Configurations.Add(new PriceMapping());
+			modelBuilder.Configurations.Add(new PriceListMapping());
+			modelBuilder.Configurations.Add(new UserMapping());
+		}
+	}
 }
