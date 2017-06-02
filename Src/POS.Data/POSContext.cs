@@ -9,12 +9,17 @@ using POS.Data.Model.Mapping;
 
 namespace POS.Data
 {
-    class POSContext : DbContext
+    public class POSContext : DbContext
     {
 		static POSContext()
 		{
 			Database.SetInitializer(new DropCreateDatabaseIfModelChanges<POSContext>());
 		}
+
+		public POSContext(string connStr):base(connStr)
+		{
+		}
+
 
         public DbSet<Bill> Bills { get; set; }
         public DbSet<BillItem> BillItems { get; set; }

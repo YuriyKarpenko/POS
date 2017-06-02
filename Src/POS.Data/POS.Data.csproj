@@ -84,6 +84,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\EntityFrameworkExceptionHelper.cs" />
     <Compile Include="SQL.cs" />
   </ItemGroup>
   <ItemGroup>
