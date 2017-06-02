@@ -16,10 +16,10 @@
 				.HasForeignKey(e => e.ParentId)
 				.WillCascadeOnDelete(false);
 
-			HasMany(e => e.MenuItems)
-				.WithOptional(e => e.MenuGroup)
-				.HasForeignKey(e => e.MenuGroupId)
-				.WillCascadeOnDelete(false);
+			//HasMany(e => e.MenuItems)
+			//	.WithOptional(e => e.MenuGroup)
+			//	.HasForeignKey(e => e.MenuGroupId)
+			//	.WillCascadeOnDelete(false);
 
 		}
 	}

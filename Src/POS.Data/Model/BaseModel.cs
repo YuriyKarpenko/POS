@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace POS.Data.Model
 {
+	[Serializable]
 	public abstract class BaseModel<TKey>
 	{
 		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -28,17 +30,18 @@ namespace POS.Data.Model
 		int Id { get; }
 		//bool IsPersisted { get; }
 	}
+	[Serializable]
 	public abstract class BaseModel : BaseModel<int>
 	{
 		//public override bool IsPersisted => Id != default(int);
 	}
 #endif
-
 	public interface IPersistedModel : IBaseModel
 	{
 		DateTime DateCreated { get; set; }
 		DateTime DateLastModified { get; set; }
 	}
+	[Serializable]
 	public abstract class PersistedModel : BaseModel, IPersistedModel
 	{
 		[Required]
@@ -47,6 +50,7 @@ namespace POS.Data.Model
 		public DateTime DateLastModified { get; set; }
 	}
 
+	[Serializable]
 	public abstract class DictionaryModel : PersistedModel
 	{
 		[Required]
@@ -55,6 +59,7 @@ namespace POS.Data.Model
 		public bool Hidden { get; set; }
 	}
 
+	[Serializable]
 	public abstract class PersistedUserModel : PersistedModel
 	{
 		[Required]
@@ -67,10 +72,11 @@ namespace POS.Data.Model
 		public User CreatedByUser { get; set; }
 	}
 
+	[Serializable]
 	public abstract class PersistedUser2Model : PersistedUserModel
 	{
 #if USE_GUID
-		public Guid? ModifiedByUserId { get; set; }
+			public Guid? ModifiedByUserId { get; set; }
 #else
 		public int? ModifiedByUserId { get; set; }
 #endif
@@ -100,4 +106,16 @@ namespace POS.Data.Model
 		public bool Hidden { get; set; }
 
 	}
+
+//	[ComplexType]
+//	public class UserInfo
+//	{
+//#if USE_GUID
+//		public Guid CreatedByUserId { get; set; }
+//#else
+//		public int UserId { get; set; }
+//#endif
+
+//		public User User { get; set; }
+//	}
 }

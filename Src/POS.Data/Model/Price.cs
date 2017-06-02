@@ -10,9 +10,9 @@ namespace POS.Data.Model
 		public int MenuItemId { get; set; }
 #endif
 #if USE_GUID
-		public Guid PriceListId { get; set; }
+		public Guid? PriceListId { get; set; }
 #else
-		public int PriceListId { get; set; }
+		public int? PriceListId { get; set; }
 #endif
 		public decimal Cost { get; set; }
 

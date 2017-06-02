@@ -6,9 +6,9 @@ namespace POS.Data.Model
 	public partial class MenuGroup : DictionaryModel
 	{
 #if USE_GUID
-		public Guid ParentId { get; set; }
+		public Guid? ParentId { get; set; }
 #else
-		public int ParentId { get; set; }
+		public int? ParentId { get; set; }
 #endif
 		public int Order { get; set; }
 

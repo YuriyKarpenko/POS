@@ -55,7 +55,7 @@ namespace POS.Data.Repositories
 		}
 		public IEnumerable<T> Select(Func<IOrderedQueryable<T>, IEnumerable<T>> select)
 		{
-			this.Debug("Sel({0})", typeof(T));
+			this.Debug("({0})", typeof(T));
 
 			return UsingContext(context =>
 			{
@@ -63,14 +63,15 @@ namespace POS.Data.Repositories
 				{
 					var oSet = context.Set<T>();
 
-					return select(oSet);
+					return select(oSet).ToArray();
 				}
 				catch (Exception ex)
 				{
 					this.Error(ex, "()");
+					throw;
 				}
 
-				return null;// new ObjectResult<T>();
+				//return null;// new ObjectResult<T>();
 			});
 		}
 
@@ -93,6 +94,7 @@ namespace POS.Data.Repositories
 				catch (Exception ex)
 				{
 					this.Error(ex, $"({value})");
+					throw;
 				}
 
 				return 0;
@@ -124,6 +126,7 @@ namespace POS.Data.Repositories
 				catch (Exception ex)
 				{
 					this.Error(ex, $"({value})");
+					throw;
 				}
 				return 0;
 			});
@@ -152,6 +155,7 @@ namespace POS.Data.Repositories
 				catch (Exception ex)
 				{
 					this.Error(ex, $"({value})");
+					throw;
 				}
 
 				return 0;

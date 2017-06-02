@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS.Data.Service", "POS.Data.Service\POS.Data.Service.csproj", "{F255E5CF-5F75-4FDC-8D67-0BA0066C5E50}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS.Client", "POS.Client\POS.Client.csproj", "{0D139E26-A59D-4502-821B-26666932DC01}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F255E5CF-5F75-4FDC-8D67-0BA0066C5E50} = {F255E5CF-5F75-4FDC-8D67-0BA0066C5E50}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IT", "..\..\IT\src\IT.csproj", "{9E7EE2B9-450D-4E1E-BF58-EC372CBE44C4}"
 EndProject

@@ -38,6 +38,7 @@ namespace POS.Data
 			base.OnModelCreating(modelBuilder);
 
 			modelBuilder.ComplexType<PersonInfo>();
+			//modelBuilder.ComplexType<UserInfo>();
 
 			modelBuilder.Configurations.Add(new BillMapping());
 			modelBuilder.Configurations.Add(new BillItemMapping());
@@ -46,6 +47,7 @@ namespace POS.Data
 			modelBuilder.Configurations.Add(new MenuItemMapping());
 			modelBuilder.Configurations.Add(new PriceMapping());
 			modelBuilder.Configurations.Add(new PriceListMapping());
+			modelBuilder.Configurations.Add(new UserGroupMapping());
 			modelBuilder.Configurations.Add(new UserMapping());
 		}
 	}

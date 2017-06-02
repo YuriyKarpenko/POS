@@ -11,10 +11,10 @@
 				.HasForeignKey(e => e.PriceListId)
 				.WillCascadeOnDelete(false);
 
-			HasMany(e => e.Prices)
-				.WithRequired(e => e.PriceList)
-				.HasForeignKey(e => e.PriceListId)
-				.WillCascadeOnDelete(false);
+			//HasMany(e => e.Prices)
+			//	.WithRequired(e => e.PriceList)
+			//	.HasForeignKey(e => e.PriceListId)
+			//	.WillCascadeOnDelete(false);
 		}
 	}
 }

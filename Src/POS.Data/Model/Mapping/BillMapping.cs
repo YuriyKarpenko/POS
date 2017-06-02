@@ -13,10 +13,16 @@
 				.HasForeignKey(e => e.PriceListId)
 				.WillCascadeOnDelete(false);
 
-			HasMany(e => e.BillItems)
-				.WithOptional(e => e.Bill)
-				.HasForeignKey(e => e.BillId)
+			HasRequired(e => e.CreatedByUser)
+				.WithMany()
+				.HasForeignKey(e => e.CreatedByUserId)
 				.WillCascadeOnDelete(false);
+
+
+			//HasMany(e => e.BillItems)
+			//	.WithOptional(e => e.Bill)
+			//	.HasForeignKey(e => e.BillId)
+			//	.WillCascadeOnDelete(false);
 		}
 	}
 }

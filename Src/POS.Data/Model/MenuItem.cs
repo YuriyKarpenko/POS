@@ -17,7 +17,7 @@ namespace POS.Data.Model
 #endif
 		public int? Code { get; set; }
 		public string BarCode { get; set; }
-		public string Image { get; set; }
+		public byte[] Image { get; set; }
 #if USE_GUID
 		public Guid UserCreatedId { get; set; }
 #else

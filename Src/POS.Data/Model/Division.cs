@@ -6,7 +6,6 @@ namespace POS.Data.Model
 	{
 		public string Printer { get; set; }
 
-
 		public ICollection<MenuItem> MenuItems { get; set; }
 	}
 }

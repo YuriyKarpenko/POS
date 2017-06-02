@@ -67,6 +67,7 @@
     <Compile Include="Model\Mapping\MenuItemMapping.cs" />
     <Compile Include="Model\Mapping\PriceListMapping.cs" />
     <Compile Include="Model\Mapping\PriceMapping.cs" />
+    <Compile Include="Model\Mapping\UserGroupMapping.cs" />
     <Compile Include="Model\Mapping\UserMapping.cs" />
     <Compile Include="Model\MenuGroup.cs" />
     <Compile Include="Model\MenuItem.cs" />

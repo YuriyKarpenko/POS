@@ -16,13 +16,14 @@
 
 			HasRequired(e => e.MenuGroup)
 				.WithMany(e => e.MenuItems)
-				.HasForeignKey(e => e.DivisionId)
+				.HasForeignKey(e => e.MenuGroupId)
 				.WillCascadeOnDelete(false);
 
 			HasRequired(e => e.UserCreated)
 				.WithMany(/*e => e.CreatedMenuItems*/)
 				.HasForeignKey(e => e.UserCreatedId)
 				.WillCascadeOnDelete(false);
+
 
 			HasMany(e => e.BillItems)
 				.WithRequired(i => i.MenuItem)
