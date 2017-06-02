@@ -4,6 +4,6 @@ namespace POS.Data.Model
 	{
 		public string Value { get; set; }
 
-		public override bool IsPersisted => !string.IsNullOrEmpty(Id);
+		//public override bool IsPersisted => !string.IsNullOrEmpty(Id);
 	}
 }

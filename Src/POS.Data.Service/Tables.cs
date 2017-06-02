@@ -9,7 +9,7 @@ namespace POS.Data.Service
 	{
 		Bill,
 		BillItem,
-		Check,
+		//Check,
 		Division,
 		MenbuGroup,
 		MenuItem,

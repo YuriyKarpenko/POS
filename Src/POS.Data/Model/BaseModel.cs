@@ -4,27 +4,42 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace POS.Data.Model
 {
-	public abstract class BaseModel<TKey> 
+	public abstract class BaseModel<TKey>
 	{
 		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public TKey Id { get; set; }
 
-		public abstract bool IsPersisted { get; }
+		//public abstract bool IsPersisted { get; }
 	}
 
 #if USE_GUID
+	public interface IBaseModel
+	{
+		Guid Id { get; }
+		//bool IsPersisted { get; }
+	}
 	public abstract class BaseModel : BaseModel<Guid>
 	{
-		public override bool IsPersisted => Id != default(Guid);
+		//public override bool IsPersisted => Id != default(Guid);
 	}
 #else
+	public interface IBaseModel
+	{
+		int Id { get; }
+		//bool IsPersisted { get; }
+	}
 	public abstract class BaseModel : BaseModel<int>
 	{
-		public override bool IsPersisted => Id != default(int);
+		//public override bool IsPersisted => Id != default(int);
 	}
 #endif
 
-	public abstract class PersistedModel : BaseModel
+	public interface IPersistedModel : IBaseModel
+	{
+		DateTime DateCreated { get; set; }
+		DateTime DateLastModified { get; set; }
+	}
+	public abstract class PersistedModel : BaseModel, IPersistedModel
 	{
 		[Required]
 		public DateTime DateCreated { get; set; }
@@ -72,6 +87,8 @@ namespace POS.Data.Model
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string MiddleName { get; set; }
+		public string Name => $"{FirstName} {MiddleName} {LastName}";
+
 		[Required]
 		public bool SexMale { get; set; }
 

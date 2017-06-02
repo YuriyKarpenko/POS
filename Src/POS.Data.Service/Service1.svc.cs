@@ -9,129 +9,131 @@ using System.ServiceModel.Web;
 using System.Text;
 
 using POS.Data.Model;
+using POS.Data.Repositories;
 
 namespace POS.Data.Service
 {
-	class ServiceBase<T> where T : class, IObjectWithChangeTracker
-	{
-		public static ModelSem GetContext()
-		{
-			Log.ToLog("GetContext() = {0}", System.Configuration.ConfigurationManager.ConnectionStrings["ModelSem"].ConnectionString);
+	//class ServiceBase<T> where T : class, IObjectWithChangeTracker
+	//{
+	//	public static ModelSem GetContext()
+	//	{
+	//		Log.ToLog("GetContext() = {0}", System.Configuration.ConfigurationManager.ConnectionStrings["ModelSem"].ConnectionString);
 
-			return new ModelSem(System.Configuration.ConfigurationManager.ConnectionStrings["ModelSem"].ConnectionString);
-		}
+	//		return new ModelSem(System.Configuration.ConfigurationManager.ConnectionStrings["ModelSem"].ConnectionString);
+	//	}
 
-		public bool Del(T value, Predicate<ModelSem> isAccess)
-		{
-			Log.ToLog("Del({0})", value);
+	//	public bool Del(T value, Predicate<ModelSem> isAccess)
+	//	{
+	//		Log.ToLog("Del({0})", value);
 
-			using (ModelSem context = ServiceBase<IObjectWithChangeTracker>.GetContext())
-			{
-				try
-				{
-					ObjectSet<T> oSet = context.CreateObjectSet<T>();
+	//		using (ModelSem context = ServiceBase<IObjectWithChangeTracker>.GetContext())
+	//		{
+	//			try
+	//			{
+	//				ObjectSet<T> oSet = context.CreateObjectSet<T>();
 
-					if (isAccess(context))
-					{
-						oSet.DeleteObject(value);
+	//				if (isAccess(context))
+	//				{
+	//					oSet.DeleteObject(value);
 
-						context.SaveChanges();
-					}
-					return true;
-				}
-				catch (Exception ex)
-				{
-					Log.ToLog(true, "Del({0}) : {1}", value, ex);
-				}
-			}
+	//					context.SaveChanges();
+	//				}
+	//				return true;
+	//			}
+	//			catch (Exception ex)
+	//			{
+	//				Log.ToLog(true, "Del({0}) : {1}", value, ex);
+	//			}
+	//		}
 
-			return false;
-		}
+	//		return false;
+	//	}
 
-		public bool Ins(T value, Predicate<ModelSem> isAccess)
-		{
-			Log.ToLog("Ins({0})", value);
+	//	public bool Ins(T value, Predicate<ModelSem> isAccess)
+	//	{
+	//		Log.ToLog("Ins({0})", value);
 
-			using (ModelSem context = ServiceBase<IObjectWithChangeTracker>.GetContext())
-			{
-				try
-				{
-					ObjectSet<T> oSet = context.CreateObjectSet<T>();
+	//		using (ModelSem context = ServiceBase<IObjectWithChangeTracker>.GetContext())
+	//		{
+	//			try
+	//			{
+	//				ObjectSet<T> oSet = context.CreateObjectSet<T>();
 
-					if (isAccess(context))
-					{
-						oSet.AddObject(value);
+	//				if (isAccess(context))
+	//				{
+	//					oSet.AddObject(value);
 
-						context.SaveChanges();
-					}
-					return true;
-				}
-				catch (Exception ex)
-				{
-					Log.ToLog(true, "Ins({0}) : {1}", value, ex);
-				}
-			}
+	//					context.SaveChanges();
+	//				}
+	//				return true;
+	//			}
+	//			catch (Exception ex)
+	//			{
+	//				Log.ToLog(true, "Ins({0}) : {1}", value, ex);
+	//			}
+	//		}
 
-			return false;
-		}
+	//		return false;
+	//	}
 
-		public List<T> Sel(Func<ModelSem, ObjectResult<T>> select)
-		{
-			Log.ToLog("Sel({0})", typeof(T));
+	//	public List<T> Sel(Func<ModelSem, ObjectResult<T>> select)
+	//	{
+	//		Log.ToLog("Sel({0})", typeof(T));
 
-			using (ModelSem context = ServiceBase<IObjectWithChangeTracker>.GetContext())
-			{
-				try
-				{
-					//ObjectSet<T> oSet = context.CreateObjectSet<T>();
+	//		using (ModelSem context = ServiceBase<IObjectWithChangeTracker>.GetContext())
+	//		{
+	//			try
+	//			{
+	//				//ObjectSet<T> oSet = context.CreateObjectSet<T>();
 
-					return select(context).ToList();
-				}
-				catch (Exception ex)
-				{
-					Log.ToLog(true, "Sel() : {0}", ex);
-				}
+	//				return select(context).ToList();
+	//			}
+	//			catch (Exception ex)
+	//			{
+	//				Log.ToLog(true, "Sel() : {0}", ex);
+	//			}
 
-				return null;// new ObjectResult<T>();
-			}
-		}
+	//			return null;// new ObjectResult<T>();
+	//		}
+	//	}
 
-		public bool Upd(T value, Predicate<ModelSem> isAccess)
-		{
-			using (ModelSem context = ServiceBase<IObjectWithChangeTracker>.GetContext())
-			{
-				Log.ToLog("Upd({0})", value);
+	//	public bool Upd(T value, Predicate<ModelSem> isAccess)
+	//	{
+	//		using (ModelSem context = ServiceBase<IObjectWithChangeTracker>.GetContext())
+	//		{
+	//			Log.ToLog("Upd({0})", value);
 
-				try
-				{
-					ObjectSet<T> oSet = context.CreateObjectSet<T>();
+	//			try
+	//			{
+	//				ObjectSet<T> oSet = context.CreateObjectSet<T>();
 
-					if (isAccess(context))
-					{
-						oSet.ApplyChanges(value);
+	//				if (isAccess(context))
+	//				{
+	//					oSet.ApplyChanges(value);
 
-						context.SaveChanges();
-					}
-					return true;
-				}
-				catch (Exception ex)
-				{
-					Log.ToLog(true, "Upd({0}) : {1}", value, ex);
-				}
-			}
+	//					context.SaveChanges();
+	//				}
+	//				return true;
+	//			}
+	//			catch (Exception ex)
+	//			{
+	//				Log.ToLog(true, "Upd({0}) : {1}", value, ex);
+	//			}
+	//		}
 
-			return false;
-		}
+	//		return false;
+	//	}
 
 
-	}
+	//}
 
 	[ServiceContract]
-	[KnownType(typeof(Types.Division))]
-	[KnownType(typeof(Types.User))]
-	[KnownType(typeof(Types.UserGroup))]
+	[KnownType(typeof(Division))]
+	[KnownType(typeof(User))]
+	[KnownType(typeof(UserGroup))]
 	public class Service1
 	{
+		private static string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["ModelSem"].ConnectionString;
 
 		//[OperationContract]
 		//public void Save()
@@ -167,19 +169,19 @@ namespace POS.Data.Service
 
 		#region Division
 
-		ServiceBase<Division> Divisions = new ServiceBase<Division>();
+		public BaseRepository<Division> Divisions = new BaseRepository<Division>(_connString);
 
 		[OperationContract]
-		public bool DivisionDel(Types.Division value) { return Divisions.Del(value, p=>true); }
+		public int DivisionDel(Division value) { return Divisions.Delete(value); }
 
 		[OperationContract]
-		public bool DivisionIns(Types.Division value) { return Divisions.Ins(value, p=>true); }
+		public int DivisionIns(Division value) { return Divisions.Insert(value); }
 
 		[OperationContract]
-		public bool DivisionUpd(Types.Division value) { return Divisions.Upd(value, p=>true); }
+		public int DivisionUpd(Division value) { return Divisions.Update(value); }
 
 		[OperationContract]
-		public List<Types.Division> DivisionsGet(Guid? id) { return Divisions.Sel(c => c.DivisionsGet(null, null, null, false)); }
+		public IEnumerable<Division> DivisionsGet(int? id) { return Divisions.Select(c => c.Where(i => !id.HasValue || i.Id == id.Value)); }
 
 		#endregion
 
@@ -187,37 +189,37 @@ namespace POS.Data.Service
 
 		#region UserGroup
 
-		ServiceBase<UserGroup> UserGroups = new ServiceBase<UserGroup>();
+		BaseRepository<UserGroup> UserGroups = new BaseRepository<UserGroup>(_connString);
 
 		[OperationContract]
-		public bool UserGroupDel(UserGroup value) { return UserGroups.Del(value, p=>true); }
+		public int UserGroupDel(UserGroup value) { return UserGroups.Delete(value); }
 
 		[OperationContract]
-		public bool UserGroupIns(UserGroup value) { return UserGroups.Ins(value, p=>true); }
+		public int UserGroupIns(UserGroup value) { return UserGroups.Insert(value); }
 
 		[OperationContract]
-		public bool UserGroupUpd(UserGroup value) { return UserGroups.Upd(value, p=>true); }
+		public int UserGroupUpd(UserGroup value) { return UserGroups.Update(value); }
 
 		[OperationContract]
-		public List<Types.UserGroup> UserGroupGet(Guid? id) { return UserGroups.Sel(c => c.UserGroupsGet(null, null)); }
+		public IEnumerable<UserGroup> UserGroupGet(int? id) { return UserGroups.Select(c => c.Where(i=> !id.HasValue || i.Id == id.Value)); }
 
 		#endregion
 
 		#region User
 
-		ServiceBase<User> Users = new ServiceBase<User>();
+		BaseRepository<User> Users = new BaseRepository<User>(_connString);
 
 		[OperationContract]
-		public bool UserDel(User value) { return Users.Del(value, p=>true); }
+		public int UserDel(User value) { return Users.Delete(value); }
 
 		[OperationContract]
-		public bool UserIns(User value) { return Users.Ins(value, p=>true); }
+		public int UserIns(User value) { return Users.Insert(value); }
 
 		[OperationContract]
-		public List<User> UserSel() { return Users.Sel(c => c.Users.Execute(MergeOption.AppendOnly)).ToList(); }
+		public IEnumerable<User> UserSel(int? id) { return Users.Select(c => c.Where(i => !id.HasValue || i.Id == id.Value)); }
 
 		[OperationContract]
-		public bool UserUpd(User value) { return Users.Upd(value, p=>true); }
+		public int UserUpd(User value) { return Users.Update(value); }
 
 		#endregion
 	}

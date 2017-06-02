@@ -20,7 +20,7 @@
 				.WillCascadeOnDelete(false);
 
 			HasRequired(e => e.UserCreated)
-				.WithMany(e => e.CreatedMenuItems)
+				.WithMany(/*e => e.CreatedMenuItems*/)
 				.HasForeignKey(e => e.UserCreatedId)
 				.WillCascadeOnDelete(false);
 

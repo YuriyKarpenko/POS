@@ -1,4 +1,8 @@
-Src/POS.Client/obj/
 /Src/.vs
-/Src/packages/EntityFramework.6.1.3
-/Src/POS.Client/bin/Debug
+/Src/packages
+/Src/POS.Client/bin
+/Src/POS.Client/obj
+/Src/POS.Data/obj
+/Src/POS.Data/bin
+/Src/POS.Data.Service/bin
+/Src/POS.Data.Service/obj

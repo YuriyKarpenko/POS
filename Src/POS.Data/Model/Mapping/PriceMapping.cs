@@ -7,7 +7,7 @@
 			ToTable("Price");
 
 			HasRequired(e => e.CreatedByUser)
-				.WithMany(e => e.CreatedPrices)
+				.WithMany(/*e => e.CreatedPrices*/)
 				.HasForeignKey(e => e.CreatedByUserId)
 				.WillCascadeOnDelete(false);
 
@@ -17,7 +17,7 @@
 				.WillCascadeOnDelete(false);
 
 			HasOptional(e => e.ModifiedByUser)
-				.WithMany(e => e.ModifiedPrices)
+				.WithMany(/*e => e.ModifiedPrices*/)
 				.HasForeignKey(e => e.ModifiedByUserId)
 				.WillCascadeOnDelete(false);
 

@@ -8,7 +8,20 @@ using POS.Data.Model;
 
 namespace POS.Data.Repositories
 {
-	public class BaseRepository<T> : ILog where T : PersistedModel
+	public interface IRepository<T>
+	{
+#if USE_GUID
+		T Get(Guid id);
+#else
+		T Get(int id);
+#endif
+		IEnumerable<T> Select(Func<IOrderedQueryable<T>, IEnumerable<T>> select);
+		int Delete(T item);
+		int Insert(T item);
+		int Update(T item);
+	}
+
+	public class BaseRepository<T> : ILog, IRepository<T> where T : class, IPersistedModel
 	{
 		private string _connStr;
 		public BaseRepository(string connStr)
@@ -40,7 +53,7 @@ namespace POS.Data.Repositories
 				return null;// new ObjectResult<T>();
 			});
 		}
-		public IEnumerable<T> Sel(Func<IOrderedQueryable<T>, IEnumerable<T>> select)
+		public IEnumerable<T> Select(Func<IOrderedQueryable<T>, IEnumerable<T>> select)
 		{
 			this.Debug("Sel({0})", typeof(T));
 
@@ -62,7 +75,7 @@ namespace POS.Data.Repositories
 		}
 
 		protected virtual void OnDelete(T entity) { }
-		public int Del(T value)
+		public int Delete(T value)
 		{
 			this.Debug("({0})", value);
 
@@ -87,7 +100,7 @@ namespace POS.Data.Repositories
 		}
 
 		protected virtual void OnInsert(T entity) { }
-		public int Ins(T value)
+		public int Insert(T value)
 		{
 			this.Debug("({0})", value);
 
@@ -117,7 +130,7 @@ namespace POS.Data.Repositories
 		}
 
 		protected virtual void OnUpdate(T entity) { }
-		public int Upd(T value)
+		public int Update(T value)
 		{
 			return UsingContext(context =>
 			{

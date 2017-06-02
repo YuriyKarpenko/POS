@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace POS.Data.Model
 {
-	public partial class UserGroup : BaseModel
+	public partial class UserGroup : PersistedModel
 	{
 		public string Name { get; set; }
 
