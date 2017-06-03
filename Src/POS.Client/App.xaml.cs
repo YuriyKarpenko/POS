@@ -18,23 +18,9 @@ namespace POS.Client
 
 			MainWindow window = new MainWindow();
 
-			var viewModel = new ViewModel.VM_Main();
+			var vm = new ViewModel.VM_Main();
 
-			viewModel.RequestClose += delegate
-			{
-				this.MainWindow.Close();
-			};
-			/*
-			EventHandler handler = null;
-			handler = delegate
-			{
-				viewModel.RequestClose -= handler;
-				window.Close();
-			};
-			viewModel.RequestClose += handler;
-			//	*/
-
-			window.DataContext = viewModel;
+			window.DataContext = vm;
 
 			window.Show();
 		}

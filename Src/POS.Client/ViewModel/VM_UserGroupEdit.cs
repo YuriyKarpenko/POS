@@ -11,7 +11,7 @@ namespace POS.Client.ViewModel
 		//POS.Data.Repositorys.RepUserGroup repUserGroup = null;
 		POS.Data.Model.UserGroup curentRecord = null;
 
-		public VM_UserGroupEdit(POS.Data.Model.UserGroup rec)
+		public VM_UserGroupEdit(VM_Workspace parent, POS.Data.Model.UserGroup rec):base(parent, $"Редактирование {rec}")
 		{
 			//this.repUserGroup = repos;
 		}

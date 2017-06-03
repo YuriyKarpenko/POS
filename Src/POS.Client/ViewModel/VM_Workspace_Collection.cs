@@ -8,11 +8,17 @@ using System.Text;
 using System.Diagnostics;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Controls;
+
+using IT;
+using IT.WPF;
 
 namespace POS.Client.ViewModel
 {
+	//	работа с коллекциями окон (UserControls)
 	public abstract class VM_Workspace_Collection : VM_Workspace
 	{
+		public Guid ID = Guid.NewGuid();
 		#region Fields
 
 		ObservableCollection<VM_Workspace> _workspaces;
@@ -23,55 +29,53 @@ namespace POS.Client.ViewModel
 				if (_workspaces == null)
 				{
 					_workspaces = new ObservableCollection<VM_Workspace>();
-					_workspaces.CollectionChanged += this.OnWorkspacesChanged;
+					//_workspaces.CollectionChanged += this.OnWorkspacesChanged;
 				}
 				return _workspaces;
 			}
 		}
 
-		ReadOnlyCollection<VM_Command> _commands;
-		public ReadOnlyCollection<VM_Command> Commands
-		{
-			get
-			{
-				if (_commands == null)
-				{
-					List<VM_Command> cmds = this.CreateCommands();
-					_commands = new ReadOnlyCollection<VM_Command>(cmds);
-				}
-				return _commands;
-			}
-		}
+		public abstract RoutedUICommand[] Commands { get; }
 
 		#endregion
 
-		#region Commadns
+		public VM_Workspace_Collection(VM_Workspace parent, string caption) : base(parent, caption) { }
 
-		protected abstract List<VM_Command> CreateCommands();
-
-		#endregion
 
 		#region Workspaces
 
-		protected virtual void OnWorkspacesChanged(object sender, NotifyCollectionChangedEventArgs e)
-		{
-			if (e.NewItems != null && e.NewItems.Count != 0)
-				foreach (VM_Workspace workspace in e.NewItems)
-					workspace.RequestClose += this.OnWorkspaceRequestClose;
+		//protected virtual void OnWorkspacesChanged(object sender, NotifyCollectionChangedEventArgs e)
+		//{
+		//	if (e.NewItems != null && e.NewItems.Count != 0)
+		//		foreach (VM_Workspace workspace in e.NewItems)
+		//			workspace.RequestClose += this.OnWorkspaceRequestClose;
 
-			if (e.OldItems != null && e.OldItems.Count != 0)
-				foreach (VM_Workspace workspace in e.OldItems)
-					workspace.RequestClose -= this.OnWorkspaceRequestClose;
+		//	if (e.OldItems != null && e.OldItems.Count != 0)
+		//		foreach (VM_Workspace workspace in e.OldItems)
+		//			workspace.RequestClose -= this.OnWorkspaceRequestClose;
+		//}
+
+		//protected virtual void OnWorkspaceRequestClose(object sender, EventArgs e)
+		//{
+		//	this.Workspaces.Remove(sender as VM_Workspace);
+		//}
+		protected override void Init_Command_Internal(UserControl uc)
+		{
+			base.Init_Command_Internal(uc);
+
+			uc.CommandBindings.Add(View.Commands.CloseItem, ActCloseUserControl);
 		}
 
-		protected virtual void OnWorkspaceRequestClose(object sender, EventArgs e)
+		protected virtual void ActCloseUserControl(ExecutedRoutedEventArgs e)
 		{
-			this.Workspaces.Remove(sender as VM_Workspace);
+			var ws = e.Parameter as VM_Workspace;
+			e.Handled = ws != null && Workspaces.Contains(ws);
+			this.Workspaces.Remove(ws);
 		}
 
 		#endregion
 
-		#region Private Helpers
+		#region Helpers
 
 		protected virtual void SetActiveWorkspace(VM_Workspace workspace)
 		{

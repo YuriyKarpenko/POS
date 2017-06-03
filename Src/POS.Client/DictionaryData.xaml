@@ -15,17 +15,18 @@
 		<ItemsControl ItemsSource="{Binding}" />
 	</DataTemplate>
 
-	<!--	VM_Command	-->
-	<DataTemplate DataType="{x:Type vm:VM_Command}" >
-		<Button Content="{Binding Path=Caption}" 
-				Command="{Binding Path=Command}" />
+	<!--	Menu_Command	-->
+	<DataTemplate DataType="{x:Type RoutedUICommand}" >
+		<Button Content="{Binding Path=Text}" 
+				Command="{Binding}" />
 	</DataTemplate>
 	
 	<!--	x:Key="ClosableTabItemTemplate"	-->
-	<DataTemplate x:Key="ClosableTabItemTemplate" DataType="{x:Type vm:VM_Workspace}">
-		<DockPanel MinWidth="50">
+	<DataTemplate DataType="{x:Type vm:VM_Workspace}" x:Key="ClosableTabItemTemplate">
+		<DockPanel MinWidth="50" Name="dpHeaderClosableTabItem">
 			<Button Name="btnClose"
-				Command="{Binding Path=CloseCommand}"
+				Command="v:Commands.CloseItem"
+					CommandParameter="{Binding}"
 				Content="X"
 				DockPanel.Dock="Right"
 				Width="16" Height="16" 
@@ -46,20 +47,17 @@
 		</DataTemplate.Triggers>
 	</DataTemplate>
 
-	<DataTemplate x:Key="WorkspacesTemplate">
+	<!--<DataTemplate x:Key="WorkspacesTemplate">
 		<TabControl Name="WorkSpaces"
 			IsSynchronizedWithCurrentItem="True" 
 			ItemsSource="{Binding}" 
 			Margin="1"
 			ItemTemplate="{StaticResource ClosableTabItemTemplate}"/>
-		<!--	
-		-->
-	</DataTemplate>
+		--><!--	
+		--><!--
+	</DataTemplate>-->
 
 
-
-
-	<!--	Styles	-->
 
 
 </ResourceDictionary>

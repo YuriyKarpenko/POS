@@ -90,7 +90,6 @@
     <Compile Include="Components\UC_NavPanel.xaml.cs">
       <DependentUpon>UC_NavPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RelayCommand.cs" />
     <Compile Include="Service References\Service\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -98,8 +97,8 @@
     </Compile>
     <Compile Include="ViewModel\IVM_Editable.cs" />
     <Compile Include="ViewModel\List_Current_Helper.cs" />
+    <Compile Include="ViewModel\Manager\VM_Manager.cs" />
     <Compile Include="ViewModel\VM_Base.cs" />
-    <Compile Include="ViewModel\VM_Command.cs" />
     <Compile Include="ViewModel\VM_Dictionary.cs" />
     <Compile Include="ViewModel\VM_Dic_Base.cs" />
     <Compile Include="ViewModel\VM_Dic_User.cs" />
@@ -107,6 +106,7 @@
     <Compile Include="ViewModel\VM_UserGroupEdit.cs" />
     <Compile Include="ViewModel\VM_Workspace.cs" />
     <Compile Include="ViewModel\VM_Workspace_Collection.cs" />
+    <Compile Include="View\Commands.cs" />
     <Compile Include="View\V_Dictionary.xaml.cs">
       <DependentUpon>V_Dictionary.xaml</DependentUpon>
     </Compile>
@@ -115,6 +115,9 @@
     </Compile>
     <Compile Include="Components\UC_Edit_Name.xaml.cs">
       <DependentUpon>UC_Edit_Name.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\V_Manager.xaml.cs">
+      <DependentUpon>V_Manager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Win_Modal.xaml.cs">
       <DependentUpon>Win_Modal.xaml</DependentUpon>
@@ -178,6 +181,10 @@
     <Page Include="Components\UC_Edit_Name.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\V_Manager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Win_Modal.xaml">
       <SubType>Designer</SubType>

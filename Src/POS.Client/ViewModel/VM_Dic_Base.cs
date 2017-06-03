@@ -13,8 +13,6 @@ namespace POS.Client.ViewModel
 {
 	public abstract class VM_Dic_Base<T> : VM_Workspace, IVM_Editable where T : class, new()
 	{
-
-		private VM_Workspace parentWorkSpace = null;
 		internal Tables curDic;
 
 		protected Service.Service1 svc = new Service.Service1Client();
@@ -37,12 +35,8 @@ namespace POS.Client.ViewModel
 
 		public virtual T SelectedItem { get; set; }
 
-		protected VM_Dic_Base(VM_Workspace parent, Tables curTable, string caption)
+		protected VM_Dic_Base(VM_Workspace parent, string caption, Tables curTable) : base(parent, caption)
 		{
-			this.parentWorkSpace = parent;
-
-			this.Caption = caption;
-
 			curDic = curTable;
 		}
 
@@ -70,7 +64,8 @@ namespace POS.Client.ViewModel
 			Contract.Requires(res == 1, $"Проблемы при вставке записи {item}");
 		}
 
-		public virtual void Edit(T item) {
+		public virtual void Edit(T item)
+		{
 			var str = Serializer_Json.Serialize_ToString(item);
 			var res = svc.Update(curDic, str);
 			Contract.Requires(res == 1, $"Проблемы при редактировании записи {item}");
@@ -160,14 +155,14 @@ namespace POS.Client.ViewModel
 
 	#region real dictionaries
 
-	public class VM_Dic_Division : VM_Dic_Base<POS.Data.Model.Division>
+	public class VM_Dic_Division : VM_Dic_Base<Division>
 	{
-		public VM_Dic_Division(VM_Workspace parent) : base(parent, Data.Model.Tables.Division, "Цех") { }
+		public VM_Dic_Division(VM_Workspace parent) : base(parent, "Цех", Tables.Division) { }
 	}
 
 	internal class VM_Dic_UserGroup : VM_Dic_Base<UserGroup>
 	{
-		public VM_Dic_UserGroup(VM_Workspace parent) : base(parent, Tables.UserGroup, "Группы пользователей") { }
+		public VM_Dic_UserGroup(VM_Workspace parent) : base(parent, "Группы пользователей", Tables.UserGroup) { }
 	}
 
 

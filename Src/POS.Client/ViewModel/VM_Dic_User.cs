@@ -10,7 +10,7 @@ namespace POS.Client.ViewModel
 {
 	public class VM_Dic_User : VM_Dic_Base<Data.Model.User>
 	{
-		public VM_Dic_User(VM_Workspace parent) : base(parent, Data.Model.Tables.User, "Пользователи") { }
+		public VM_Dic_User(VM_Workspace parent) : base(parent, "Пользователи", Data.Model.Tables.User) { }
 
 
 		public override void OnEdit_Click(object sender, RoutedEventArgs e)
