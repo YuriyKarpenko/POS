@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace POS.Data.Model
 {
@@ -11,6 +12,7 @@ namespace POS.Data.Model
 		public int UserGroupId { get; set; }
 #endif
 		public int? Code { get; set; }
+		[EnumDataType(typeof(Role))]
 		public Role Role { get; set; }
 
 		public PersonInfo PersonInfo { get; set; }

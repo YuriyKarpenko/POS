@@ -13,153 +13,15 @@ using POS.Data.Repositories;
 
 namespace POS.Data.Service
 {
-	//class ServiceBase<T> where T : class, IObjectWithChangeTracker
-	//{
-	//	public static ModelSem GetContext()
-	//	{
-	//		Log.ToLog("GetContext() = {0}", System.Configuration.ConfigurationManager.ConnectionStrings["ModelSem"].ConnectionString);
-
-	//		return new ModelSem(System.Configuration.ConfigurationManager.ConnectionStrings["ModelSem"].ConnectionString);
-	//	}
-
-	//	public bool Del(T value, Predicate<ModelSem> isAccess)
-	//	{
-	//		Log.ToLog("Del({0})", value);
-
-	//		using (ModelSem context = ServiceBase<IObjectWithChangeTracker>.GetContext())
-	//		{
-	//			try
-	//			{
-	//				ObjectSet<T> oSet = context.CreateObjectSet<T>();
-
-	//				if (isAccess(context))
-	//				{
-	//					oSet.DeleteObject(value);
-
-	//					context.SaveChanges();
-	//				}
-	//				return true;
-	//			}
-	//			catch (Exception ex)
-	//			{
-	//				Log.ToLog(true, "Del({0}) : {1}", value, ex);
-	//			}
-	//		}
-
-	//		return false;
-	//	}
-
-	//	public bool Ins(T value, Predicate<ModelSem> isAccess)
-	//	{
-	//		Log.ToLog("Ins({0})", value);
-
-	//		using (ModelSem context = ServiceBase<IObjectWithChangeTracker>.GetContext())
-	//		{
-	//			try
-	//			{
-	//				ObjectSet<T> oSet = context.CreateObjectSet<T>();
-
-	//				if (isAccess(context))
-	//				{
-	//					oSet.AddObject(value);
-
-	//					context.SaveChanges();
-	//				}
-	//				return true;
-	//			}
-	//			catch (Exception ex)
-	//			{
-	//				Log.ToLog(true, "Ins({0}) : {1}", value, ex);
-	//			}
-	//		}
-
-	//		return false;
-	//	}
-
-	//	public List<T> Sel(Func<ModelSem, ObjectResult<T>> select)
-	//	{
-	//		Log.ToLog("Sel({0})", typeof(T));
-
-	//		using (ModelSem context = ServiceBase<IObjectWithChangeTracker>.GetContext())
-	//		{
-	//			try
-	//			{
-	//				//ObjectSet<T> oSet = context.CreateObjectSet<T>();
-
-	//				return select(context).ToList();
-	//			}
-	//			catch (Exception ex)
-	//			{
-	//				Log.ToLog(true, "Sel() : {0}", ex);
-	//			}
-
-	//			return null;// new ObjectResult<T>();
-	//		}
-	//	}
-
-	//	public bool Upd(T value, Predicate<ModelSem> isAccess)
-	//	{
-	//		using (ModelSem context = ServiceBase<IObjectWithChangeTracker>.GetContext())
-	//		{
-	//			Log.ToLog("Upd({0})", value);
-
-	//			try
-	//			{
-	//				ObjectSet<T> oSet = context.CreateObjectSet<T>();
-
-	//				if (isAccess(context))
-	//				{
-	//					oSet.ApplyChanges(value);
-
-	//					context.SaveChanges();
-	//				}
-	//				return true;
-	//			}
-	//			catch (Exception ex)
-	//			{
-	//				Log.ToLog(true, "Upd({0}) : {1}", value, ex);
-	//			}
-	//		}
-
-	//		return false;
-	//	}
-
-
-	//}
-
 	[ServiceContract]
+	[ServiceBehavior(IncludeExceptionDetailInFaults = true)]
+	[KnownType(typeof(IPersistedModel))]
 	[KnownType(typeof(Division))]
 	[KnownType(typeof(User))]
 	[KnownType(typeof(UserGroup))]
 	public class Service1
 	{
-		private static string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["ModelSem"].ConnectionString;
-
-		//[OperationContract]
-		//public void Save()
-		//{
-		//    using (ModelSem context = ServiceBase<IObjectWithChangeTracker>.GetContext())
-		//    {
-		//        try
-		//        {
-		//            context.SaveChanges();
-		//        }
-		//        catch (Exception ex)
-		//        {
-		//            Trace.TraceError("Error in Save() : {0}", ex);
-		//        }
-		//    }
-		//}
-
-		#region Permission
-		
-		//[OperationContract]
-		public bool IsDel(Tables tab, Guid userId)
-		{
-			return false;
-		}
-
-		#endregion
+		private static string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["POSContext"].ConnectionString;
 
 		[OperationContract]
 		public Guid Login(string password)
@@ -167,59 +29,106 @@ namespace POS.Data.Service
 			return Guid.Empty;
 		}
 
-		#region Division
 
-		public BaseRepository<Division> Divisions = new BaseRepository<Division>(_connString);
 
 		[OperationContract]
-		public int DivisionDel(Division value) { return Divisions.Delete(value); }
+		public int Delete(Tables tab, string item)
+		{
+			return ApplyAction(tab, Action.Del, item);
+		}
+		[OperationContract]
+		public int Insert(Tables tab, string item)
+		{
+			return ApplyAction(tab, Action.Ins, item);
+		}
+		[OperationContract]
+		public int Update(Tables tab, string item)
+		{
+			return ApplyAction(tab, Action.Upd, item);
+		}
 
 		[OperationContract]
-		public int DivisionIns(Division value) { return Divisions.Insert(value); }
+		public string Sel_ById(Tables tab, int? id, IdColumn col)
+		{
+			switch (tab)
+			{
+				case Tables.Bill: return Sel_ById<Bill>(id, col);
+				case Tables.BillItem: return Sel_ById<BillItem>(id, col);
+				case Tables.Division: return Sel_ById<Division>(id, col);
+				case Tables.MenuGroup: return Sel_ById<MenuGroup>(id, col);
+				case Tables.MenuItem: return Sel_ById<MenuItem>(id, col);
+				//case Tables.Option: return Sel_ById<>(id, col);
+				case Tables.Price: return Sel_ById<Price>(id, col);
+				case Tables.PriceList: return Sel_ById<PriceList>(id, col);
+				case Tables.User: return Sel_ById<User>(id, col);
+				case Tables.UserGroup: return Sel_ById<UserGroup>(id, col);
+			}
+			return string.Empty;
+		}
 
-		[OperationContract]
-		public int DivisionUpd(Division value) { return Divisions.Update(value); }
+		#region Universal Actions
 
-		[OperationContract]
-		public IEnumerable<Division> DivisionsGet(int? id) { return Divisions.Select(c => c.Where(i => !id.HasValue || i.Id == id.Value)); }
+		private int ApplyAction(Tables tab, Action act, string serializedItem)
+		{
+			switch (tab)
+			{
+				case Tables.Bill: return ApplyAction<Bill>(act, serializedItem);
+				case Tables.BillItem: return ApplyAction<BillItem>(act, serializedItem);
+				case Tables.Division: return ApplyAction<Division>(act, serializedItem);
+				case Tables.MenuGroup: return ApplyAction<MenuGroup>(act, serializedItem);
+				case Tables.MenuItem: return ApplyAction<MenuItem>(act, serializedItem);
+				//case Tables.Option: return ApplyAction<Option>(obj);
+				case Tables.Price: return ApplyAction<Price>(act, serializedItem);
+				case Tables.PriceList: return ApplyAction<PriceList>(act, serializedItem);
+				case Tables.User: return ApplyAction<User>(act, serializedItem);
+				case Tables.UserGroup: return ApplyAction<UserGroup>(act, serializedItem);
+			}
+			return 0;
+		}
 
-		#endregion
+		private int ApplyAction<T>(Action act, string serializedItem) where T : class, IPersistedModel
+		{
+			T item = IT.Serializer_Json.Deserialize<T>(serializedItem);
+			var repo = new BaseRepository<T>(_connString);
+			switch (act)
+			{
+				case Action.Del: return repo.Delete(item);
+				case Action.Ins: return repo.Insert(item);
+				case Action.Upd: return repo.Update(item);
+			}
+			return 0;
+		}
 
+		public string Sel_ById<T>(int? id, IdColumn col) where T : class, IPersistedModel
+		{
+			var repo = new BaseRepository<T>(_connString);
 
+			IEnumerable<T> res = null;
 
-		#region UserGroup
+			switch (col)
+			{
+				case IdColumn.Id:
+					res = repo.Select(c => c.Where(i => !id.HasValue || i.Id == id.Value));
+					break;
+				case IdColumn.DivisionId:
+					res = repo.Select(c => c.Where(i => !id.HasValue || i.Id == id.Value));
+					break;
+			}
 
-		BaseRepository<UserGroup> UserGroups = new BaseRepository<UserGroup>(_connString);
+			if (res.Any())
+			{
+				return IT.Serializer_Json.Serialize_ToString(res);
+			}
 
-		[OperationContract]
-		public int UserGroupDel(UserGroup value) { return UserGroups.Delete(value); }
+			return string.Empty;
+		}
 
-		[OperationContract]
-		public int UserGroupIns(UserGroup value) { return UserGroups.Insert(value); }
-
-		[OperationContract]
-		public int UserGroupUpd(UserGroup value) { return UserGroups.Update(value); }
-
-		[OperationContract]
-		public IEnumerable<UserGroup> UserGroupGet(int? id) { return UserGroups.Select(c => c.Where(i=> !id.HasValue || i.Id == id.Value)); }
-
-		#endregion
-
-		#region User
-
-		BaseRepository<User> Users = new BaseRepository<User>(_connString);
-
-		[OperationContract]
-		public int UserDel(User value) { return Users.Delete(value); }
-
-		[OperationContract]
-		public int UserIns(User value) { return Users.Insert(value); }
-
-		[OperationContract]
-		public IEnumerable<User> UserSel(int? id) { return Users.Select(c => c.Where(i => !id.HasValue || i.Id == id.Value)); }
-
-		[OperationContract]
-		public int UserUpd(User value) { return Users.Update(value); }
+		private enum Action
+		{
+			Del,
+			Ins,
+			Upd
+		}
 
 		#endregion
 	}

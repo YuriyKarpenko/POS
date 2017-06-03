@@ -76,6 +76,7 @@
     <Compile Include="Model\Price.cs" />
     <Compile Include="Model\PriceList.cs" />
     <Compile Include="Model\Roles.cs" />
+    <Compile Include="Model\Enums.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\UserGroup.cs" />
     <Compile Include="POSContext.cs" />

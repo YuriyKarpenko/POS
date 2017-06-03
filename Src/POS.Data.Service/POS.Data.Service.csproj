@@ -83,10 +83,13 @@
       <DependentUpon>Service1.svc</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tables.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\..\IT\src\IT.csproj">
+      <Project>{9e7ee2b9-450d-4e1e-bf58-ec372cbe44c4}</Project>
+      <Name>IT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\POS.Data\POS.Data.csproj">
       <Project>{7EFACFC0-6FCD-46D3-98DA-3A32DD9595BE}</Project>
       <Name>POS.Data</Name>

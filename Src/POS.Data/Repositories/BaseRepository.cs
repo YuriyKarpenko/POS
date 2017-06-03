@@ -63,7 +63,7 @@ namespace POS.Data.Repositories
 				{
 					var oSet = context.Set<T>();
 
-					return select(oSet).ToArray();
+					return select(oSet.AsNoTracking()).ToArray();
 				}
 				catch (Exception ex)
 				{

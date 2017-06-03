@@ -6,6 +6,8 @@
 		{
 			ToTable("User");
 
+			//this.Property(e=>e.Role).
+
 			HasRequired(e => e.UserGroup)
 				.WithMany(e => e.Users)
 				.HasForeignKey(e => e.UserGroupId)
