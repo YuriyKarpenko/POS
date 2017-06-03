@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Objects;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -23,6 +22,11 @@ namespace POS.Data.Service
 	{
 		private static string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["POSContext"].ConnectionString;
 
+		private static TRes UsingContext<TRes>(Func<POSContext, TRes> action)
+		{
+			return POSContext.UsingContext(_connString, action);
+		}
+
 		[OperationContract]
 		public Guid Login(string password)
 		{
@@ -34,17 +38,17 @@ namespace POS.Data.Service
 		[OperationContract]
 		public int Delete(Tables tab, string item)
 		{
-			return ApplyAction(tab, Action.Del, item);
+			return ApplyAction(tab, DataAction.Delete, item);
 		}
 		[OperationContract]
 		public int Insert(Tables tab, string item)
 		{
-			return ApplyAction(tab, Action.Ins, item);
+			return ApplyAction(tab, DataAction.Insert, item);
 		}
 		[OperationContract]
 		public int Update(Tables tab, string item)
 		{
-			return ApplyAction(tab, Action.Upd, item);
+			return ApplyAction(tab, DataAction.Update, item);
 		}
 
 		[OperationContract]
@@ -68,7 +72,7 @@ namespace POS.Data.Service
 
 		#region Universal Actions
 
-		private int ApplyAction(Tables tab, Action act, string serializedItem)
+		private int ApplyAction(Tables tab, DataAction act, string serializedItem)
 		{
 			switch (tab)
 			{
@@ -86,48 +90,51 @@ namespace POS.Data.Service
 			return 0;
 		}
 
-		private int ApplyAction<T>(Action act, string serializedItem) where T : class, IPersistedModel
+		private int ApplyAction<T>(DataAction act, string serializedItem) where T : class, IPersistedModel
 		{
 			T item = IT.Serializer_Json.Deserialize<T>(serializedItem);
-			var repo = new BaseRepository<T>(_connString);
-			switch (act)
+			if (item != null)
 			{
-				case Action.Del: return repo.Delete(item);
-				case Action.Ins: return repo.Insert(item);
-				case Action.Upd: return repo.Update(item);
+				return POSContext.UsingContext(_connString, context =>
+				{
+					var repo = new BaseRepository<T>(context);
+					switch (act)
+					{
+						case DataAction.Delete: return repo.Delete(item);
+						case DataAction.Insert: return repo.Insert(item);
+						case DataAction.Update: return repo.Update(item);
+					}
+					return 0;
+				});
 			}
 			return 0;
 		}
 
 		public string Sel_ById<T>(int? id, IdColumn col) where T : class, IPersistedModel
 		{
-			var repo = new BaseRepository<T>(_connString);
-
-			IEnumerable<T> res = null;
-
-			switch (col)
+			return POSContext.UsingContext(_connString, context =>
 			{
-				case IdColumn.Id:
-					res = repo.Select(c => c.Where(i => !id.HasValue || i.Id == id.Value));
-					break;
-				case IdColumn.DivisionId:
-					res = repo.Select(c => c.Where(i => !id.HasValue || i.Id == id.Value));
-					break;
-			}
+				var repo = new BaseRepository<T>(context);
 
-			if (res.Any())
-			{
-				return IT.Serializer_Json.Serialize_ToString(res);
-			}
+				IEnumerable<T> res = null;
 
-			return string.Empty;
-		}
+				switch (col)
+				{
+					case IdColumn.Id:
+						res = repo.Select(c => c.Where(i => !id.HasValue || i.Id == id.Value));
+						break;
+					case IdColumn.DivisionId:
+						res = repo.Select(c => c.Where(i => !id.HasValue || i.Id == id.Value));
+						break;
+				}
 
-		private enum Action
-		{
-			Del,
-			Ins,
-			Upd
+				if (res.Any())
+				{
+					return IT.Serializer_Json.Serialize_ToString(res);
+				}
+
+				return string.Empty;
+			});
 		}
 
 		#endregion

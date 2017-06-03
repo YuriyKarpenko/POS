@@ -27,4 +27,11 @@
 		UserCreatedId,
 		UserModifiedId,
 	}
+
+	public enum DataAction
+	{
+		Delete,
+		Insert,
+		Update
+	}
 }

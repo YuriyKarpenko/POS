@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.Infrastructure.Annotations;
 
 using POS.Data.Model;
 using POS.Data.Model.Mapping;
@@ -13,7 +13,24 @@ namespace POS.Data
     {
 		static POSContext()
 		{
+			//Database.SetInitializer<POSContext>(null);
 			Database.SetInitializer(new DropCreateDatabaseIfModelChanges<POSContext>());
+		}
+
+		public static TRes UsingContext<TRes>(string _connStr, Func<POSContext, TRes> action)
+		{
+			try
+			{
+				using (var conn = new POSContext(_connStr))
+				{
+					return action(conn);
+				}
+			}
+			catch (Exception ex)
+			{
+				IT.Log.Logger.ToLogFmt(null, System.Diagnostics.TraceLevel.Error, ex, $"({_connStr})");
+				throw;
+			}
 		}
 
 		public POSContext(string connStr):base(connStr)

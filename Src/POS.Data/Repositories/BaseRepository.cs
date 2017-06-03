@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 
 using IT;
@@ -21,13 +22,15 @@ namespace POS.Data.Repositories
 		int Update(T item);
 	}
 
+
 	public class BaseRepository<T> : ILog, IRepository<T> where T : class, IPersistedModel
 	{
-		private string _connStr;
-		public BaseRepository(string connStr)
+		private readonly POSContext _context;
+
+		public BaseRepository(POSContext context)
 		{
-			Contract.NotIsNullOrEmpty(connStr, nameof(connStr));
-			_connStr = connStr;
+			Contract.NotNull(context, nameof(context));
+			_context = context;
 		}
 
 
@@ -37,151 +40,94 @@ namespace POS.Data.Repositories
 		public T Get(int id)
 #endif
 		{
-			this.Debug("({0}.Id = {1}) ", typeof(T), id);
-
-			return UsingContext(context =>
-			{
-				try
-				{
-					return context.Set<T>().Find(id);
-				}
-				catch (Exception ex)
-				{
-					this.Error(ex, "()");
-				}
-
-				return null;// new ObjectResult<T>();
-			});
-		}
-		public IEnumerable<T> Select(Func<IOrderedQueryable<T>, IEnumerable<T>> select)
-		{
-			this.Debug("({0})", typeof(T));
-
-			return UsingContext(context =>
-			{
-				try
-				{
-					var oSet = context.Set<T>();
-
-					return select(oSet.AsNoTracking()).ToArray();
-				}
-				catch (Exception ex)
-				{
-					this.Error(ex, "()");
-					throw;
-				}
-
-				//return null;// new ObjectResult<T>();
-			});
-		}
-
-		protected virtual void OnDelete(T entity) { }
-		public int Delete(T value)
-		{
-			this.Debug("({0})", value);
-
-			return UsingContext(context =>
-			{
-				try
-				{
-					if (IsAccess(context))
-					{
-						OnDelete(value);
-						context.Set<T>().Remove(value);
-						return EntityFrameworkExceptionHelper.CatchValidationErrors(context.SaveChanges);
-					}
-				}
-				catch (Exception ex)
-				{
-					this.Error(ex, $"({value})");
-					throw;
-				}
-
-				return 0;
-			});
-		}
-
-		protected virtual void OnInsert(T entity) { }
-		public int Insert(T value)
-		{
-			this.Debug("({0})", value);
-
-			return UsingContext(context =>
-			{
-				try
-				{
-					if (IsAccess(context))
-					{
-						var now = DateTime.Now;
-						value.DateCreated = now;
-						value.DateLastModified = now;
-
-						OnInsert(value);
-
-						var oSet = context.Set<T>();
-						oSet.Add(value);
-						return EntityFrameworkExceptionHelper.CatchValidationErrors(context.SaveChanges);
-					}
-				}
-				catch (Exception ex)
-				{
-					this.Error(ex, $"({value})");
-					throw;
-				}
-				return 0;
-			});
-		}
-
-		protected virtual void OnUpdate(T entity) { }
-		public int Update(T value)
-		{
-			return UsingContext(context =>
-			{
-				this.Debug("({0})", value);
-
-				try
-				{
-					if (IsAccess(context))
-					{
-						value.DateLastModified = DateTime.Now;
-
-						OnUpdate(value);
-
-						var oSet = context.Set<T>();
-						oSet.Attach(value);
-						return EntityFrameworkExceptionHelper.CatchValidationErrors(context.SaveChanges);
-					}
-				}
-				catch (Exception ex)
-				{
-					this.Error(ex, $"({value})");
-					throw;
-				}
-
-				return 0;
-			});
-		}
-
-
-		protected virtual bool IsAccess(POSContext context)
-		{
-			return true;
-		}
-
-		protected TRes UsingContext<TRes>(Func<POSContext, TRes> action)
-		{
 			try
 			{
-				using (var conn = new POSContext(_connStr))
-				{
-					return action(conn);
-				}
+				return _context.Set<T>().Find(id);
 			}
 			catch (Exception ex)
 			{
-				this.Error(ex, $"({_connStr})");
+				this.Error(ex, $"({typeof(T)}.Id = {id})");
 				throw;
 			}
+		}
+
+		public IEnumerable<T> Select(Func<IOrderedQueryable<T>, IEnumerable<T>> select)
+		{
+			try
+			{
+				var oSet = _context.Set<T>();
+
+				return select(oSet.AsNoTracking()).ToArray();
+			}
+			catch (Exception ex)
+			{
+				this.Error(ex, $"({typeof(T)})");
+				throw;
+			}
+		}
+
+		public int Delete(T value)
+		{
+			return ApplyAction(DataAction.Delete, value);
+		}
+
+		public int Insert(T value)
+		{
+			return ApplyAction(DataAction.Insert, value);
+		}
+
+		public int Update(T value)
+		{
+			return ApplyAction(DataAction.Update, value);
+		}
+
+
+		protected virtual void OnDelete(T entity) { }
+		protected virtual void OnInsert(T entity) { }
+		protected virtual void OnUpdate(T entity) { }
+
+		protected virtual int ApplyAction(DataAction act, T item)
+		{
+			try
+			{
+				var res = 0;
+				if (item != null && IsAccess(act))
+				{
+					var set = _context.Set<T>();
+					var now = DateTime.Now;
+					switch (act)
+					{
+						case DataAction.Delete:
+							OnDelete(item);
+							set.Remove(item);
+							break;
+						case DataAction.Insert:
+							item.DateCreated = now;
+							item.DateLastModified = now;
+							OnInsert(item);
+							set.Add(item);
+							break;
+						case DataAction.Update:
+							var e = _context.Entry(item);
+							e.State = System.Data.Entity.EntityState.Modified;
+							item.DateLastModified = now;
+							OnUpdate(item);
+							break;
+					}
+				}
+				res = EntityFrameworkExceptionHelper.CatchValidationErrors(_context.SaveChanges);
+				return res;
+			}
+			catch (Exception ex)
+			{
+				this.Error(ex, $"({act}, {item})");
+				throw;
+			}
+		}
+
+		protected virtual bool IsAccess(DataAction act)
+		{
+			return true;
 		}
 	}
 }
