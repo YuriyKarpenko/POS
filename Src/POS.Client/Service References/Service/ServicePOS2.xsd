@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/POS.Data.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/POS.Data.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="Tables">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Bill" />
+      <xs:enumeration value="BillItem" />
+      <xs:enumeration value="Division" />
+      <xs:enumeration value="MenuGroup" />
+      <xs:enumeration value="MenuItem" />
+      <xs:enumeration value="Option" />
+      <xs:enumeration value="Price" />
+      <xs:enumeration value="PriceList" />
+      <xs:enumeration value="User" />
+      <xs:enumeration value="UserGroup" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Tables" nillable="true" type="tns:Tables" />
+  <xs:simpleType name="IdColumn">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BillId" />
+      <xs:enumeration value="BillItemId" />
+      <xs:enumeration value="DivisionId" />
+      <xs:enumeration value="Id" />
+      <xs:enumeration value="MenuGroupId" />
+      <xs:enumeration value="MenuItemId" />
+      <xs:enumeration value="UserId" />
+      <xs:enumeration value="UserCreatedId" />
+      <xs:enumeration value="UserModifiedId" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="IdColumn" nillable="true" type="tns:IdColumn" />
+</xs:schema>

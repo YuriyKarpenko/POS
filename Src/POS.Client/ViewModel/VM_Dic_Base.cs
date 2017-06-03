@@ -6,34 +6,17 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 
-//using CoderOD.DB35.Common;
+using IT;
+using POS.Data.Model;
+
 namespace POS.Client.ViewModel
 {
-	internal enum Dics { None, UserGroup, User }
-	public enum modifieCmd { None, Add, Delete, Edit, Ok }
-
 	public abstract class VM_Dic_Base<T> : VM_Workspace, IVM_Editable where T : class, new()
 	{
-		//modifieCmd _cmd = modifieCmd.None;
-		//public modifieCmd Cmd
-		//{
-		//    get { return _cmd; }
-		//    set
-		//    {
-		//        if (_cmd != value) ;
-		//        {
-		//            _cmd = value;
 
-		//            OnPropertyChanged("Cmd");
+		private VM_Workspace parentWorkSpace = null;
+		internal Tables curDic;
 
-		//            this.IsModifed = _cmd != modifieCmd.None;
-		//        }
-		//    }
-		//}
-
-		VM_Workspace parentWorkSpace = null;
-		internal Dics curDic = Dics.None;
-		//public CoderOD.DB35.ChangeTrackingCollection<POS.Data.DTO.UserGroup> Items { get; protected set; }
 		protected Service.Service1 svc = new Service.Service1Client();
 
 		protected ObservableCollection<T> _items = null;
@@ -54,20 +37,51 @@ namespace POS.Client.ViewModel
 
 		public virtual T SelectedItem { get; set; }
 
-		protected VM_Dic_Base(VM_Workspace parent, string caption) 
+		protected VM_Dic_Base(VM_Workspace parent, Tables curTable, string caption)
 		{
 			this.parentWorkSpace = parent;
 
 			this.Caption = caption;
 
-			//this.Cmd = modifieCmd.None;
+			curDic = curTable;
 		}
 
-		public abstract void Load();
-		public abstract void Add(T item);
-		public abstract void Edit(T item);
-		public abstract void Delete(T item);
-		//public abstract void Save();
+		public virtual void Load()
+		{
+			this.Debug("()");
+			try
+			{
+				itemsClear();
+				var str = svc.Sel_ById(curDic, null, IdColumn.Id);
+				var coll = Serializer_Json.Deserialize<IEnumerable<T>>(str);
+				_items.AddRange(coll);
+			}
+			catch (Exception ex)
+			{
+				this.Error(ex, "()");
+				throw;
+			}
+		}
+
+		public virtual void Add(T item)
+		{
+			var str = Serializer_Json.Serialize_ToString(item);
+			var res = svc.Insert(curDic, str);
+			Contract.Requires(res == 1, $"Проблемы при вставке записи {item}");
+		}
+
+		public virtual void Edit(T item) {
+			var str = Serializer_Json.Serialize_ToString(item);
+			var res = svc.Update(curDic, str);
+			Contract.Requires(res == 1, $"Проблемы при редактировании записи {item}");
+		}
+
+		public virtual void Delete(T item)
+		{
+			var str = Serializer_Json.Serialize_ToString(item);
+			var res = svc.Delete(curDic, str);
+			Contract.Requires(res == 1, $"Проблемы при удалении записи {item}");
+		}
 
 		protected virtual T newItem()
 		{
@@ -143,4 +157,19 @@ namespace POS.Client.ViewModel
 			//Cmd = modifieCmd.None; 
 		}
 	}
+
+	#region real dictionaries
+
+	public class VM_Dic_Division : VM_Dic_Base<POS.Data.Model.Division>
+	{
+		public VM_Dic_Division(VM_Workspace parent) : base(parent, Data.Model.Tables.Division, "Цех") { }
+	}
+
+	internal class VM_Dic_UserGroup : VM_Dic_Base<UserGroup>
+	{
+		public VM_Dic_UserGroup(VM_Workspace parent) : base(parent, Tables.UserGroup, "Группы пользователей") { }
+	}
+
+
+	#endregion
 }

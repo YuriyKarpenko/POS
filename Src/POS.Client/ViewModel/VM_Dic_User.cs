@@ -8,32 +8,10 @@ using System.Windows;
 
 namespace POS.Client.ViewModel
 {
-	public class VM_Dic_User:VM_Dic_Base<POS.Data.Model.User>
+	public class VM_Dic_User : VM_Dic_Base<Data.Model.User>
 	{
-		public VM_Dic_User(VM_Workspace parent)	: base(parent, "Пользователи")
-		{	curDic = Dics.User;	}
+		public VM_Dic_User(VM_Workspace parent) : base(parent, Data.Model.Tables.User, "Пользователи") { }
 
-		public override void Load()
-		{
-			this.itemsClear();
-			//foreach(var item in rep.List)
-			//this._items.Add(this.svc.UserGroupGet(null));
-		}
-
-		public override void Add(POS.Data.Model.User item)
-		{
-			//rep.Insert(()item);
-		}
-
-		public override void Edit(POS.Data.Model.User item)
-		{
-			//rep.Update((POS.Data.Model.User)item);
-		}
-
-		public override void Delete(POS.Data.Model.User item)
-		{
-			//rep.Delete(id);
-		}
 
 		public override void OnEdit_Click(object sender, RoutedEventArgs e)
 		{
@@ -62,17 +40,18 @@ namespace POS.Client.ViewModel
 			public List_Current_Helper<Data.Model.UserGroup> Helper { get; protected set; }
 			public UserFacade(Data.Model.User user)
 			{
-				this.CreatedBillItems = user.CreatedBillItems;
-				this.ModifiedBillItems = user.ModifiedBillItems;
-				this.Bills = user.Bills;
-				this.Card = user.Card;
-				this.Checks = user.Checks;
+				this.PersonInfo = user.PersonInfo;
+				//this.CreatedBillItems = user.CreatedBillItems;
+				//this.ModifiedBillItems = user.ModifiedBillItems;
+				//this.Bills = user.Bills;
+				//this.PersonInfo.Card = user.PersonInfo.Card;
+				//this.Checks = user.Checks;
 				this.Code = user.Code;
-				this.Hidden = user.Hidden;
+				//this.PersonInfo.Hidden = user.PersonInfo.Hidden;
 				this.Id = user.Id;
-				this.CreatedMenuItems = user.CreatedMenuItems;
-				this.Name = user.Name;
-				this.SexMale = user.SexMale;
+				//this.CreatedMenuItems = user.CreatedMenuItems;
+				//this.PersonInfo.Name = user.PersonInfo.Name;
+				//this.PersonInfo.SexMale = user.PersonInfo.SexMale;
 				//this.TrackingState = user.TrackingState;
 				this.UserGroup = user.UserGroup;
 				this.UserGroupId = user.UserGroupId;

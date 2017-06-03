@@ -18,14 +18,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:27141/Service1.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:8888/ServicePOS" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="f2d0ede9-f6c2-4a79-abf9-a877a200c5fd" SourceId="1" SourceUrl="http://localhost:27141/Service1.svc?xsd=xsd0" />
-    <MetadataFile FileName="Service1.wsdl" MetadataType="Wsdl" ID="af47883b-8a0a-4bfa-9337-241e19ea0042" SourceId="1" SourceUrl="http://localhost:27141/Service1.svc?wsdl" />
-    <MetadataFile FileName="Service1.disco" MetadataType="Disco" ID="a10bc2ee-21bf-44eb-a543-97adcd3ee382" SourceId="1" SourceUrl="http://localhost:27141/Service1.svc?disco" />
-    <MetadataFile FileName="Service11.xsd" MetadataType="Schema" ID="8be3bd33-b0db-47a8-aba5-5bf4445a4abc" SourceId="1" SourceUrl="http://localhost:27141/Service1.svc?xsd=xsd1" />
-    <MetadataFile FileName="Service12.xsd" MetadataType="Schema" ID="98051bde-f735-463c-acb3-70e5f1769910" SourceId="1" SourceUrl="http://localhost:27141/Service1.svc?xsd=xsd2" />
+    <MetadataFile FileName="ServicePOS.xsd" MetadataType="Schema" ID="87867e98-b18f-4dfc-a329-d56b175f2b57" SourceId="1" SourceUrl="http://localhost:8888/ServicePOS?xsd=xsd0" />
+    <MetadataFile FileName="Service11.wsdl" MetadataType="Wsdl" ID="88fc6c85-2022-400d-9866-309c1d53971c" SourceId="1" SourceUrl="http://localhost:8888/ServicePOS?wsdl" />
+    <MetadataFile FileName="Service11.xsd" MetadataType="Schema" ID="3a604af6-2934-4208-b943-dde39276309a" SourceId="1" SourceUrl="http://localhost:8888/ServicePOS?xsd=xsd1" />
+    <MetadataFile FileName="ServicePOS.disco" MetadataType="Disco" ID="184a5300-5618-4b53-9f51-4ca531cfcc6a" SourceId="1" SourceUrl="http://localhost:8888/ServicePOS?disco" />
+    <MetadataFile FileName="ServicePOS2.xsd" MetadataType="Schema" ID="cfe36a0c-e810-44f1-b2e0-4ef0b487d114" SourceId="1" SourceUrl="http://localhost:8888/ServicePOS?xsd=xsd2" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

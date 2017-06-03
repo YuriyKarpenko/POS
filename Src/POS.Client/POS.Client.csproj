@@ -102,9 +102,7 @@
     <Compile Include="ViewModel\VM_Command.cs" />
     <Compile Include="ViewModel\VM_Dictionary.cs" />
     <Compile Include="ViewModel\VM_Dic_Base.cs" />
-    <Compile Include="ViewModel\VM_Dic_Department.cs" />
     <Compile Include="ViewModel\VM_Dic_User.cs" />
-    <Compile Include="ViewModel\VM_Dic_UserGroup.cs" />
     <Compile Include="ViewModel\VM_Main.cs" />
     <Compile Include="ViewModel\VM_UserGroupEdit.cs" />
     <Compile Include="ViewModel\VM_Workspace.cs" />
@@ -213,14 +211,14 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\Service\Service1.wsdl" />
-    <None Include="Service References\Service\Service1.xsd">
+    <None Include="Service References\Service\Service11.wsdl" />
+    <None Include="Service References\Service\ServicePOS.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\Service\Service11.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\Service\Service12.xsd">
+    <None Include="Service References\Service\ServicePOS2.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -268,9 +266,6 @@
     <WCFMetadataStorage Include="Service References\Service\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\Service\Service1.disco" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Service References\Service\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
@@ -283,10 +278,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\IT\src\IT.csproj">
+      <Project>{9e7ee2b9-450d-4e1e-bf58-ec372cbe44c4}</Project>
+      <Name>IT</Name>
+    </ProjectReference>
     <ProjectReference Include="..\POS.Data\POS.Data.csproj">
       <Project>{7efacfc0-6fcd-46d3-98da-3a32dd9595be}</Project>
       <Name>POS.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Service\ServicePOS.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
