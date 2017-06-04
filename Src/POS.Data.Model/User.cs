@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace POS.Data.Model
 {
+	[Serializable]
 	public partial class User : PersistedModel
 	{
 #if USE_GUID
@@ -12,7 +12,6 @@ namespace POS.Data.Model
 		public int UserGroupId { get; set; }
 #endif
 		public int? Code { get; set; }
-		[EnumDataType(typeof(Role))]
 		public Role Role { get; set; }
 
 		public PersonInfo PersonInfo { get; set; }

@@ -5,6 +5,8 @@
 		public UserGroupMapping()
 		{
 			ToTable("UserGroup");
+
+			Property(e => e.Name).IsRequired();
 		}
 	}
 }

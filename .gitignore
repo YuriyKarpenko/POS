@@ -4,6 +4,8 @@
 /Src/POS.Client/obj
 /Src/POS.Data/obj
 /Src/POS.Data/bin
+/Src/POS.Data.Model/bin
+/Src/POS.Data.Model/obj
 /Src/POS.Data.Service/bin
 /Src/POS.Data.Service/obj
 *.user

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:c="clr-namespace:POS.Client.Components" 
-             xmlns:dto="clr-namespace:POS.Data.Model;assembly=POS.Data" 
+             xmlns:dto="clr-namespace:POS.Data.Model;assembly=POS.Data.Model"
              xmlns:v="clr-namespace:POS.Client.View" 
              xmlns:vm="clr-namespace:POS.Client.ViewModel" 
              mc:Ignorable="d" 
@@ -28,11 +28,11 @@
 			</DockPanel>
 		</DataTemplate>-->
 
-		<DataTemplate DataType="{x:Type vm:VM_Dic_UserGroup}">
+		<DataTemplate DataType="{x:Type vm:VM_Dic_Division}">
 			<v:V_Edit_List />
 		</DataTemplate>
 		
-		<DataTemplate DataType="{x:Type vm:VM_Dic_Division}">
+		<DataTemplate DataType="{x:Type vm:VM_Dic_UserGroup}">
 			<v:V_Edit_List />
 		</DataTemplate>
 		
@@ -42,26 +42,18 @@
 		
 		<!--	DTO Templates	-->
 		
+		<!--	DictionaryModel	-->
+		<DataTemplate DataType="{x:Type dto:DictionaryModel}">
+			<CheckBox IsChecked="{Binding Path=Hidden}" Content="{Binding Path=Name}" />			
+		</DataTemplate>
+				
 		<!--	UserGroup	-->
 		<DataTemplate DataType="{x:Type dto:UserGroup}">
 			<TextBlock>
-				<!--TextBlock Text="(" />
-				<TextBlock Text="{Binding Path=Id}" />
-				<TextBlock Text=") = " /-->
 				<TextBlock Text="{Binding Path=Name}" />			
 			</TextBlock>
 		</DataTemplate>
-		
-		<!--	Users	-->
-		<DataTemplate DataType="{x:Type dto:User}">
-			<CheckBox IsChecked="{Binding Path=Hidden}" Content="{Binding Path=Name}" />			
-		</DataTemplate>
-		
-		<!--	Division	-->
-		<DataTemplate DataType="{x:Type dto:Division}">
-			<CheckBox IsChecked="{Binding Path=Hidden}" Content="{Binding Path=Name}" />			
-		</DataTemplate>
-		
+
 	</UserControl.Resources>
 	<!--	Button.Click="{Binding Path=buttons_Click()}"	-->
 	<Grid >

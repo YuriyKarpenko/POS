@@ -204,11 +204,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -217,10 +212,6 @@
     <None Include="Properties\DataSources\POS.Data.Types.Division.datasource" />
     <None Include="Properties\DataSources\POS.Data.Types.User.datasource" />
     <None Include="Properties\DataSources\POS.Data.Types.UserGroup.datasource" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <AppDesigner Include="Properties\" />
     <None Include="Service References\Service\Service11.wsdl" />
     <None Include="Service References\Service\ServicePOS.xsd">
@@ -293,9 +284,9 @@
       <Project>{9e7ee2b9-450d-4e1e-bf58-ec372cbe44c4}</Project>
       <Name>IT</Name>
     </ProjectReference>
-    <ProjectReference Include="..\POS.Data\POS.Data.csproj">
-      <Project>{7efacfc0-6fcd-46d3-98da-3a32dd9595be}</Project>
-      <Name>POS.Data</Name>
+    <ProjectReference Include="..\POS.Data.Model\POS.Data.Model.csproj">
+      <Project>{e6c8f51a-42a0-4a5c-b32b-7c0d867cc1f0}</Project>
+      <Name>POS.Data.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

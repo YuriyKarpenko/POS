@@ -6,6 +6,8 @@
 		{
 			ToTable("PriceList");
 
+			Property(e => e.Name).IsRequired();
+
 			HasMany(e => e.Bills)
 				.WithRequired(e => e.PriceList)
 				.HasForeignKey(e => e.PriceListId)

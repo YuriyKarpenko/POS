@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace POS.Data.Model.Mapping
@@ -8,9 +9,9 @@ namespace POS.Data.Model.Mapping
 		protected PersistedModelMapping()
 		{
 			HasKey(e => e.Id);
-			Property(e => e.Id).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
-			Property(e => e.DateCreated).IsRequired().HasColumnType("datetime2");
-			Property(e => e.DateLastModified).IsRequired().HasColumnType("datetime2");
+			Property(e => e.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+			Property(e => e.DateCreated).IsRequired().HasColumnType("datetime");
+			Property(e => e.DateLastModified).IsRequired().HasColumnType("datetime");
 		}
 	}
 }

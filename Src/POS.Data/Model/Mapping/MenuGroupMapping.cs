@@ -6,6 +6,8 @@
 		{
 			ToTable("MenuGroup");
 
+			Property(e => e.Name).IsRequired();
+
 			HasOptional(e => e.Parent)
 				.WithMany(e => e.Children)
 				.HasForeignKey(e => e.ParentId)

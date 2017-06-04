@@ -6,6 +6,8 @@
 		{
 			ToTable("Division");
 
+			Property(e => e.Name).IsRequired();
+
 			//HasMany(e => e.MenuItems)
 			//	.WithOptional(e => e.Division)
 			//	.HasForeignKey(e => e.DivisionId)

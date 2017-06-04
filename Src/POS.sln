@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS.Client", "POS.Client\PO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IT", "..\..\IT\src\IT.csproj", "{9E7EE2B9-450D-4E1E-BF58-EC372CBE44C4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS.Data.Model", "POS.Data.Model\POS.Data.Model.csproj", "{E6C8F51A-42A0-4A5C-B32B-7C0D867CC1F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,18 @@ Global
 		{9E7EE2B9-450D-4E1E-BF58-EC372CBE44C4}.Release|Mixed Platforms.Build.0 = Release|x86
 		{9E7EE2B9-450D-4E1E-BF58-EC372CBE44C4}.Release|x86.ActiveCfg = Release|x86
 		{9E7EE2B9-450D-4E1E-BF58-EC372CBE44C4}.Release|x86.Build.0 = Release|x86
+		{E6C8F51A-42A0-4A5C-B32B-7C0D867CC1F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6C8F51A-42A0-4A5C-B32B-7C0D867CC1F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6C8F51A-42A0-4A5C-B32B-7C0D867CC1F0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E6C8F51A-42A0-4A5C-B32B-7C0D867CC1F0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E6C8F51A-42A0-4A5C-B32B-7C0D867CC1F0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E6C8F51A-42A0-4A5C-B32B-7C0D867CC1F0}.Debug|x86.Build.0 = Debug|Any CPU
+		{E6C8F51A-42A0-4A5C-B32B-7C0D867CC1F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6C8F51A-42A0-4A5C-B32B-7C0D867CC1F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6C8F51A-42A0-4A5C-B32B-7C0D867CC1F0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E6C8F51A-42A0-4A5C-B32B-7C0D867CC1F0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E6C8F51A-42A0-4A5C-B32B-7C0D867CC1F0}.Release|x86.ActiveCfg = Release|Any CPU
+		{E6C8F51A-42A0-4A5C-B32B-7C0D867CC1F0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

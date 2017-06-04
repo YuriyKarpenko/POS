@@ -8,6 +8,7 @@
 
 			Property(e => e.BarCode).HasMaxLength(30);
 			Property(e => e.Image).HasColumnType("image");
+			Property(e => e.Name).IsRequired();
 
 			HasRequired(e => e.Division)
 				.WithMany(e => e.MenuItems)

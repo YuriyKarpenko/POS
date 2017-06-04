@@ -63,7 +63,7 @@ namespace POS.Client.ViewModel
 			catch (Exception ex)
 			{
 				this.Error(ex, "()");
-				throw;
+				//throw;
 			}
 		}
 

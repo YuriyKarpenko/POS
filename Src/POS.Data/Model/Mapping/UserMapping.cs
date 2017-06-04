@@ -6,7 +6,8 @@
 		{
 			ToTable("User");
 
-			//this.Property(e=>e.Role).
+			Property(e => e.PersonInfo.Card).IsRequired();
+			Property(e => e.PersonInfo.FirstName).IsRequired();
 
 			HasRequired(e => e.UserGroup)
 				.WithMany(e => e.Users)
