@@ -19,21 +19,16 @@ namespace POS.Client.Components
 	/// </summary>
 	public partial class TimePicker : UserControl
 	{
+
 		public TimePicker()
 		{
 			InitializeComponent();
 		}
 
-		public TimeSpan Value
-		{
-			get { return (TimeSpan)GetValue(ValueProperty); }
-			set { SetValue(ValueProperty, value); }
-		}
+		#region Value
 
-		public static readonly DependencyProperty ValueProperty =
-			DependencyProperty.Register("Value", typeof(TimeSpan), typeof(TimePicker),
-
-		new UIPropertyMetadata(DateTime.Now.TimeOfDay, new PropertyChangedCallback(OnValueChanged)));
+		public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(TimeSpan), typeof(TimePicker),
+			new UIPropertyMetadata(DateTime.Now.TimeOfDay, new PropertyChangedCallback(OnValueChanged)));
 
 		private static void OnValueChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
 		{
@@ -43,16 +38,28 @@ namespace POS.Client.Components
 			control.Seconds = ((TimeSpan)e.NewValue).Seconds;
 		}
 
+		public TimeSpan Value
+		{
+			get { return (TimeSpan)GetValue(ValueProperty); }
+			set { SetValue(ValueProperty, value); }
+		}
+
+		#endregion
+
+		#region Hours
+
 		public int Hours
 		{
 			get { return (int)GetValue(HoursProperty); }
 			set { SetValue(HoursProperty, value); }
 		}
 
-		public static readonly DependencyProperty HoursProperty =
-			DependencyProperty.Register("Hours", typeof(int), typeof(TimePicker),
+		public static readonly DependencyProperty HoursProperty = DependencyProperty.Register("Hours", typeof(int), typeof(TimePicker),
+			new UIPropertyMetadata(0, new PropertyChangedCallback(OnTimeChanged)));
 
-		new UIPropertyMetadata(0, new PropertyChangedCallback(OnTimeChanged)));
+		#endregion
+
+		#region Minutes
 
 		public int Minutes
 		{
@@ -60,10 +67,13 @@ namespace POS.Client.Components
 			set { SetValue(MinutesProperty, value); }
 		}
 
-		public static readonly DependencyProperty MinutesProperty =
-			DependencyProperty.Register("Minutes", typeof(int), typeof(TimePicker),
+		public static readonly DependencyProperty MinutesProperty = DependencyProperty.Register("Minutes", typeof(int), typeof(TimePicker),
+			new UIPropertyMetadata(0, new PropertyChangedCallback(OnTimeChanged)));
 
-		new UIPropertyMetadata(0, new PropertyChangedCallback(OnTimeChanged)));
+		#endregion
+
+		#region MyRegion
+
 
 		public int Seconds
 		{
@@ -71,11 +81,10 @@ namespace POS.Client.Components
 			set { SetValue(SecondsProperty, value); }
 		}
 
-		public static readonly DependencyProperty SecondsProperty =
+		public static readonly DependencyProperty SecondsProperty = DependencyProperty.Register("Seconds", typeof(int), typeof(TimePicker), 
+			new UIPropertyMetadata(0, new PropertyChangedCallback(OnTimeChanged)));
 
-		DependencyProperty.Register("Seconds", typeof(int), typeof(TimePicker),
-
-		new UIPropertyMetadata(0, new PropertyChangedCallback(OnTimeChanged)));
+		#endregion
 
 
 

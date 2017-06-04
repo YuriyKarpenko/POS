@@ -15,9 +15,14 @@
 		<DataTemplate DataType="{x:Type vmm:VM_Manager}">
 			<v:V_Manager/>
 		</DataTemplate>
+		
 	</Window.Resources>
 	
-    <Grid Background="{StaticResource ExpandStyle}">
+	<Window.DataContext>
+		<vm:VM_Main/>
+	</Window.DataContext>
+
+	<Grid Background="{StaticResource ExpandStyle}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="auto"/>
 			<RowDefinition />
@@ -29,6 +34,7 @@
 			<MenuItem Command="v:Commands.Main_Manager"/>
 		</Menu>
 
+		<!--<my:ArrowClock Grid.Row="1"/>-->
 		<ContentControl Grid.Row="1" Content="{Binding Content}"/>
 
 		<StatusBar Grid.Row="2"/>

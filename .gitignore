@@ -6,3 +6,4 @@
 /Src/POS.Data/bin
 /Src/POS.Data.Service/bin
 /Src/POS.Data.Service/obj
+*.user

@@ -13,21 +13,21 @@
 			<RowDefinition Height="auto" />
 		</Grid.RowDefinitions>		
 		
-		<DockPanel ButtonBase.Click="On_Click" 
-				   >
+		<DockPanel>
 			<c:UC_NavPanel x:Name="navPanel" 
 						   DockPanel.Dock="Bottom" 
 						   DataContext="{Binding}" 
-						   SelectedItem="{Binding ElementName=list, Path=SelectedItem}" />
+						   />
+			
 			<ListBox Name="list" DockPanel.Dock="Top"
-					 ItemsSource="{Binding Path=Items}" 
-					 SelectedItem="{Binding Path=SelectedItem}"
+					 ItemsSource="{Binding Path=Items.List}" 
+					 SelectedItem="{Binding Path=Items.SelectedItem}"
 					 >
-				<ListBox.ItemContainerStyle>					
+				<!--<ListBox.ItemContainerStyle>					
 					<Style TargetType="ListBoxItem">
 						<EventSetter Event="MouseDoubleClick" Handler="Listbox_DoubleClick"/>
 					</Style>
-				</ListBox.ItemContainerStyle>
+				</ListBox.ItemContainerStyle>-->
 			</ListBox>
 		</DockPanel>
 		<!--

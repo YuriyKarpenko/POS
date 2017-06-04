@@ -70,9 +70,8 @@ namespace POS.Data.Service
 			return string.Empty;
 		}
 
-		#region Universal Actions
-
-		private int ApplyAction(Tables tab, DataAction act, string serializedItem)
+		[OperationContract]
+		public int ApplyAction(Tables tab, DataAction act, string serializedItem)
 		{
 			switch (tab)
 			{
@@ -89,6 +88,8 @@ namespace POS.Data.Service
 			}
 			return 0;
 		}
+
+		#region Universal Actions
 
 		private int ApplyAction<T>(DataAction act, string serializedItem) where T : class, IPersistedModel
 		{

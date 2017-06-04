@@ -14,19 +14,19 @@
 	<UserControl.Resources>		
 
 		<!--	DicTemplate	-->
-		<DataTemplate x:Key="DicTemplate">
-			<!--DockPanel -->
+		<!--<DataTemplate x:Key="DicTemplate">
+			--><!--DockPanel --><!--
 			<DockPanel ButtonBase.Click="On_Click">
 				<c:UC_NavPanel DockPanel.Dock="Bottom" Content="{Binding}" />
 				<ListBox DockPanel.Dock="Top" ItemsSource="{Binding Path=Items}" 
 							  Margin="1"
 							  />
-				<!--	
+				--><!--	
 				IsSynchronizedWithCurrentItem="True" 
 				ItemTemplate="{StaticResource ClosableTabItemTemplate}"	
-				-->
+				--><!--
 			</DockPanel>
-		</DataTemplate>
+		</DataTemplate>-->
 
 		<DataTemplate DataType="{x:Type vm:VM_Dic_UserGroup}">
 			<v:V_Edit_List />

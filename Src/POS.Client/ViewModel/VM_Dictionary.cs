@@ -22,26 +22,10 @@ namespace POS.Client.ViewModel
 	{
 		public VM_Workspace CurrentDic { get; private set; }
 
+		public override string Caption => CurrentDic?.Caption ?? base.Caption;
 
-		public override string Caption
-		{
-			get
-			{
-				return CurrentDic == null ? base.Caption : CurrentDic.Caption;
-			}
-			protected set
-			{
-				base.Caption = value;
-			}
-		}
+		public VM_Dictionary(VM_Workspace parent) : base(parent, "Справочники") { }
 
-		public VM_Dictionary(VM_Workspace parent) : base(parent, "Справочники")
-		{
-			//cmdOk = new RelayCommand(p => this.execOk());
-			//this.Items = new ChangeTrackingCollection<Data.DTO.UserGroup>();
-			//Items = new CoderOD.DB35.ChangeTrackingCollection<CoderOD.DB35.Common.DtoEntityBaseG> { "qqq", "wwwwwww" };
-			//Items.CollectionChanged+=new NotifyCollectionChangedEventHandler(Items_CollectionChanged);
-		}
 
 		#region actions
 

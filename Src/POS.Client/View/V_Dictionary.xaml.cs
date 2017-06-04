@@ -17,45 +17,11 @@ using POS.Client.ViewModel;
 
 namespace POS.Client.View
 {
-	/// <summary>
-	/// Interaction logic for V_Doctionnary.xaml
-	/// </summary>
 	public partial class V_Dictionary : UserControl
 	{
 		public V_Dictionary()
 		{
 			InitializeComponent();
-		}
-
-		VM_Dic_Base<object> vm
-		{
-			get
-			{
-				if (this.DataContext is VM_Dic_Base<object>) 
-				{
-					return this.DataContext as VM_Dic_Base<object>;
-				}
-				return null;
-			}
-		}
-
-		private void On_Click(object sender, RoutedEventArgs e)
-		{
-			switch ((e.OriginalSource as ContentControl).Name)
-			{
-				case UC_NavPanel.sbtnAdd: 
-					vm.OnAdd_Click(sender, e);
-					break;
-				case UC_NavPanel.sbtnDel:
-					vm.OnDelete_Click(sender, e);
-					break;
-				case UC_NavPanel.sbtnEdit:
-					vm.OnEdit_Click(sender, e);
-					break;
-				case UC_NavPanel.sbtnOk:
-					vm.OnOk_Click(sender, e);
-					break;
-			}
 		}
 	}
 }

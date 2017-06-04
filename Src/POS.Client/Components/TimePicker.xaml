@@ -10,7 +10,19 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 -->
+	<UserControl.Resources>
 
+		<Style TargetType="{x:Type TextBlock}">
+			<Setter Property="TextAlignment" Value="Center"/>
+			<Setter Property="TextWrapping" Value="NoWrap"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="FontFamily" Value="Goudy Stout"/>
+			<Setter Property="FontSize" Value="14"/>
+		</Style>
+		
+	</UserControl.Resources>
+	
+	
 	<Grid x:Name="LayoutRoot" Width="Auto" Height="Auto">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="0.2*"/>
@@ -22,29 +34,25 @@
 		</Grid.ColumnDefinitions>
 		
 		<Grid x:Name="hour" Focusable="True" KeyDown="Down">
-			<TextBlock x:Name="mmTxt" TextWrapping="Wrap" Text="{Binding Path=Hours, ElementName=UserControl, Mode=Default}"
-                 TextAlignment="Center" VerticalAlignment="Center" FontFamily="Goudy Stout" FontSize="14"/>
+			<TextBlock x:Name="mmTxt" Text="{Binding Path=Hours, ElementName=UserControl, Mode=Default}"/>
 		</Grid>
 		
 		<Grid  Grid.Column="1">
-			<TextBlock  x:Name="sep1" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" FontFamily="Goudy Stout"
-                  FontSize="14" Text=":" TextAlignment="Center"/>
+			<TextBlock  x:Name="sep1" Background="{x:Null}" Text=":" />
 		</Grid>
 
 		<Grid  Grid.Column="2" x:Name="min" Focusable="True" KeyDown="Down">
-			<TextBlock  x:Name="ddTxt"  TextWrapping="Wrap" Text="{Binding Path=Minutes, ElementName=UserControl, Mode=Default}"
-                  TextAlignment="Center" VerticalAlignment="Center" FontFamily="Goudy Stout" FontSize="14"/>
+			<TextBlock  x:Name="ddTxt"  Text="{Binding Path=Minutes, ElementName=UserControl, Mode=Default}"/>
 		</Grid>
 
 		<Grid  Grid.Column="3">
-			<TextBlock x:Name="sep2"  TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" FontFamily="Goudy Stout"
-                 FontSize="14" Text=":" TextAlignment="Center"/>
+			<TextBlock x:Name="sep2"  Background="{x:Null}" Text=":" />
 		</Grid>
 
 		<Grid  Grid.Column="4" Name="sec" Focusable="True" KeyDown="Down">
-			<TextBlock x:Name="yyTxt"  TextWrapping="Wrap" Text="{Binding Path=Seconds, ElementName=UserControl, Mode=Default}"
-                 TextAlignment="Center" VerticalAlignment="Center" FontFamily="Goudy Stout" FontSize="14"/>
+			<TextBlock x:Name="yyTxt"  Text="{Binding Path=Seconds, ElementName=UserControl, Mode=Default}"/>
 		</Grid>
+		
 		<ScrollBar Grid.Column="5" Height="20"/>
 	</Grid>
 </UserControl>

@@ -48,6 +48,13 @@ namespace POS.Data.Model
 		public DateTime DateCreated { get; set; }
 		[Required]
 		public DateTime DateLastModified { get; set; }
+
+		public PersistedModel()
+		{
+			//	because error at json serialization
+			DateCreated = DateTime.Today;
+			DateLastModified = DateTime.Today;
+		}
 	}
 
 	[Serializable]
@@ -107,15 +114,15 @@ namespace POS.Data.Model
 
 	}
 
-//	[ComplexType]
-//	public class UserInfo
-//	{
-//#if USE_GUID
-//		public Guid CreatedByUserId { get; set; }
-//#else
-//		public int UserId { get; set; }
-//#endif
+	//	[ComplexType]
+	//	public class UserInfo
+	//	{
+	//#if USE_GUID
+	//		public Guid CreatedByUserId { get; set; }
+	//#else
+	//		public int UserId { get; set; }
+	//#endif
 
-//		public User User { get; set; }
-//	}
+	//		public User User { get; set; }
+	//	}
 }

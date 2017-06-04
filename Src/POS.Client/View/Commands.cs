@@ -7,10 +7,13 @@ namespace POS.Client.View
 		public static readonly RoutedUICommand Main_Options = new RoutedUICommand("Настройки", "Main_Options", typeof(Commands));
 		public static readonly RoutedUICommand Main_Manager = new RoutedUICommand("Менеджер", "Main_Manager", typeof(Commands));
 
-
 		public static readonly RoutedUICommand CloseItem = new RoutedUICommand("Закрыть", "CloseItem", typeof(Commands));
-		public static readonly RoutedUICommand Edit = new RoutedUICommand("Изменить", "Edit", typeof(Commands));
-		public static readonly RoutedUICommand Update = new RoutedUICommand("Изменить", "Set", typeof(Commands));
+
+		public static readonly RoutedUICommand Nav_Ok = new RoutedUICommand("Ok", "Nav_Ok", typeof(Commands));
+		public static readonly RoutedUICommand Nav_Cancel = new RoutedUICommand("Отмена", "Nav_Cancel", typeof(Commands));
+		public static readonly RoutedUICommand Nav_Delete = new RoutedUICommand("Удалить", "Nav_Delete", typeof(Commands));
+		public static readonly RoutedUICommand Nav_Insert = new RoutedUICommand("Добавить", "Nav_Insert", typeof(Commands));
+		public static readonly RoutedUICommand Nav_Update = new RoutedUICommand("Изменить", "Nav_Update", typeof(Commands));
 
 		public static readonly RoutedUICommand Dic = new RoutedUICommand("Справочники", "Dic", typeof(Commands));
 		public static readonly RoutedUICommand Dic_Division = new RoutedUICommand("Цеха", "Dic_Division", typeof(Commands));

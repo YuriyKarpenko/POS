@@ -37,6 +37,12 @@
   <wsdl:message name="Service1_Sel_ById_OutputMessage">
     <wsdl:part name="parameters" element="tns:Sel_ByIdResponse" />
   </wsdl:message>
+  <wsdl:message name="Service1_ApplyAction_InputMessage">
+    <wsdl:part name="parameters" element="tns:ApplyAction" />
+  </wsdl:message>
+  <wsdl:message name="Service1_ApplyAction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ApplyActionResponse" />
+  </wsdl:message>
   <wsdl:portType name="Service1">
     <wsdl:operation name="Login">
       <wsdl:input wsaw:Action="http://tempuri.org/Service1/Login" message="tns:Service1_Login_InputMessage" />
@@ -57,6 +63,10 @@
     <wsdl:operation name="Sel_ById">
       <wsdl:input wsaw:Action="http://tempuri.org/Service1/Sel_ById" message="tns:Service1_Sel_ById_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/Service1/Sel_ByIdResponse" message="tns:Service1_Sel_ById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ApplyAction">
+      <wsdl:input wsaw:Action="http://tempuri.org/Service1/ApplyAction" message="tns:Service1_ApplyAction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Service1/ApplyActionResponse" message="tns:Service1_ApplyAction_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_Service1" type="tns:Service1">
@@ -99,6 +109,15 @@
     </wsdl:operation>
     <wsdl:operation name="Sel_ById">
       <soap:operation soapAction="http://tempuri.org/Service1/Sel_ById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApplyAction">
+      <soap:operation soapAction="http://tempuri.org/Service1/ApplyAction" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

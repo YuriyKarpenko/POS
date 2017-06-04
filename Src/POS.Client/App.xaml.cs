@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+
+using IT;
+using IT.Log;
 
 namespace POS.Client
 {
@@ -16,13 +19,25 @@ namespace POS.Client
 		{
 			base.OnStartup(e);
 
-			MainWindow window = new MainWindow();
+			Logger.MinLevel = TraceLevel.Info;
+			Logger.MessageSmall += Logger_MessageSmall;
 
-			var vm = new ViewModel.VM_Main();
+			this.DispatcherUnhandledException += App_DispatcherUnhandledException;
+		}
 
-			window.DataContext = vm;
+		private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+		{
+			Logger.ToLogFmt(this, TraceLevel.Error, e.Exception, $"()");
+		}
 
-			window.Show();
+		private void Logger_MessageSmall(object sender, EventArgs<TraceLevel, string, Exception> e)
+		{
+			switch (e.Value1)
+			{
+				case TraceLevel.Error:
+					MessageBox.Show(e.Value2 + "\n" + e.Value3.ToString(), Ap.AppCaption, MessageBoxButton.OK, MessageBoxImage.Error);
+					break;
+			}
 		}
 	}
 }

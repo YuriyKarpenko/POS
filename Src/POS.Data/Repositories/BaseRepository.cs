@@ -93,7 +93,9 @@ namespace POS.Data.Repositories
 				var res = 0;
 				if (item != null && IsAccess(act))
 				{
+					var entry = _context.Entry<T>(item);
 					var set = _context.Set<T>();
+					set.Attach(item);
 					var now = DateTime.Now;
 					switch (act)
 					{
@@ -108,8 +110,7 @@ namespace POS.Data.Repositories
 							set.Add(item);
 							break;
 						case DataAction.Update:
-							var e = _context.Entry(item);
-							e.State = System.Data.Entity.EntityState.Modified;
+							entry.State = System.Data.Entity.EntityState.Modified;
 							item.DateLastModified = now;
 							OnUpdate(item);
 							break;

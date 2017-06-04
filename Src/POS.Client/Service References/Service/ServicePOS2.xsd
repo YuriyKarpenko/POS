@@ -29,4 +29,12 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="IdColumn" nillable="true" type="tns:IdColumn" />
+  <xs:simpleType name="DataAction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Delete" />
+      <xs:enumeration value="Insert" />
+      <xs:enumeration value="Update" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="DataAction" nillable="true" type="tns:DataAction" />
 </xs:schema>

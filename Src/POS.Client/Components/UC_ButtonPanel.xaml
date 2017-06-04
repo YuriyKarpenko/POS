@@ -10,15 +10,17 @@
 			<ColumnDefinition Width="*" />
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
+		
 		<Button Height="23" Margin="0" Name="buttonOk" Width="75" IsDefault="True" Click="buttonOk_Click">
 			<StackPanel Orientation="Horizontal">
-				<Image Margin="2" Source="/POS.Client;component/Images/Confirm_16x16.png" />
+				<Image Margin="1" Source="/POS.Client;component/Images/Confirm_16x16.png" />
 				<TextBlock Margin="2,0,0,0" Text="Ok" />
 			</StackPanel>
 		</Button>
+		
 		<Button Height="23" Margin="0" Name="buttonCancel" Width="75" Grid.Column="1" IsCancel="True">
 			<StackPanel Orientation="Horizontal">
-				<Image Margin="2" Source="/POS.Client;component/Images/Delete_16x16.png" />
+				<Image Margin="1" Source="/POS.Client;component/Images/Delete_16x16.png" />
 				<TextBlock Margin="2,0,0,0" Text="Отмена" />
 			</StackPanel>
 		</Button>

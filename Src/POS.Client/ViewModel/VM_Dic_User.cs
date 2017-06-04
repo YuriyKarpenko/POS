@@ -15,9 +15,9 @@ namespace POS.Client.ViewModel
 
 		public override void OnEdit_Click(object sender, RoutedEventArgs e)
 		{
-			if (SelectedItem == null) return;
+			if (Items.SelectedItem == null) return;
 
-			var item = SelectedItem;
+			var item = Items.SelectedItem;
 			Win_Modal w = new Win_Modal();
 
 			//	Необходимо, чтобы [UserGroup] принадлежал коллекции [UserGroups]
@@ -30,7 +30,7 @@ namespace POS.Client.ViewModel
 			if (res == true)
 			{
 				Edit(item);
-				Load();
+				Items.Reset();
 				//Cmd = modifieCmd.Edit;
 			}
 		}

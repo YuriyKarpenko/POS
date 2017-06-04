@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 
+			 xmlns:v="clr-namespace:POS.Client.View"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="300">
 	<UserControl.Resources>
@@ -16,37 +18,19 @@
 			<Setter Property="Margin" Value="2"/>
 		</Style>
 		<!--	Button	-->
-		<Style TargetType="{x:Type Button}">
+		<Style BasedOn="{StaticResource cmd_h}" TargetType="{x:Type Button}">
 			<Setter Property="VerticalAlignment" Value="Center"/>
 			<Setter Property="HorizontalAlignment" Value="Center"/>
 			<Style.Triggers>
 				<Trigger Property="IsMouseOver" Value="true">
 					<Setter Property="Foreground" Value="Red"/>
 				</Trigger>
-				<Trigger Property="DataContext" Value="null">
-					<Setter Property="IsEnabled" Value="False"/>
-				</Trigger>
 			</Style.Triggers>
 		</Style>
-				
-		<Style x:Key="btnOk" TargetType="{x:Type Button}">
-			<Setter Property="VerticalAlignment" Value="Center"/>
-			<Setter Property="HorizontalAlignment" Value="Center"/>
-			<Style.Triggers>
-				<DataTrigger Binding="{Binding Path=cmd}" Value="None" >
-					<Setter Property="IsEnabled" Value="false" />
-				</DataTrigger>
-				<Trigger Property="IsMouseOver" Value="true">
-					<Setter Property="Foreground" Value="Red"/>
-				</Trigger>
-			</Style.Triggers>
-		</Style>
-		
-		
+
 	</UserControl.Resources>
 	
 	<Grid >
-		
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*" />
 			<ColumnDefinition Width="*" />
@@ -54,29 +38,18 @@
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 		
-		<Button Grid.Column="0" Click="ButtonOk_Click" Name="btnOk" Style="{StaticResource btnOk}">
-			<StackPanel Orientation="Horizontal">
+
+		<Button Grid.Column="0" Name="btnOk" Command="v:Commands.Nav_Ok">
 				<Image Source="/POS.Client;component/Images/Confirm_16x16.png"/>
-				<TextBlock Text="Ok"/>
-			</StackPanel>
 		</Button>
-		<Button Grid.Column="1" Click="ButtonAdd_Click" Name="btnAdd" >
-			<StackPanel Orientation="Horizontal">
+		<Button Grid.Column="1" Name="btnAdd" Command="v:Commands.Nav_Insert">
 				<Image Source="/POS.Client;component/Images/Add_16x16.png"/>
-				<TextBlock Text="New ..." />
-			</StackPanel>
 		</Button>
-		<Button Grid.Column="2" Click="ButtonEdit_Click" Name="btnEdit" IsEnabled="False">
-			<StackPanel Orientation="Horizontal">
+		<Button Grid.Column="2" Name="btnEdit" Command="v:Commands.Nav_Update">
 				<Image Source="/POS.Client;component/Images/Edit_16x16.png"/>
-				<TextBlock Text="Edit ..." />
-			</StackPanel>
 		</Button>
-		<Button Grid.Column="3" Click="ButtonDel_Click" Name="btnDel" IsEnabled="False">
-			<StackPanel Orientation="Horizontal">
+		<Button Grid.Column="3" Name="btnDel" Command="v:Commands.Nav_Delete">
 				<Image Source="/POS.Client;component/Images/Delete_16x16.png" />
-				<TextBlock Text="Delete"/>
-			</StackPanel>
 		</Button>
 	</Grid>
 </UserControl>
