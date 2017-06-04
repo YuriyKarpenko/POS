@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/POS.Data.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/POS.Data.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8888/ServicePOS?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:8888/ServicePOS?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System" />
+  <xs:complexType name="RequestAPI">
+    <xs:sequence>
+      <xs:element name="_x003C_Actioin_x003E_k__BackingField" type="tns:ActionAPI" />
+      <xs:element name="_x003C_DataAction_x003E_k__BackingField" type="tns:DataAction" />
+      <xs:element name="_x003C_Data_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Table_x003E_k__BackingField" type="tns:Tables" />
+      <xs:element name="_x003C_Tag_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_UserId_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_User_Login_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_User_Password_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="_x003C_Where_x003E_k__BackingField" nillable="true" type="q1:ArrayOfKeyValueOfstringstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RequestAPI" nillable="true" type="tns:RequestAPI" />
+  <xs:simpleType name="ActionAPI">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Login" />
+      <xs:enumeration value="DicGet" />
+      <xs:enumeration value="DicSet" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ActionAPI" nillable="true" type="tns:ActionAPI" />
+  <xs:simpleType name="DataAction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Delete" />
+      <xs:enumeration value="Insert" />
+      <xs:enumeration value="Update" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="DataAction" nillable="true" type="tns:DataAction" />
   <xs:simpleType name="Tables">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Bill" />
@@ -15,6 +47,26 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Tables" nillable="true" type="tns:Tables" />
+  <xs:complexType name="ResponceAPI">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Data" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Drscription" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="Error" nillable="true" type="q2:Exception" />
+      <xs:element minOccurs="0" name="Result" type="tns:ResultAPI" />
+      <xs:element minOccurs="0" name="ResultQuantity" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResponceAPI" nillable="true" type="tns:ResponceAPI" />
+  <xs:simpleType name="ResultAPI">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ok" />
+      <xs:enumeration value="Permission" />
+      <xs:enumeration value="ErrorDB" />
+      <xs:enumeration value="ErrorService" />
+      <xs:enumeration value="ErrorOther" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ResultAPI" nillable="true" type="tns:ResultAPI" />
   <xs:simpleType name="IdColumn">
     <xs:restriction base="xs:string">
       <xs:enumeration value="BillId" />
@@ -29,12 +81,4 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="IdColumn" nillable="true" type="tns:IdColumn" />
-  <xs:simpleType name="DataAction">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Delete" />
-      <xs:enumeration value="Insert" />
-      <xs:enumeration value="Update" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="DataAction" nillable="true" type="tns:DataAction" />
 </xs:schema>

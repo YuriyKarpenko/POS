@@ -5,31 +5,15 @@
       <xsd:import schemaLocation="http://localhost:8888/ServicePOS?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8888/ServicePOS?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8888/ServicePOS?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/POS.Data.Model" />
+      <xsd:import schemaLocation="http://localhost:8888/ServicePOS?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8888/ServicePOS?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="Service1_Login_InputMessage">
-    <wsdl:part name="parameters" element="tns:Login" />
+  <wsdl:message name="Service1_UseAPI_InputMessage">
+    <wsdl:part name="parameters" element="tns:UseAPI" />
   </wsdl:message>
-  <wsdl:message name="Service1_Login_OutputMessage">
-    <wsdl:part name="parameters" element="tns:LoginResponse" />
-  </wsdl:message>
-  <wsdl:message name="Service1_Delete_InputMessage">
-    <wsdl:part name="parameters" element="tns:Delete" />
-  </wsdl:message>
-  <wsdl:message name="Service1_Delete_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteResponse" />
-  </wsdl:message>
-  <wsdl:message name="Service1_Insert_InputMessage">
-    <wsdl:part name="parameters" element="tns:Insert" />
-  </wsdl:message>
-  <wsdl:message name="Service1_Insert_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertResponse" />
-  </wsdl:message>
-  <wsdl:message name="Service1_Update_InputMessage">
-    <wsdl:part name="parameters" element="tns:Update" />
-  </wsdl:message>
-  <wsdl:message name="Service1_Update_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateResponse" />
+  <wsdl:message name="Service1_UseAPI_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UseAPIResponse" />
   </wsdl:message>
   <wsdl:message name="Service1_Sel_ById_InputMessage">
     <wsdl:part name="parameters" element="tns:Sel_ById" />
@@ -44,21 +28,9 @@
     <wsdl:part name="parameters" element="tns:ApplyActionResponse" />
   </wsdl:message>
   <wsdl:portType name="Service1">
-    <wsdl:operation name="Login">
-      <wsdl:input wsaw:Action="http://tempuri.org/Service1/Login" message="tns:Service1_Login_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/Service1/LoginResponse" message="tns:Service1_Login_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Delete">
-      <wsdl:input wsaw:Action="http://tempuri.org/Service1/Delete" message="tns:Service1_Delete_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/Service1/DeleteResponse" message="tns:Service1_Delete_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Insert">
-      <wsdl:input wsaw:Action="http://tempuri.org/Service1/Insert" message="tns:Service1_Insert_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/Service1/InsertResponse" message="tns:Service1_Insert_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Update">
-      <wsdl:input wsaw:Action="http://tempuri.org/Service1/Update" message="tns:Service1_Update_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/Service1/UpdateResponse" message="tns:Service1_Update_OutputMessage" />
+    <wsdl:operation name="UseAPI">
+      <wsdl:input wsaw:Action="http://tempuri.org/Service1/UseAPI" message="tns:Service1_UseAPI_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Service1/UseAPIResponse" message="tns:Service1_UseAPI_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Sel_ById">
       <wsdl:input wsaw:Action="http://tempuri.org/Service1/Sel_ById" message="tns:Service1_Sel_ById_InputMessage" />
@@ -71,35 +43,8 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_Service1" type="tns:Service1">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="Login">
-      <soap:operation soapAction="http://tempuri.org/Service1/Login" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Delete">
-      <soap:operation soapAction="http://tempuri.org/Service1/Delete" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Insert">
-      <soap:operation soapAction="http://tempuri.org/Service1/Insert" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Update">
-      <soap:operation soapAction="http://tempuri.org/Service1/Update" style="document" />
+    <wsdl:operation name="UseAPI">
+      <soap:operation soapAction="http://tempuri.org/Service1/UseAPI" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

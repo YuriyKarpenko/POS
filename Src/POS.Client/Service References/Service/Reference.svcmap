@@ -21,10 +21,12 @@
     <MetadataSource Address="http://localhost:8888/ServicePOS" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ServicePOS.xsd" MetadataType="Schema" ID="87867e98-b18f-4dfc-a329-d56b175f2b57" SourceId="1" SourceUrl="http://localhost:8888/ServicePOS?xsd=xsd0" />
-    <MetadataFile FileName="Service11.wsdl" MetadataType="Wsdl" ID="88fc6c85-2022-400d-9866-309c1d53971c" SourceId="1" SourceUrl="http://localhost:8888/ServicePOS?wsdl" />
     <MetadataFile FileName="Service11.xsd" MetadataType="Schema" ID="3a604af6-2934-4208-b943-dde39276309a" SourceId="1" SourceUrl="http://localhost:8888/ServicePOS?xsd=xsd1" />
+    <MetadataFile FileName="ServicePOS.xsd" MetadataType="Schema" ID="87867e98-b18f-4dfc-a329-d56b175f2b57" SourceId="1" SourceUrl="http://localhost:8888/ServicePOS?xsd=xsd0" />
+    <MetadataFile FileName="ServicePOS1.xsd" MetadataType="Schema" ID="adea13e7-be14-413b-85f1-5f6ae29bedb5" SourceId="1" SourceUrl="http://localhost:8888/ServicePOS?xsd=xsd4" />
     <MetadataFile FileName="ServicePOS.disco" MetadataType="Disco" ID="184a5300-5618-4b53-9f51-4ca531cfcc6a" SourceId="1" SourceUrl="http://localhost:8888/ServicePOS?disco" />
+    <MetadataFile FileName="ServicePOS11.xsd" MetadataType="Schema" ID="e636dc70-5599-4542-99f4-f3b5a425ac7a" SourceId="1" SourceUrl="http://localhost:8888/ServicePOS?xsd=xsd3" />
+    <MetadataFile FileName="Service11.wsdl" MetadataType="Wsdl" ID="88fc6c85-2022-400d-9866-309c1d53971c" SourceId="1" SourceUrl="http://localhost:8888/ServicePOS?wsdl" />
     <MetadataFile FileName="ServicePOS2.xsd" MetadataType="Schema" ID="cfe36a0c-e810-44f1-b2e0-4ef0b487d114" SourceId="1" SourceUrl="http://localhost:8888/ServicePOS?xsd=xsd2" />
   </Metadata>
   <Extensions>

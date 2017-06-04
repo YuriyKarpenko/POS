@@ -10,8 +10,8 @@ namespace POS.Data.Model.Mapping
 		{
 			HasKey(e => e.Id);
 			Property(e => e.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-			Property(e => e.DateCreated).IsRequired().HasColumnType("datetime");
-			Property(e => e.DateLastModified).IsRequired().HasColumnType("datetime");
+			//Property(e => e.DateCreated).IsRequired().HasColumnType("datetime2");
+			//Property(e => e.DateLastModified).IsRequired().HasColumnType("datetime2");
 		}
 	}
 }

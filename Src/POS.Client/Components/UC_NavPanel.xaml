@@ -13,10 +13,6 @@
 			<Setter Property="Margin" Value="2"/>
 			<Setter Property="Stretch" Value="None" />
 		</Style>
-		<!--	TextBlock	-->
-		<Style TargetType="{x:Type TextBlock}">
-			<Setter Property="Margin" Value="2"/>
-		</Style>
 		<!--	Button	-->
 		<Style BasedOn="{StaticResource cmd_h}" TargetType="{x:Type Button}">
 			<Setter Property="VerticalAlignment" Value="Center"/>

@@ -12,11 +12,9 @@ using POS.Data.Model;
 
 namespace POS.Client.ViewModel
 {
-	public abstract class VM_Dic_Base<T> : VM_Workspace, IVM_Editable where T : class, new()
+	public abstract class VM_Dic_Base<T> : VM_Workspace where T : class, new()
 	{
 		internal Tables curDic;
-
-		protected Service.Service1 svc = new Service.Service1Client();
 
 		//protected ObservableCollection<T> _items = null;
 		//public ObservableCollection<T> Items
@@ -56,7 +54,7 @@ namespace POS.Client.ViewModel
 			try
 			{
 				//Items.List.Clear();
-				var str = svc.Sel_ById(curDic, null, IdColumn.Id);
+				var str = ServiceClient.Instance.Dictionary_Get(curDic);
 				var coll = Serializer_Json.Deserialize<IEnumerable<T>>(str);
 				_items.AddRange(coll);
 			}
@@ -67,38 +65,21 @@ namespace POS.Client.ViewModel
 			}
 		}
 
-		protected virtual void Add(T item)
-		{
-			var res = ApplyAction(DataAction.Insert, item);
-			Contract.Requires(res == 1, $"Проблемы при вставке записи {item}");
-		}
-
-		protected virtual void Edit(T item)
-		{
-			var res = ApplyAction(DataAction.Update, item);
-			Contract.Requires(res == 1, $"Проблемы при редактировании записи {item}");
-		}
-
-		protected virtual void Delete(T item)
-		{
-			var res = ApplyAction(DataAction.Delete, item);
-			Contract.Requires(res == 1, $"Проблемы при удалении записи {item}");
-		}
-
 		protected virtual int ApplyAction(DataAction act, T item)
 		{
 			//this.Debug("()");
 			try
 			{
-				var str = Serializer_Json.Serialize_ToString(item);
-				var res = svc.ApplyAction(curDic, act, str);
+				var res = ServiceClient.Instance.Dictionary_Set(curDic, act, item);
+				Contract.Requires(res == 1, $"Проблемы при '{act}' записи '{item}'");
 				return res;
 			}
 			catch (Exception ex)
 			{
-				this.Error(ex, $"({act}, {item})");
-				throw;
+				this.Error(ex, $"({curDic}, {act}, {item})");
+				//throw;
 			}
+			return 0;
 		}
 
 		protected virtual T newItem()
@@ -112,10 +93,10 @@ namespace POS.Client.ViewModel
 		{
 			base.Init_Command_Internal(uc);
 
-			uc.CommandBindings.Add(V.Commands.Nav_Delete, OnDelete_Click, CanSelected);
-			uc.CommandBindings.Add(V.Commands.Nav_Insert, OnAdd_Click);
-			uc.CommandBindings.Add(V.Commands.Nav_Ok, OnOk_Click);
-			uc.CommandBindings.Add(V.Commands.Nav_Update, OnEdit_Click, CanSelected);
+			uc.CommandBindings.Add(V.Commands.Nav_Delete, ActDelete, CanSelected);
+			uc.CommandBindings.Add(V.Commands.Nav_Insert, ActAdd);
+			uc.CommandBindings.Add(V.Commands.Nav_Ok, ActOk);
+			uc.CommandBindings.Add(V.Commands.Nav_Update, ActEdit, CanSelected);
 		}
 
 		protected virtual void CanSelected(object sender, CanExecuteRoutedEventArgs e)
@@ -123,63 +104,44 @@ namespace POS.Client.ViewModel
 			e.CanExecute = Items.HasSelected;
 		}
 
-		public virtual void OnAdd_Click(object sender, RoutedEventArgs e)
+		public virtual void ActAdd(object sender, ExecutedRoutedEventArgs e)
 		{
 			var item = this.newItem();
 
 			Win_Modal w = new Win_Modal();
-
-			if (w != null)
+			if (w.ShowDialog(item, null) == true)
 			{
-				w.DataContext = item;
+				ApplyAction(DataAction.Insert, item);
 
-				bool? res = w.ShowDialog();
-
-				if (res == true)
-				{
-					this.Add(item);
-
-					this.Items.Reset();
-
-					//this.Cmd = modifieCmd.Add;
-				}
+				this.Items.Reset();
 			}
 		}
 
-		public virtual void OnDelete_Click(object sender, RoutedEventArgs e)
+		public virtual void ActDelete(object sender, ExecutedRoutedEventArgs e)
 		{
-			if (Items.SelectedItem != null)
+			if (Items.HasSelected)
 			{
-				this.Delete(Items.SelectedItem);
+				ApplyAction(DataAction.Delete, Items.SelectedItem);
 
 				Items.Reset();
 			}
 		}
 
-		public virtual void OnEdit_Click(object sender, RoutedEventArgs e)
+		public virtual void ActEdit(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (Items.HasSelected)
 			{
 				Win_Modal w = new Win_Modal();
-
-				if (w != null)
+				if (w.ShowDialog(Items.SelectedItem, null) == true)
 				{
-					w.DataContext = Items.SelectedItem;
+					ApplyAction(DataAction.Update, Items.SelectedItem);
 
-					bool? res = w.ShowDialog();
-
-					if (res == true)
-					{
-						this.Edit(Items.SelectedItem);
-
-						Items.Reset();
-						//Cmd = modifieCmd.Edit;
-					}
+					Items.Reset();
 				}
 			}
 		}
 
-		public virtual void OnOk_Click(object sender, RoutedEventArgs e)
+		public virtual void ActOk(object sender, ExecutedRoutedEventArgs e)
 		{
 			Items.Reset();
 		}

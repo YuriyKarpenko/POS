@@ -5,7 +5,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using System.Text;
+
+using IT;
 
 using POS.Data.Model;
 using POS.Data.Repositories;
@@ -15,10 +16,9 @@ namespace POS.Data.Service
 	[ServiceContract]
 	[ServiceBehavior(IncludeExceptionDetailInFaults = true)]
 	[KnownType(typeof(IPersistedModel))]
-	[KnownType(typeof(Division))]
-	[KnownType(typeof(User))]
-	[KnownType(typeof(UserGroup))]
-	public class Service1
+	[KnownType(typeof(ResponceAPI))]
+	[KnownType(typeof(RequestAPI))]
+	public class Service1 : ILog
 	{
 		private static string _connString = System.Configuration.ConfigurationManager.ConnectionStrings["POSContext"].ConnectionString;
 
@@ -28,28 +28,46 @@ namespace POS.Data.Service
 		}
 
 		[OperationContract]
-		public Guid Login(string password)
+		public ResponceAPI UseAPI(RequestAPI request)
 		{
-			return Guid.Empty;
+			var res = new ResponceAPI();
+			try
+			{
+				//	validation request
+
+				res.ResultQuantity = POSContext.UsingContext(_connString, con => {
+					//	identity user
+					User user = null;
+					this.Debug($"({request.Action} | {user})");
+
+					switch (request.Action)
+					{
+						case ActionAPI.Dictionary_Get:
+							//	TODO:	mast use where
+							res.Data = Sel_ById(request.Table, null, IdColumn.Id);
+							break;
+
+						case ActionAPI.Dictionary_Set:
+							return ApplyAction(request.Table, request.DataAction, request.Data);
+					}
+
+					return 0;
+				});
+			}
+			catch (Exception ex)
+			{
+				this.Error(ex, $"({request})");
+				res.Error = ex;
+				if (res.Result == ResultAPI.Ok)
+				{
+					res.Result = ResultAPI.ErrorOther;
+				}
+				//throw;
+			}
+
+			return res;
 		}
 
-
-
-		[OperationContract]
-		public int Delete(Tables tab, string item)
-		{
-			return ApplyAction(tab, DataAction.Delete, item);
-		}
-		[OperationContract]
-		public int Insert(Tables tab, string item)
-		{
-			return ApplyAction(tab, DataAction.Insert, item);
-		}
-		[OperationContract]
-		public int Update(Tables tab, string item)
-		{
-			return ApplyAction(tab, DataAction.Update, item);
-		}
 
 		[OperationContract]
 		public string Sel_ById(Tables tab, int? id, IdColumn col)

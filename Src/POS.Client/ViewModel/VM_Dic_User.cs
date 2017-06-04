@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows;
+using System.Windows.Input;
 
 //using CoderOD.DB35.Common;
 
@@ -13,7 +13,7 @@ namespace POS.Client.ViewModel
 		public VM_Dic_User(VM_Workspace parent) : base(parent, "Пользователи", Data.Model.Tables.User) { }
 
 
-		public override void OnEdit_Click(object sender, RoutedEventArgs e)
+		public override void ActEdit(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (Items.SelectedItem == null) return;
 
@@ -29,7 +29,7 @@ namespace POS.Client.ViewModel
 			bool? res = w.ShowDialog();
 			if (res == true)
 			{
-				Edit(item);
+				ApplyAction(Data.Model.DataAction.Update, item);
 				Items.Reset();
 				//Cmd = modifieCmd.Edit;
 			}

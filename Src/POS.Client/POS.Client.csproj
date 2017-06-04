@@ -95,7 +95,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\IVM_Editable.cs" />
+    <Compile Include="ServiceClient.cs" />
     <Compile Include="ViewModel\List_Current_Helper.cs" />
     <Compile Include="ViewModel\Manager\VM_Manager.cs" />
     <Compile Include="ViewModel\VM_Base.cs" />
@@ -209,15 +209,19 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="Properties\DataSources\POS.Data.Types.Division.datasource" />
-    <None Include="Properties\DataSources\POS.Data.Types.User.datasource" />
-    <None Include="Properties\DataSources\POS.Data.Types.UserGroup.datasource" />
     <AppDesigner Include="Properties\" />
+    <None Include="Properties\DataSources\POS.Data.Model.ResponceAPI.datasource" />
     <None Include="Service References\Service\Service11.wsdl" />
     <None Include="Service References\Service\ServicePOS.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\Service\Service11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Service\ServicePOS1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Service\ServicePOS11.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\Service\ServicePOS2.xsd">

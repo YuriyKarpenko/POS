@@ -15,17 +15,8 @@ namespace POS.Client.Service {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Service.Service1")]
     public interface Service1 {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service1/Login", ReplyAction="http://tempuri.org/Service1/LoginResponse")]
-        System.Guid Login(string password);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service1/Delete", ReplyAction="http://tempuri.org/Service1/DeleteResponse")]
-        int Delete(POS.Data.Model.Tables tab, string item);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service1/Insert", ReplyAction="http://tempuri.org/Service1/InsertResponse")]
-        int Insert(POS.Data.Model.Tables tab, string item);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service1/Update", ReplyAction="http://tempuri.org/Service1/UpdateResponse")]
-        int Update(POS.Data.Model.Tables tab, string item);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service1/UseAPI", ReplyAction="http://tempuri.org/Service1/UseAPIResponse")]
+        POS.Data.Model.ResponceAPI UseAPI(POS.Data.Model.RequestAPI request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service1/Sel_ById", ReplyAction="http://tempuri.org/Service1/Sel_ByIdResponse")]
         string Sel_ById(POS.Data.Model.Tables tab, System.Nullable<int> id, POS.Data.Model.IdColumn col);
@@ -61,20 +52,8 @@ namespace POS.Client.Service {
                 base(binding, remoteAddress) {
         }
         
-        public System.Guid Login(string password) {
-            return base.Channel.Login(password);
-        }
-        
-        public int Delete(POS.Data.Model.Tables tab, string item) {
-            return base.Channel.Delete(tab, item);
-        }
-        
-        public int Insert(POS.Data.Model.Tables tab, string item) {
-            return base.Channel.Insert(tab, item);
-        }
-        
-        public int Update(POS.Data.Model.Tables tab, string item) {
-            return base.Channel.Update(tab, item);
+        public POS.Data.Model.ResponceAPI UseAPI(POS.Data.Model.RequestAPI request) {
+            return base.Channel.UseAPI(request);
         }
         
         public string Sel_ById(POS.Data.Model.Tables tab, System.Nullable<int> id, POS.Data.Model.IdColumn col) {
