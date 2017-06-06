@@ -18,23 +18,6 @@ namespace POS.Client.ViewModel
 	{
 		internal Tables curDic;
 
-		//protected ObservableCollection<T> _items = null;
-		//public ObservableCollection<T> Items
-		//{
-		//	get
-		//	{
-		//		if (this._items == null)
-		//		{
-		//			this._items = new ObservableCollection<T>();
-		//		}
-
-		//		this.Load();
-
-		//		return this._items;
-		//	}
-		//}
-
-		//public virtual T SelectedItem { get; set; }
 		public SelectorPropertyWPF<T> Items { get; private set; }
 
 		protected VM_Dic_Base(VM_Workspace parent, string caption, Tables curTable) : base(parent, caption)
@@ -55,10 +38,14 @@ namespace POS.Client.ViewModel
 			this.Debug("()");
 			try
 			{
-				//Items.List.Clear();
-				var str = ServiceClient.Instance.Dictionary_Get(curDic);
-				var coll = JsonConvert.DeserializeObject<IEnumerable<T>>(str);
-				_items.AddRange(coll);
+				var where = new Dictionary<string, object>();
+				//where.Add("Id", 1);
+				var str = ServiceClient.Instance.Dictionary_Get(curDic, where);
+				if (!string.IsNullOrEmpty(str))
+				{
+					var coll = JsonConvert.DeserializeObject<IEnumerable<T>>(str);
+					_items.AddRange(coll);
+				}
 			}
 			catch (Exception ex)
 			{

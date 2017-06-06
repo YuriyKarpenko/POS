@@ -36,7 +36,7 @@ namespace POS.Client
 			}
 		}
 
-		public string Dictionary_Get(Tables tab)
+		public string Dictionary_Get(Tables tab, Dictionary<string, object> where)
 		{
 			try
 			{
@@ -44,6 +44,7 @@ namespace POS.Client
 				{
 					Action = ActionAPI.Dictionary_Get,
 					Table = tab,
+					Where = where
 				};
 
 				var res = Execute(arg);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
@@ -45,7 +46,7 @@ namespace POS.Data.Service
 					{
 						case ActionAPI.Dictionary_Get:
 							//	TODO:	mast use where
-							res.Data = Sel_ById(request.Table, null, IdColumn.Id);
+							res.Data = Sel_ById(request.Table, request.Where);
 							break;
 
 						case ActionAPI.Dictionary_Set:
@@ -71,20 +72,20 @@ namespace POS.Data.Service
 
 
 		[OperationContract]
-		public string Sel_ById(Tables tab, int? id, IdColumn col)
+		public string Sel_ById(Tables tab, Dictionary<string, object> where)
 		{
 			switch (tab)
 			{
-				case Tables.Bill: return Sel_ById<Bill>(id, col);
-				case Tables.BillItem: return Sel_ById<BillItem>(id, col);
-				case Tables.Division: return Sel_ById<Division>(id, col);
-				case Tables.MenuGroup: return Sel_ById<MenuGroup>(id, col);
-				case Tables.MenuItem: return Sel_ById<MenuItem>(id, col);
-				//case Tables.Option: return Sel_ById<>(id, col);
-				case Tables.Price: return Sel_ById<Price>(id, col);
-				case Tables.PriceList: return Sel_ById<PriceList>(id, col);
-				case Tables.User: return Sel_ById<User>(id, col);
-				case Tables.UserGroup: return Sel_ById<UserGroup>(id, col);
+				case Tables.Bill: return Sel_ById<Bill>(where);
+				case Tables.BillItem: return Sel_ById<BillItem>(where);
+				case Tables.Division: return Sel_ById<Division>(where);
+				case Tables.MenuGroup: return Sel_ById<MenuGroup>(where);
+				case Tables.MenuItem: return Sel_ById<MenuItem>(where);
+				//case Tables.Option: return Sel_ById<>(where);
+				case Tables.Price: return Sel_ById<Price>(where);
+				case Tables.PriceList: return Sel_ById<PriceList>(where);
+				case Tables.User: return Sel_ById<User>(where);
+				case Tables.UserGroup: return Sel_ById<UserGroup>(where);
 			}
 			return null;
 		}
@@ -130,7 +131,7 @@ namespace POS.Data.Service
 			return 0;
 		}
 
-		public string Sel_ById<T>(int? id, IdColumn col) where T : class, IPersistedModel
+		public string Sel_ById<T>(Dictionary<string, object> where) where T : class, IPersistedModel
 		{
 			return POSContext.UsingContext(_connString, context =>
 			{
@@ -138,15 +139,8 @@ namespace POS.Data.Service
 
 				IEnumerable<T> res = null;
 
-				switch (col)
-				{
-					case IdColumn.Id:
-						res = repo.Select(c => c.Where(i => !id.HasValue || i.Id == id.Value));
-						break;
-					case IdColumn.DivisionId:
-						res = repo.Select(c => c.Where(i => !id.HasValue || i.Id == id.Value));
-						break;
-				}
+				var expr = GetWhere<T>(where);
+						res = repo.Select(c => c.Where(expr));
 
 				if (res.Any())
 				{
@@ -156,6 +150,37 @@ namespace POS.Data.Service
 				return null;
 			});
 		}
+
+		private Expression<Func<T, bool>> GetWhere<T>(Dictionary<string, object> where)
+		{
+			this.Debug("()");
+			try
+			{
+				var param = Expression.Parameter(typeof(T), "item");
+
+				var eConst = Expression.Constant(true, typeof(bool));
+				var body = Expression.Equal(eConst, eConst);
+				if (where?.Any() == true)
+				{
+					foreach (var kv in where) {
+						var pi = typeof(T).GetProperty(kv.Key);
+
+						var left = Expression.Property(param, pi);
+						var right = Expression.Constant(kv.Value, pi.PropertyType);
+						//right = Expression.Constant(right, pi.PropertyType);
+						var e = Expression.Equal(left, right);
+						body = Expression.And(body, e);
+					}
+				}
+				return Expression.Lambda<Func<T, bool>>(body, param);
+			}
+			catch (Exception ex)
+			{
+				this.Error(ex, "()");
+				throw;
+			}
+		}
+
 
 		#endregion
 	}
