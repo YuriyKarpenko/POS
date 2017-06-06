@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 
+using Newtonsoft.Json;
 using IT;
 
 using POS.Data.Model;
@@ -85,7 +86,7 @@ namespace POS.Data.Service
 				case Tables.User: return Sel_ById<User>(id, col);
 				case Tables.UserGroup: return Sel_ById<UserGroup>(id, col);
 			}
-			return string.Empty;
+			return null;
 		}
 
 		[OperationContract]
@@ -111,7 +112,7 @@ namespace POS.Data.Service
 
 		private int ApplyAction<T>(DataAction act, string serializedItem) where T : class, IPersistedModel
 		{
-			T item = IT.Serializer_Json.Deserialize<T>(serializedItem);
+			T item = JsonConvert.DeserializeObject<T>(serializedItem);
 			if (item != null)
 			{
 				return POSContext.UsingContext(_connString, context =>
@@ -149,10 +150,10 @@ namespace POS.Data.Service
 
 				if (res.Any())
 				{
-					return IT.Serializer_Json.Serialize_ToString(res);
+					return JsonConvert.SerializeObject(res);
 				}
 
-				return string.Empty;
+				return null;
 			});
 		}
 

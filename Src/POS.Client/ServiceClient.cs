@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Newtonsoft.Json;
+
 using IT;
 using POS.Data.Model;
 
@@ -74,7 +76,7 @@ namespace POS.Client
 						Action = ActionAPI.Dictionary_Set,
 						DataAction = act,
 						Table = tab,
-						Data = Serializer_Json.Serialize_ToString(item)
+						Data = JsonConvert.SerializeObject(item)
 					};
 
 					var res = Execute(arg);

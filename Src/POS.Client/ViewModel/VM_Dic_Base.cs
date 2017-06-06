@@ -5,6 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
+using Newtonsoft.Json;
+
 using IT;
 using IT.WPF;
 using V = POS.Client.View;
@@ -55,7 +57,7 @@ namespace POS.Client.ViewModel
 			{
 				//Items.List.Clear();
 				var str = ServiceClient.Instance.Dictionary_Get(curDic);
-				var coll = Serializer_Json.Deserialize<IEnumerable<T>>(str);
+				var coll = JsonConvert.DeserializeObject<IEnumerable<T>>(str);
 				_items.AddRange(coll);
 			}
 			catch (Exception ex)
