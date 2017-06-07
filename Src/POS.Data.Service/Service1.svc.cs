@@ -37,7 +37,8 @@ namespace POS.Data.Service
 			{
 				//	validation request
 
-				res.ResultQuantity = POSContext.UsingContext(_connString, con => {
+				res.ResultQuantity = POSContext.UsingContext(_connString, con =>
+				{
 					//	identity user
 					User user = null;
 					this.Debug($"({request.Action} | {user})");
@@ -46,7 +47,7 @@ namespace POS.Data.Service
 					{
 						case ActionAPI.Dictionary_Get:
 							//	TODO:	mast use where
-							res.Data = Sel_ById(request.Table, request.Where);
+							res.Data = Sel_ById(request.Table, request);
 							break;
 
 						case ActionAPI.Dictionary_Set:
@@ -70,25 +71,6 @@ namespace POS.Data.Service
 			return res;
 		}
 
-
-		[OperationContract]
-		public string Sel_ById(Tables tab, Dictionary<string, object> where)
-		{
-			switch (tab)
-			{
-				case Tables.Bill: return Sel_ById<Bill>(where);
-				case Tables.BillItem: return Sel_ById<BillItem>(where);
-				case Tables.Division: return Sel_ById<Division>(where);
-				case Tables.MenuGroup: return Sel_ById<MenuGroup>(where);
-				case Tables.MenuItem: return Sel_ById<MenuItem>(where);
-				//case Tables.Option: return Sel_ById<>(where);
-				case Tables.Price: return Sel_ById<Price>(where);
-				case Tables.PriceList: return Sel_ById<PriceList>(where);
-				case Tables.User: return Sel_ById<User>(where);
-				case Tables.UserGroup: return Sel_ById<UserGroup>(where);
-			}
-			return null;
-		}
 
 		[OperationContract]
 		public int ApplyAction(Tables tab, DataAction act, string serializedItem)
@@ -131,16 +113,33 @@ namespace POS.Data.Service
 			return 0;
 		}
 
-		public string Sel_ById<T>(Dictionary<string, object> where) where T : class, IPersistedModel
+
+		private string Sel_ById(Tables tab, RequestAPI request)
+		{
+			switch (tab)
+			{
+				case Tables.Bill: return Sel_ById<Bill>(request);
+				case Tables.BillItem: return Sel_ById<BillItem>(request);
+				case Tables.Division: return Sel_ById<Division>(request);
+				case Tables.MenuGroup: return Sel_ById<MenuGroup>(request);
+				case Tables.MenuItem: return Sel_ById<MenuItem>(request);
+				//case Tables.Option: return Sel_ById<>(where);
+				case Tables.Price: return Sel_ById<Price>(request);
+				case Tables.PriceList: return Sel_ById<PriceList>(request);
+				case Tables.User: return Sel_ById<User>(request);
+				case Tables.UserGroup: return Sel_ById<UserGroup>(request);
+			}
+			return null;
+		}
+
+		private string Sel_ById<T>(RequestAPI request) where T : class, IPersistedModel
 		{
 			return POSContext.UsingContext(_connString, context =>
 			{
 				var repo = new BaseRepository<T>(context);
 
-				IEnumerable<T> res = null;
-
-				var expr = GetWhere<T>(where);
-						res = repo.Select(c => c.Where(expr));
+				var expr = GetWhere<T>(request);
+				var res = repo.Select(c => c.Where(expr));
 
 				if (res.Any())
 				{
@@ -151,7 +150,7 @@ namespace POS.Data.Service
 			});
 		}
 
-		private Expression<Func<T, bool>> GetWhere<T>(Dictionary<string, object> where)
+		private Expression<Func<T, bool>> GetWhere<T>(RequestAPI request)
 		{
 			this.Debug("()");
 			try
@@ -160,14 +159,14 @@ namespace POS.Data.Service
 
 				var eConst = Expression.Constant(true, typeof(bool));
 				var body = Expression.Equal(eConst, eConst);
-				if (where?.Any() == true)
+				if (request.WhereEqual?.Any() == true)
 				{
-					foreach (var kv in where) {
+					foreach (var kv in request.WhereEqual)
+					{
 						var pi = typeof(T).GetProperty(kv.Key);
 
 						var left = Expression.Property(param, pi);
 						var right = Expression.Constant(kv.Value, pi.PropertyType);
-						//right = Expression.Constant(right, pi.PropertyType);
 						var e = Expression.Equal(left, right);
 						body = Expression.And(body, e);
 					}

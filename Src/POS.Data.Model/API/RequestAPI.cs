@@ -30,7 +30,7 @@ namespace POS.Data.Model
 		/// <summary>
 		/// Dictionary<[field], [condition]>
 		/// </summary>
-		public Dictionary<string, object> Where { get; set; }
+		public Dictionary<string, object> WhereEqual { get; set; }
 
 		/// <summary>
 		/// addition serialized data

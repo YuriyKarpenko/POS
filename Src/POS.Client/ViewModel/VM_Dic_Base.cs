@@ -14,7 +14,7 @@ using POS.Data.Model;
 
 namespace POS.Client.ViewModel
 {
-	public abstract class VM_Dic_Base<T> : VM_Workspace where T : class, new()
+	public abstract class VM_Dic_Base<T> : VM_Workspace where T : class, IPersistedModel, new()
 	{
 		internal Tables curDic;
 

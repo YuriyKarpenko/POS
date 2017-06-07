@@ -44,7 +44,7 @@ namespace POS.Client
 				{
 					Action = ActionAPI.Dictionary_Get,
 					Table = tab,
-					Where = where
+					WhereEqual = where
 				};
 
 				var res = Execute(arg);
