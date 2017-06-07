@@ -84,8 +84,8 @@ namespace POS.Client.ViewModel
 
 			uc.CommandBindings.Add(V.Commands.Nav_Delete, ActDelete, CanSelected);
 			uc.CommandBindings.Add(V.Commands.Nav_Insert, ActAdd);
-			uc.CommandBindings.Add(V.Commands.Nav_Ok, ActOk);
-			uc.CommandBindings.Add(V.Commands.Nav_Update, ActEdit, CanSelected);
+			uc.CommandBindings.Add(V.Commands.Nav_Refresh, ActRefresh);
+			uc.CommandBindings.Add(V.Commands.Nav_Edit, ActEdit, CanSelected);
 		}
 
 		protected virtual void CanSelected(object sender, CanExecuteRoutedEventArgs e)
@@ -130,7 +130,7 @@ namespace POS.Client.ViewModel
 			}
 		}
 
-		public virtual void ActOk(object sender, ExecutedRoutedEventArgs e)
+		public virtual void ActRefresh(object sender, ExecutedRoutedEventArgs e)
 		{
 			Items.Reset();
 		}

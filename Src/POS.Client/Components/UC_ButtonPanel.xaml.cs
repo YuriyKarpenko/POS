@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using IT.WPF;
+
 namespace POS.Client.Components
 {
 	/// <summary>
@@ -22,21 +24,22 @@ namespace POS.Client.Components
 		public UC_ButtonPanel()
 		{
 			InitializeComponent();
+			InitCmd();
 		}
 
-		private void buttonOk_Click(object sender, RoutedEventArgs e)
+		private void InitCmd()
 		{
-			DependencyObject o = this.Parent;
+			this.CommandBindings.Add(View.Commands.Nav_Cancel, e => BtnClick(false));
+			this.CommandBindings.Add(View.Commands.Nav_Ok, e => BtnClick(true));
+		}
 
-			while (o != null && !(o is Window))
+		private void BtnClick(bool isOk)
+		{
+			var w = this.GetVisualParent<Window>();
+			if(w != null)
 			{
-				o = (o as FrameworkElement).Parent;
-			}
-
-			if (o != null)
-			{
-				(o as Window).DialogResult = true;
-				(o as Window).Close();
+				w.DialogResult = isOk;
+				w?.Close();
 			}
 		}
 	}

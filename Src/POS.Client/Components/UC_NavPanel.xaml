@@ -14,9 +14,9 @@
 			<Setter Property="Stretch" Value="None" />
 		</Style>
 		<!--	Button	-->
-		<Style BasedOn="{StaticResource cmd_h}" TargetType="{x:Type Button}">
-			<Setter Property="VerticalAlignment" Value="Center"/>
+		<Style BasedOn="{StaticResource cmd_h2}" TargetType="{x:Type Button}">
 			<Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="MinWidth" Value="75"/>
 			<Style.Triggers>
 				<Trigger Property="IsMouseOver" Value="true">
 					<Setter Property="Foreground" Value="Red"/>
@@ -33,19 +33,10 @@
 			<ColumnDefinition Width="*" />
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
-		
 
-		<Button Grid.Column="0" Name="btnOk" Command="v:Commands.Nav_Ok">
-				<Image Source="/POS.Client;component/Images/Confirm_16x16.png"/>
-		</Button>
-		<Button Grid.Column="1" Name="btnAdd" Command="v:Commands.Nav_Insert">
-				<Image Source="/POS.Client;component/Images/Add_16x16.png"/>
-		</Button>
-		<Button Grid.Column="2" Name="btnEdit" Command="v:Commands.Nav_Update">
-				<Image Source="/POS.Client;component/Images/Edit_16x16.png"/>
-		</Button>
-		<Button Grid.Column="3" Name="btnDel" Command="v:Commands.Nav_Delete">
-				<Image Source="/POS.Client;component/Images/Delete_16x16.png" />
-		</Button>
+		<Button Grid.Column="0" Name="btnOk" Command="v:Commands.Nav_Refresh"/>
+		<Button Grid.Column="1" Name="btnAdd" Command="v:Commands.Nav_Insert"/>
+		<Button Grid.Column="2" Name="btnEdit" Command="v:Commands.Nav_Edit"/>
+		<Button Grid.Column="3" Name="btnDel" Command="v:Commands.Nav_Delete"/>
 	</Grid>
 </UserControl>

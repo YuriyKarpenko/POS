@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 
+			 xmlns:v="clr-namespace:POS.Client.View"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="300">
     <Grid Margin="10">
@@ -11,18 +13,14 @@
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 		
-		<Button Height="23" Margin="0" Name="buttonOk" Width="75" IsDefault="True" Click="buttonOk_Click">
-			<StackPanel Orientation="Horizontal">
-				<Image Margin="1" Source="/POS.Client;component/Images/Confirm_16x16.png" />
-				<TextBlock Margin="2,0,0,0" Text="Ok" />
-			</StackPanel>
-		</Button>
-		
-		<Button Height="23" Margin="0" Name="buttonCancel" Width="75" Grid.Column="1" IsCancel="True">
-			<StackPanel Orientation="Horizontal">
-				<Image Margin="1" Source="/POS.Client;component/Images/Delete_16x16.png" />
-				<TextBlock Margin="2,0,0,0" Text="Отмена" />
-			</StackPanel>
-		</Button>
+		<Grid.Resources>
+			<Style BasedOn="{StaticResource cmd_h2}" TargetType="{x:Type Button}">
+				<Setter Property="MinWidth" Value="75"/>
+			</Style>
+		</Grid.Resources>
+
+		<Button Name="buttonOk" IsDefault="True" Command="v:Commands.Nav_Ok"/>
+
+		<Button Name="buttonCancel" Grid.Column="1" IsCancel="True" Command="v:Commands.Nav_Cancel"/>
 	</Grid>
 </UserControl>

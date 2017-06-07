@@ -115,6 +115,7 @@
     <Compile Include="ViewModel\VM_Workspace.cs" />
     <Compile Include="ViewModel\VM_Workspace_Collection.cs" />
     <Compile Include="View\Commands.cs" />
+    <Compile Include="View\Converters.cs" />
     <Compile Include="View\V_Dictionary.xaml.cs">
       <DependentUpon>V_Dictionary.xaml</DependentUpon>
     </Compile>
