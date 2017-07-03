@@ -47,17 +47,8 @@ namespace POS.Client.VM
 		{
 			var caption = GetCaption(pi);
 
-			//var miGet = typeof()
-			//var getter = test_properties.CreateGetter(value);
-			//var setter = test_properties.CreateSetter(value);
-
-			//var v = getter(value);
-			//setter(value, "poh");
-
 			var tItem = typeof(PropertyRecord<>).MakeGenericType(pi.PropertyType);
 			var item = Activator.CreateInstance(tItem, new object[] { value, caption, pi });
-			//item = Activator.CreateInstance(tItem, new object[] { value, caption, getter, setter });
-			//var item = new PropertyRecord<MemberInfo, object>(value, caption, this.GetValue<object>, SetValue<object>);
 			return (IPropertyRecord)item;
 		}
 

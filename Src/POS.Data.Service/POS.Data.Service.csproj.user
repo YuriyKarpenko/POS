@@ -39,7 +39,7 @@
           <CustomServerUrl>
           </CustomServerUrl>
           <servers defaultServer="SelfHostServer">
-            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:27141/" workingDir="" />
+            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:8888/" workingDir="" />
           </servers>
         </WebProjectProperties>
       </FlavorProperties>

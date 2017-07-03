@@ -16,10 +16,11 @@
 		<Grid.Resources>
 			<Style BasedOn="{StaticResource cmd_h2}" TargetType="{x:Type Button}">
 				<Setter Property="MinWidth" Value="75"/>
+				<Setter Property="HorizontalAlignment" Value="Center"/>
 			</Style>
 		</Grid.Resources>
 
-		<Button Name="buttonOk" IsDefault="True" Command="v:Commands.Nav_Ok"/>
+		<Button Name="buttonOk" IsDefault="True" Command="v:Commands.Nav_Save"/>
 
 		<Button Name="buttonCancel" Grid.Column="1" IsCancel="True" Command="v:Commands.Nav_Cancel"/>
 	</Grid>

@@ -21,6 +21,7 @@ namespace POS.Client.V
 					case nameof(Commands.Nav_Ok):
 						return App.Current.FindResource("img_Ok");
 					case nameof(ApplicationCommands.Save):
+					case nameof(Commands.Nav_Save):
 						return App.Current.FindResource("img_Save");
 					case nameof(Commands.Nav_Insert):
 						return App.Current.FindResource("img_Plus");
