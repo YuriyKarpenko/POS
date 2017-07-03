@@ -4,7 +4,7 @@
   <xs:import schemaLocation="http://localhost:8888/ServicePOS?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System" />
   <xs:complexType name="RequestAPI">
     <xs:sequence>
-      <xs:element name="_x003C_Actioin_x003E_k__BackingField" type="tns:ActionAPI" />
+      <xs:element name="_x003C_Action_x003E_k__BackingField" type="tns:ActionAPI" />
       <xs:element name="_x003C_DataAction_x003E_k__BackingField" type="tns:DataAction" />
       <xs:element name="_x003C_Data_x003E_k__BackingField" nillable="true" type="xs:string" />
       <xs:element name="_x003C_Table_x003E_k__BackingField" type="tns:Tables" />
@@ -12,15 +12,15 @@
       <xs:element name="_x003C_UserId_x003E_k__BackingField" nillable="true" type="xs:string" />
       <xs:element name="_x003C_User_Login_x003E_k__BackingField" nillable="true" type="xs:string" />
       <xs:element name="_x003C_User_Password_x003E_k__BackingField" nillable="true" type="xs:string" />
-      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="_x003C_Where_x003E_k__BackingField" nillable="true" type="q1:ArrayOfKeyValueOfstringstring" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="_x003C_WhereEqual_x003E_k__BackingField" nillable="true" type="q1:ArrayOfKeyValueOfstringanyType" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="RequestAPI" nillable="true" type="tns:RequestAPI" />
   <xs:simpleType name="ActionAPI">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Login" />
-      <xs:enumeration value="DicGet" />
-      <xs:enumeration value="DicSet" />
+      <xs:enumeration value="Dictionary_Get" />
+      <xs:enumeration value="Dictionary_Set" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="ActionAPI" nillable="true" type="tns:ActionAPI" />
@@ -49,11 +49,11 @@
   <xs:element name="Tables" nillable="true" type="tns:Tables" />
   <xs:complexType name="ResponceAPI">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Data" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Drscription" nillable="true" type="xs:string" />
-      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="Error" nillable="true" type="q2:Exception" />
-      <xs:element minOccurs="0" name="Result" type="tns:ResultAPI" />
-      <xs:element minOccurs="0" name="ResultQuantity" type="xs:int" />
+      <xs:element name="_x003C_Data_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Description_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System" name="_x003C_Error_x003E_k__BackingField" nillable="true" type="q2:Exception" />
+      <xs:element name="_x003C_ResultQuantity_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_Result_x003E_k__BackingField" type="tns:ResultAPI" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ResponceAPI" nillable="true" type="tns:ResponceAPI" />
@@ -67,18 +67,4 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="ResultAPI" nillable="true" type="tns:ResultAPI" />
-  <xs:simpleType name="IdColumn">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="BillId" />
-      <xs:enumeration value="BillItemId" />
-      <xs:enumeration value="DivisionId" />
-      <xs:enumeration value="Id" />
-      <xs:enumeration value="MenuGroupId" />
-      <xs:enumeration value="MenuItemId" />
-      <xs:enumeration value="UserId" />
-      <xs:enumeration value="UserCreatedId" />
-      <xs:enumeration value="UserModifiedId" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="IdColumn" nillable="true" type="tns:IdColumn" />
 </xs:schema>

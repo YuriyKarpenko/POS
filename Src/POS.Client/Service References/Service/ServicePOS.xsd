@@ -15,27 +15,11 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="Sel_ById">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/POS.Data.Model" minOccurs="0" name="tab" type="q3:Tables" />
-        <xs:element minOccurs="0" name="id" nillable="true" type="xs:int" />
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/POS.Data.Model" minOccurs="0" name="col" type="q4:IdColumn" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="Sel_ByIdResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="Sel_ByIdResult" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="ApplyAction">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/POS.Data.Model" minOccurs="0" name="tab" type="q5:Tables" />
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/POS.Data.Model" minOccurs="0" name="act" type="q6:DataAction" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/POS.Data.Model" minOccurs="0" name="tab" type="q3:Tables" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/POS.Data.Model" minOccurs="0" name="act" type="q4:DataAction" />
         <xs:element minOccurs="0" name="serializedItem" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>

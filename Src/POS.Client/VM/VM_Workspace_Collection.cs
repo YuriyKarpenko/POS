@@ -75,7 +75,6 @@ namespace POS.Client.VM
 
 		#endregion
 
-		#region Helpers
 
 		protected virtual void SetActiveWorkspace(VM_Workspace workspace)
 		{
@@ -85,8 +84,6 @@ namespace POS.Client.VM
 			if (collectionView != null)
 				collectionView.MoveCurrentTo(workspace);
 		}
-
-		#endregion // Private Helpers
 
 	}
 }

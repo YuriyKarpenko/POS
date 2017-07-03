@@ -18,9 +18,6 @@ namespace POS.Client.Service {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service1/UseAPI", ReplyAction="http://tempuri.org/Service1/UseAPIResponse")]
         POS.Data.Model.ResponceAPI UseAPI(POS.Data.Model.RequestAPI request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service1/Sel_ById", ReplyAction="http://tempuri.org/Service1/Sel_ByIdResponse")]
-        string Sel_ById(POS.Data.Model.Tables tab, System.Nullable<int> id, POS.Data.Model.IdColumn col);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service1/ApplyAction", ReplyAction="http://tempuri.org/Service1/ApplyActionResponse")]
         int ApplyAction(POS.Data.Model.Tables tab, POS.Data.Model.DataAction act, string serializedItem);
     }
@@ -54,10 +51,6 @@ namespace POS.Client.Service {
         
         public POS.Data.Model.ResponceAPI UseAPI(POS.Data.Model.RequestAPI request) {
             return base.Channel.UseAPI(request);
-        }
-        
-        public string Sel_ById(POS.Data.Model.Tables tab, System.Nullable<int> id, POS.Data.Model.IdColumn col) {
-            return base.Channel.Sel_ById(tab, id, col);
         }
         
         public int ApplyAction(POS.Data.Model.Tables tab, POS.Data.Model.DataAction act, string serializedItem) {
