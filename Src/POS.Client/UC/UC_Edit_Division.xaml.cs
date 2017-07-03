@@ -12,14 +12,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace POS.Client.Components
+namespace POS.Client.UC
 {
 	/// <summary>
-	/// Interaction logic for V_UserGroup.xaml
+	/// Interaction logic for UC_Edit_Division.xaml
 	/// </summary>
-	public partial class UC_Edit_Name : UserControl
+	public partial class UC_Edit_Division : UserControl
 	{
-		public UC_Edit_Name()
+		public UC_Edit_Division()
 		{
 			InitializeComponent();
 		}

@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace POS.Client.Components
+namespace POS.Client.UC
 {
 	/// <summary>
 	/// Interaction logic for TimePicker.xaml

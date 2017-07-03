@@ -1,7 +1,7 @@
 ﻿<Window x:Class="POS.Client.Win_Modal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:c="clr-namespace:POS.Client.Components"
+		xmlns:c="clr-namespace:POS.Client.UC"
 		xmlns:dto="clr-namespace:POS.Data.Model;assembly=POS.Data.Model"
         Title="" Height="300" Width="300">
 	<Window.Resources>

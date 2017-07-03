@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
-namespace POS.Client.Components
+namespace POS.Client.UC
 {
 	/// <summary>
 	/// Interaction logic for ArrowClock.xaml

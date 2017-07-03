@@ -6,7 +6,7 @@
 		xmlns:v="clr-namespace:POS.Client.V"
 		xmlns:vm="clr-namespace:POS.Client.VM"
 		xmlns:vmm="clr-namespace:POS.Client.VM.Manager"
-		xmlns:my="clr-namespace:POS.Client.Components"
+		xmlns:my="clr-namespace:POS.Client.UC"
         Title="{Binding Caption}" 
 		Height="350" Width="800" 
 		>

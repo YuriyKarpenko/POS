@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="POS.Client.Components.UC_NavPanel"
+﻿<UserControl x:Class="POS.Client.UC.UC_NavPanel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

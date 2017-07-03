@@ -84,22 +84,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Components\ArrowClock.xaml.cs">
+    <Compile Include="UC\ArrowClock.xaml.cs">
       <DependentUpon>ArrowClock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\TimePicker.xaml.cs">
+    <Compile Include="UC\TimePicker.xaml.cs">
       <DependentUpon>TimePicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\UC_ButtonPanel.xaml.cs">
+    <Compile Include="UC\UC_ButtonPanel.xaml.cs">
       <DependentUpon>UC_ButtonPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\UC_Edit_Division.xaml.cs">
+    <Compile Include="UC\UC_Edit_Division.xaml.cs">
       <DependentUpon>UC_Edit_Division.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\UC_Edit_User.xaml.cs">
+    <Compile Include="UC\UC_Edit_User.xaml.cs">
       <DependentUpon>UC_Edit_User.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\UC_NavPanel.xaml.cs">
+    <Compile Include="UC\UC_NavPanel.xaml.cs">
       <DependentUpon>UC_NavPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Service References\Service\Reference.cs">
@@ -124,7 +124,7 @@
     <Compile Include="V\Commands.cs" />
     <Compile Include="V\Converters.cs" />
     <Compile Include="V\GridBehaviour.cs" />
-    <Compile Include="Components\UC_EditItem.xaml.cs">
+    <Compile Include="UC\UC_EditItem.xaml.cs">
       <DependentUpon>UC_EditItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="V\V_Dialog.xaml.cs">
@@ -136,7 +136,7 @@
     <Compile Include="V\V_Edit_List.xaml.cs">
       <DependentUpon>V_Edit_List.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\UC_Edit_Name.xaml.cs">
+    <Compile Include="UC\UC_Edit_Name.xaml.cs">
       <DependentUpon>UC_Edit_Name.xaml</DependentUpon>
     </Compile>
     <Compile Include="V\V_Manager.xaml.cs">
@@ -145,27 +145,27 @@
     <Compile Include="Win_Modal.xaml.cs">
       <DependentUpon>Win_Modal.xaml</DependentUpon>
     </Compile>
-    <Page Include="Components\ArrowClock.xaml">
+    <Page Include="UC\ArrowClock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\TimePicker.xaml">
+    <Page Include="UC\TimePicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\UC_ButtonPanel.xaml">
+    <Page Include="UC\UC_ButtonPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\UC_Edit_Division.xaml">
+    <Page Include="UC\UC_Edit_Division.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\UC_Edit_User.xaml">
+    <Page Include="UC\UC_Edit_User.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\UC_NavPanel.xaml">
+    <Page Include="UC\UC_NavPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -197,7 +197,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Components\UC_EditItem.xaml">
+    <Page Include="UC\UC_EditItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -213,7 +213,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\UC_Edit_Name.xaml">
+    <Page Include="UC\UC_Edit_Name.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 using IT.WPF;
 
-namespace POS.Client.Components
+namespace POS.Client.UC
 {
 	/// <summary>
 	/// Логика взаимодействия для UC_ButtonPanel.xaml
