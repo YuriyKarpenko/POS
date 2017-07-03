@@ -111,7 +111,9 @@
     <Compile Include="VM\CM_Property.cs" />
     <Compile Include="VM\List_Current_Helper.cs" />
     <Compile Include="VM\Manager\VM_Manager.cs" />
+    <Compile Include="VM\PropertyRecord.cs" />
     <Compile Include="VM\VM_Base.cs" />
+    <Compile Include="VM\VM_Dialog.cs" />
     <Compile Include="VM\VM_Dictionary.cs" />
     <Compile Include="VM\VM_Dic_Base.cs" />
     <Compile Include="VM\VM_Dic_User.cs" />
@@ -122,6 +124,12 @@
     <Compile Include="V\Commands.cs" />
     <Compile Include="V\Converters.cs" />
     <Compile Include="V\GridBehaviour.cs" />
+    <Compile Include="Components\UC_EditItem.xaml.cs">
+      <DependentUpon>UC_EditItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="V\V_Dialog.xaml.cs">
+      <DependentUpon>V_Dialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="V\V_Dictionary.xaml.cs">
       <DependentUpon>V_Dictionary.xaml</DependentUpon>
     </Compile>
@@ -189,6 +197,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Components\UC_EditItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="V\V_Dialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="V\V_Dictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -214,18 +230,13 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <AppDesigner Include="Properties\" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\DataSources\POS.Data.Model.ResponceAPI.datasource" />
     <None Include="Service References\Service\Service11.wsdl" />
     <None Include="Service References\Service\ServicePOS.xsd">
