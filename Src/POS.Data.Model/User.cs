@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace POS.Data.Model
 {
 	[Serializable]
 	public partial class User : PersistedModel
 	{
+		[Browsable(false)]
 #if USE_GUID
 		public Guid UserGroupId { get; set; }
 #else

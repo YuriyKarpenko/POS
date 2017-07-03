@@ -1,12 +1,11 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace POS.Data.Model
 {
-	public partial class UserGroup : PersistedModel
+	public partial class UserGroup : DictionaryModel
 	{
-		public string Name { get; set; }
-
-
+		[Browsable(false)]
 		public ICollection<User> Users { get; set; }
 	}
 }
