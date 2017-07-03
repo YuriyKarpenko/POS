@@ -13,7 +13,7 @@ using System.Windows.Controls;
 using IT;
 using IT.WPF;
 
-namespace POS.Client.ViewModel
+namespace POS.Client.VM
 {
 	//	работа с коллекциями окон (UserControls)
 	public abstract class VM_Workspace_Collection : VM_Workspace
@@ -63,7 +63,7 @@ namespace POS.Client.ViewModel
 		{
 			base.Init_Command_Internal(uc);
 
-			uc.CommandBindings.Add(View.Commands.CloseItem, ActCloseUserControl);
+			uc.CommandBindings.Add(V.Commands.CloseItem, ActCloseUserControl);
 		}
 
 		protected virtual void ActCloseUserControl(ExecutedRoutedEventArgs e)

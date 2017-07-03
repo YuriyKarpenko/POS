@@ -13,9 +13,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using POS.Client.Components;
-using POS.Client.ViewModel;
+using POS.Client.VM;
 
-namespace POS.Client.View
+namespace POS.Client.V
 {
 	public partial class V_Edit_List : UserControl
 	{

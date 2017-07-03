@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace POS.Client.View
+namespace POS.Client.V
 {
 	/// <summary>
 	/// Interaction logic for V_Manager.xaml

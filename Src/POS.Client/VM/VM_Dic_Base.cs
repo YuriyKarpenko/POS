@@ -9,10 +9,10 @@ using Newtonsoft.Json;
 
 using IT;
 using IT.WPF;
-using V = POS.Client.View;
+using V = POS.Client.V;
 using POS.Data.Model;
 
-namespace POS.Client.ViewModel
+namespace POS.Client.VM
 {
 	public abstract class VM_Dic_Base<T> : VM_Workspace where T : class, IPersistedModel, new()
 	{

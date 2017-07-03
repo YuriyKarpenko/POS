@@ -14,9 +14,9 @@ using System.Windows.Controls;
 using IT;
 using IT.WPF;
 
-using V = POS.Client.View;
+using V = POS.Client.V;
 
-namespace POS.Client.ViewModel
+namespace POS.Client.VM
 {
 	public class VM_Dictionary : VM_Workspace_Collection
 	{

@@ -1,4 +1,4 @@
-﻿namespace POS.Client.ViewModel
+﻿namespace POS.Client.VM
 {
 	public class VM_Workspace : VM_Base
 	{

@@ -12,10 +12,10 @@ using System.Windows.Input;
 using IT;
 using IT.WPF;
 
-using V = POS.Client.View;
+using V = POS.Client.V;
 using System.Windows;
 
-namespace POS.Client.ViewModel
+namespace POS.Client.VM
 {
 	public class VM_Main : VM_Workspace
 	{

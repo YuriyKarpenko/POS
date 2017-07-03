@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 
-			 xmlns:v="clr-namespace:POS.Client.View"
+			 xmlns:v="clr-namespace:POS.Client.V"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="300">
 	<UserControl.Resources>

@@ -29,8 +29,8 @@ namespace POS.Client.Components
 
 		private void InitCmd()
 		{
-			this.CommandBindings.Add(View.Commands.Nav_Cancel, e => BtnClick(false));
-			this.CommandBindings.Add(View.Commands.Nav_Ok, e => BtnClick(true));
+			this.CommandBindings.Add(V.Commands.Nav_Cancel, e => BtnClick(false));
+			this.CommandBindings.Add(V.Commands.Nav_Ok, e => BtnClick(true));
 		}
 
 		private void BtnClick(bool isOk)

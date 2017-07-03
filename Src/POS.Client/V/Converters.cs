@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace POS.Client.View
+namespace POS.Client.V
 {
 	class Cmd2Image : IValueConverter
 	{

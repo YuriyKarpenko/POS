@@ -6,9 +6,9 @@ using System.Windows.Input;
 
 using IT;
 using IT.WPF;
-using V = POS.Client.View;
+using V = POS.Client.V;
 
-namespace POS.Client.ViewModel.Manager
+namespace POS.Client.VM.Manager
 {
 	class VM_Manager : VM_Workspace_Collection
 	{

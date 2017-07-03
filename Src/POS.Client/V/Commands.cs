@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace POS.Client.View
+namespace POS.Client.V
 {
 	public static class Commands
 	{

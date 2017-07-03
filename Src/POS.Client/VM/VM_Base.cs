@@ -4,7 +4,7 @@ using System.Windows.Controls;
 
 using IT;
 
-namespace POS.Client.ViewModel
+namespace POS.Client.VM
 {
 	public abstract class VM_Base : NotifyPropertyChangedBase, ILog
 	{

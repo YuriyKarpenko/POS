@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
-namespace POS.Client.ViewModel
+namespace POS.Client.VM
 {
 	public class List_Current_Helper<T> 
 		where T:class//, CoderOD.DB35.Common.IDbEntityG, new()

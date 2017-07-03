@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>POS.Client</RootNamespace>
     <AssemblyName>POS.Client</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -40,6 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -49,6 +51,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -60,6 +63,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -104,28 +108,30 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ServiceClient.cs" />
-    <Compile Include="ViewModel\List_Current_Helper.cs" />
-    <Compile Include="ViewModel\Manager\VM_Manager.cs" />
-    <Compile Include="ViewModel\VM_Base.cs" />
-    <Compile Include="ViewModel\VM_Dictionary.cs" />
-    <Compile Include="ViewModel\VM_Dic_Base.cs" />
-    <Compile Include="ViewModel\VM_Dic_User.cs" />
-    <Compile Include="ViewModel\VM_Main.cs" />
-    <Compile Include="ViewModel\VM_UserGroupEdit.cs" />
-    <Compile Include="ViewModel\VM_Workspace.cs" />
-    <Compile Include="ViewModel\VM_Workspace_Collection.cs" />
-    <Compile Include="View\Commands.cs" />
-    <Compile Include="View\Converters.cs" />
-    <Compile Include="View\V_Dictionary.xaml.cs">
+    <Compile Include="VM\CM_Property.cs" />
+    <Compile Include="VM\List_Current_Helper.cs" />
+    <Compile Include="VM\Manager\VM_Manager.cs" />
+    <Compile Include="VM\VM_Base.cs" />
+    <Compile Include="VM\VM_Dictionary.cs" />
+    <Compile Include="VM\VM_Dic_Base.cs" />
+    <Compile Include="VM\VM_Dic_User.cs" />
+    <Compile Include="VM\VM_Main.cs" />
+    <Compile Include="VM\VM_UserGroupEdit.cs" />
+    <Compile Include="VM\VM_Workspace.cs" />
+    <Compile Include="VM\VM_Workspace_Collection.cs" />
+    <Compile Include="V\Commands.cs" />
+    <Compile Include="V\Converters.cs" />
+    <Compile Include="V\GridBehaviour.cs" />
+    <Compile Include="V\V_Dictionary.xaml.cs">
       <DependentUpon>V_Dictionary.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\V_Edit_List.xaml.cs">
+    <Compile Include="V\V_Edit_List.xaml.cs">
       <DependentUpon>V_Edit_List.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\UC_Edit_Name.xaml.cs">
       <DependentUpon>UC_Edit_Name.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\V_Manager.xaml.cs">
+    <Compile Include="V\V_Manager.xaml.cs">
       <DependentUpon>V_Manager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Win_Modal.xaml.cs">
@@ -183,11 +189,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\V_Dictionary.xaml">
+    <Page Include="V\V_Dictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\V_Edit_List.xaml">
+    <Page Include="V\V_Edit_List.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -195,7 +201,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\V_Manager.xaml">
+    <Page Include="V\V_Manager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -305,6 +311,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\Service\ServicePOS.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="M\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

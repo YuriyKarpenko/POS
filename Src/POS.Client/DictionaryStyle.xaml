@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					
-					xmlns:v="clr-namespace:POS.Client.View"
+					xmlns:v="clr-namespace:POS.Client.V"
 					>
 
 	<v:Cmd2Image x:Key="Cmd2Image"/>

@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		
 		xmlns:pc="clr-namespace:POS.Client"
-		xmlns:v="clr-namespace:POS.Client.View"
-		xmlns:vm="clr-namespace:POS.Client.ViewModel"
-		xmlns:vmm="clr-namespace:POS.Client.ViewModel.Manager"
+		xmlns:v="clr-namespace:POS.Client.V"
+		xmlns:vm="clr-namespace:POS.Client.VM"
+		xmlns:vmm="clr-namespace:POS.Client.VM.Manager"
 		xmlns:my="clr-namespace:POS.Client.Components"
         Title="{Binding Caption}" 
 		Height="350" Width="800" 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 
-namespace POS.Client.ViewModel
+namespace POS.Client.VM
 {
 	public class VM_UserGroupEdit : VM_Workspace
 	{

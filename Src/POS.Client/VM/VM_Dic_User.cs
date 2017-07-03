@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 //using CoderOD.DB35.Common;
 
-namespace POS.Client.ViewModel
+namespace POS.Client.VM
 {
 	public class VM_Dic_User : VM_Dic_Base<Data.Model.User>
 	{
