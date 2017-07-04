@@ -96,14 +96,20 @@ namespace POS.Data.Model
 
 	public class PersonInfo
 	{
+		[Required(AllowEmptyStrings =false, ErrorMessage ="Поле обязательно")]
 		[Display(Name ="Карта", Order = 11), Editable(true)]
 		public string Card { get; set; }
-		[Display(Name ="Имя", Order = 13), Editable(true)]
-		public string FirstName { get; set; }
+
 		[Display(Name ="Фамилия", Order = 12), Editable(true)]
 		public string LastName { get; set; }
+
+		[Required(AllowEmptyStrings = false, ErrorMessage = "Поле обязательно")]
+		[Display(Name ="Имя", Order = 13), Editable(true)]
+		public string FirstName { get; set; }
+
 		[Display(Name ="Отчество", Order = 14), Editable(true)]
 		public string MiddleName { get; set; }
+
 		[Display(Name ="ФИО", Order = 15), Editable(false)]
 		public string Name => $"{FirstName} {MiddleName} {LastName}";
 
@@ -112,8 +118,10 @@ namespace POS.Data.Model
 
 		[Display(Name ="Дата рождения", Order = 17), Editable(true)]
 		public DateTime? BirthDay { get; set; }
+
 		[Display(Name ="Возраст", Order = 18), Editable(false)]
 		public int Age => DateTime.Today.Year - BirthDay?.Year ?? 1900;
+
 		[Display(Name ="Телефон", Order = 19), Editable(false)]
 		public string Phone { get; set; }
 
