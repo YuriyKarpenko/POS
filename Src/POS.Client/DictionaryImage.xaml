@@ -68,6 +68,8 @@
 		<Setter Property="MinHeight" Value="12"/>
 		<Setter Property="MinWidth" Value="12"/>
 		<Setter Property="Stretch" Value="Uniform"/>
+		<!--	избавляет от размытия	-->
+		<Setter Property="RenderOptions.EdgeMode" Value="Aliased"/>
 	</Style>
 	<Style TargetType="{x:Type Path}" x:Key="p_r" BasedOn="{StaticResource p}">
 		<Setter Property="Fill" Value="Red"/>

@@ -21,20 +21,5 @@
 		</Border>
 
 		<c:UC_ButtonPanel Grid.Row="2" />
-		<!--<Grid Grid.Row="2">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-			</Grid.ColumnDefinitions>
-			<Grid.Resources>
-				<Style TargetType="{x:Type Button}" BasedOn="{StaticResource cmd_h}">
-					<Setter Property="Margin" Value="3"/>
-					<Setter Property="HorizontalAlignment" Value="Center"/>
-				</Style>
-			</Grid.Resources>
-
-			<Button Grid.Column="0" Command="Close" Content="{StaticResource img_Cancel}" IsCancel="True"/>
-			<Button Grid.Column="1" Command="Save" Content="{StaticResource img_Save}"/>
-		</Grid>-->
 	</Grid>
 </Window>

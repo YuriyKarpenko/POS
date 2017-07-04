@@ -25,15 +25,15 @@
 	<DataTemplate DataType="{x:Type vm:VM_Workspace}" x:Key="ClosableTabItemTemplate">
 		<DockPanel MinWidth="50" Name="dpHeaderClosableTabItem">
 			<Button Name="btnClose"
-				Command="v:Commands.CloseItem"
+					Command="v:Commands.CloseItem"
 					CommandParameter="{Binding}"
-				Content="X"
-				DockPanel.Dock="Right"
-				Width="16" Height="16" 
-				Padding="0,-2"
-				/>
+					Content="X"
+					DockPanel.Dock="Right"
+					Width="16" Height="16" 
+					Padding="0,-2"
+					/>
 			<!--ContentPresenter Content="{Binding Path=Caption}" Margin="2" /-->
-			<TextBlock Name="tbCaption" Text="{Binding Path=Caption}" DockPanel.Dock="Left" Margin="0,0,5,0" />
+			<TextBlock Name="tbCaption" Text="{Binding Path=Caption}" Margin="0,0,5,0" />
 		</DockPanel>
 
 		<DataTemplate.Triggers>
@@ -56,8 +56,5 @@
 		--><!--	
 		--><!--
 	</DataTemplate>-->
-
-
-
 
 </ResourceDictionary>
