@@ -9,6 +9,7 @@
 	<Style TargetType="{x:Type Window}">
 		<Setter Property="Background" Value="LightGray"/>
 		<Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+		<Setter Property="TextOptions.TextRenderingMode" Value="ClearType"/>
 		<Setter Property="SnapsToDevicePixels" Value="True"/>
 	</Style>
 	<Style TargetType="{x:Type UserControl}">
@@ -162,5 +163,43 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	
+
+	<Style x:Key="VS2012WindowStyleTitleBarButton" TargetType="{x:Type Button}">
+		<Setter Property="Focusable" Value="false" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					<Grid>
+						<Border x:Name="border" Background="Transparent" />
+						<ContentPresenter />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="border" Property="Background" Value="#FFF" />
+							<Setter TargetName="border" Property="Opacity" Value="0.7" />
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="border" Property="Background" Value="{StaticResource VS2012WindowBorderBrush}"/>
+							<Setter TargetName="border" Property="Opacity" Value="1" />
+							<Setter Property="Foreground" Value="#FFF"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Path x:Key="maximize" StrokeThickness="1" RenderOptions.EdgeMode="Aliased" Data="M0,0 H8 V8 H0 V0 M0,1 H8 M0,2 H8" />
+
+	<Style TargetType="{x:Type Window}" x:Key="myWin">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<ContentPresenter/>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
 </ResourceDictionary>

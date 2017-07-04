@@ -101,11 +101,11 @@ namespace POS.Client.V
 					foreach (var prop in props)
 					{
 						//	строка
-						gr.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+						gr.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
 						//	левая колонка
 						gr.Insert(new TextBlock() { Text = prop.GetType().GetProperty("Key").GetValue(prop) + " :" }, 0, row);
 						//	правая колонка
-						var ctrl = Grid_GenerateControl(prop.GetType().GetProperty("Value"));
+						var ctrl = Grid_GenerateControl(prop.GetType().GetProperty("Value"), null);
 						ctrl.DataContext = prop;
 						gr.Insert(ctrl, 2, row);
 
@@ -149,9 +149,22 @@ namespace POS.Client.V
 				{
 					foreach (var pi in props)
 					{
-						gr.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
-						gr.Insert(new TextBlock() { Text = pi.GetNameFromAttributes(pi.Name) + " :" }, 0, row);
-						gr.Insert(Grid_GenerateControl(pi), 2, row);
+						gr.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
+						var el = Grid_GenerateControl(pi, null);
+						if(el == null)
+						{
+							//	генерация внутреннего элемента
+							var res = new Grid();
+							var val = pi.GetValue(GetPropertyGrid_Value(gr));
+							SetPropertyGrid_Value(res, val);
+							el = new Expander() { Content = res, Header = pi.GetNameFromAttributes(pi.Name) };
+							Grid.SetColumnSpan(el, 3);
+							gr.Insert(el, 0, row);
+						}else
+						{
+							gr.Insert(new TextBlock() { Text = pi.GetNameFromAttributes(pi.Name) + " :" }, 0, row);
+							gr.Insert(el, 2, row);
+						}
 						row++;
 					}
 				}
@@ -181,7 +194,7 @@ namespace POS.Client.V
 				foreach (var el in gr.Children.OfType<FrameworkElement>())
 				{
 					el.DataContext = e.NewValue;
-					el.IsEnabled = (e.NewValue as VM.ICM_Property)?.IsEditMode ?? false;
+					//el.IsEnabled = (e.NewValue as VM.ICM_Property)?.IsEditMode ?? false;
 				}
 			}
 		}
@@ -192,19 +205,38 @@ namespace POS.Client.V
 
 		private static IEnumerable<PropertyInfo> GetProperties(Type type, bool visableOnly = true)
 		{
-			if (type != null)
+			if (type != null && type.IsClass && !type.Namespace.StartsWith("System"))
 			{
-				IEnumerable<PropertyInfo> res = type.GetProperties();
+				//IEnumerable<PropertyInfo> resOrig = type.GetProperties();
+				var resOrig = type.GetProperties();
 				if (visableOnly)
 				{
 					var lookups = type.GetCustomAttributes<LookupBindingPropertiesAttribute>(true);
-					res = res
-						.Where(i => lookups.Any(a => a.LookupMember == i.Name) ||
-						(i.GetCustomAttribute<DisplayAttribute>()?.GetAutoGenerateField() ?? true) &&
-						(i.GetCustomAttribute<BrowsableAttribute>()?.Browsable ?? true)
-					);
+					resOrig = resOrig
+						.Where(
+							i => lookups.Any(a => a.LookupMember == i.Name) ||
+							(i.GetCustomAttribute<DisplayAttribute>()?.GetAutoGenerateField() ?? true) &&       //	???
+							(i.GetCustomAttribute<BrowsableAttribute>()?.Browsable ?? true)
+						)
+						.ToArray();
 				}
-				return res?.OrderBy(i => i.GetCustomAttribute<DisplayAttribute>()?.GetOrder() ?? 10);
+				//List<PropertyInfo> resAdd = new List<PropertyInfo>();
+				//List<PropertyInfo> resDel = new List<PropertyInfo>();
+				//foreach (var pi in resOrig)
+				//{
+				//	var ppi = GetProperties(pi.PropertyType, visableOnly);
+				//	if (ppi?.Any() == true)
+				//	{
+				//		resDel.Add(pi);
+				//		resAdd.AddRange(ppi);
+				//	}
+				//}
+				//var res = resOrig
+				//	.Except(resDel)
+				//	.Union(resAdd.Except(resOrig))
+				//	//.Distinct()
+				//	.ToArray();
+				return resOrig?.OrderBy(i => i.GetCustomAttribute<DisplayAttribute>()?.GetOrder() ?? 10);
 			}
 			return null;
 		}
@@ -412,9 +444,9 @@ namespace POS.Client.V
 			}
 		}
 
-		private static FrameworkElement Grid_GenerateControl(PropertyInfo pi)
+		private static FrameworkElement Grid_GenerateControl(PropertyInfo pi, Func<Type, FrameworkElement> getUserControl)
 		{
-			var isEnabled = pi?.CanWrite ?? pi.GetAttributeValue<EditableAttribute, bool>(i => i.AllowEdit, true);
+			var isEnabled = pi.CanWrite && (pi.GetCustomAttribute<EditableAttribute>()?.AllowEdit ?? true);
 			FrameworkElement res = null;
 			LookupBindingPropertiesAttribute lookUp = pi.DeclaringType
 				.GetCustomAttributes<LookupBindingPropertiesAttribute>()
@@ -461,8 +493,33 @@ namespace POS.Client.V
 					break;
 
 				default:
-					res = new TextBlock();
-					res.SetBinding(TextBlock.TextProperty, new Binding(pi.Name) { Mode = BindingMode.OneWay });
+					var ti = t.GetTypeInfo();
+					if (t.IsEnum)
+					{
+						var source = Enum.GetValues(t);
+						res = new ComboBox()
+						{
+							ItemsSource = source,
+							//DisplayMemberPath = lookUp.DisplayMember,
+							IsEnabled = isEnabled,
+							IsReadOnly = !isEnabled,
+							//SelectedValuePath = lookUp.ValueMember,
+							//IsTextSearchEnabled = false,
+						};
+						//BindingOperations.SetBinding(res, ItemsControl.ItemsSourceProperty, new Binding(lookUp.DataSource));
+						//BindingOperations.SetBinding(res, Selector.SelectedValueProperty, new Binding(lookUp.LookupMember));
+						BindingOperations.SetBinding(res, Selector.SelectedItemProperty, new Binding(pi.Name));
+					}
+					//	сложные типы
+					else if (t.IsClass && ti.DeclaredProperties.Any())
+					{
+						return getUserControl?.Invoke(t);
+					}
+					else
+					{
+						res = new TextBlock();
+						res.SetBinding(TextBlock.TextProperty, new Binding(pi.Name) { Mode = BindingMode.OneWay });
+					}
 					break;
 			}
 

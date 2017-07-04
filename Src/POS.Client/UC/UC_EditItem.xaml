@@ -6,5 +6,49 @@
              xmlns:v="clr-namespace:POS.Client.V"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-		<Grid v:GridBehaviour.PropertyGrid_Dictionary="{Binding List}" v:GridBehaviour.PropertyGrid_Value="{Binding Value}" />
+
+	<UserControl.Resources>
+		<Style TargetType="{x:Type Control}" x:Key="control" >
+			<Setter Property="Height" Value="23" />
+			<Setter Property="Margin" Value="0" />
+			<Setter Property="Padding" Value="0" />
+			<!--Setter Property="HorizontalAlignment" Value="Right" /-->
+			<Setter Property="VerticalAlignment" Value="Bottom" />
+		</Style>
+
+		<Style BasedOn="{StaticResource control}" TargetType="{x:Type Label}" >
+			<Setter Property="HorizontalAlignment" Value="Right" />
+			<Setter Property="VerticalAlignment" Value="Bottom" />
+		</Style>
+
+		<Style TargetType="{x:Type TextBlock}" >
+			<Setter Property="HorizontalAlignment" Value="Right" />
+			<Setter Property="Margin" Value="2, 0" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+
+		<Style BasedOn="{StaticResource control}" TargetType="{x:Type TextBox}">
+			<Setter Property="VerticalAlignment" Value="Bottom" />
+		</Style>
+
+		<Style BasedOn="{StaticResource control}" TargetType="{x:Type Control}">
+			<Setter Property="Margin" Value="0" />
+		</Style>
+
+		<Style BasedOn="{StaticResource control}" TargetType="{x:Type CheckBox}">
+			<Setter Property="Height" Value="Auto" />
+			<Setter Property="Margin" Value="0" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+
+		<Style BasedOn="{StaticResource control}" TargetType="{x:Type DatePicker}">
+			<Setter Property="BorderThickness" Value="0" />
+			<Setter Property="Margin" Value="0, 0, 0, -2" />
+			<Setter Property="Padding" Value="0" />
+		</Style>
+
+
+	</UserControl.Resources>
+
+	<Grid v:GridBehaviour.PropertyGrid_Dictionary="{Binding List}" v:GridBehaviour.PropertyGrid_Value="{Binding Value}" IsEnabled="{Binding IsEnabled}"/>
 </UserControl>
