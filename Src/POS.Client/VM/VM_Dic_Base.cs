@@ -97,8 +97,7 @@ namespace POS.Client.VM
 		{
 			var item = this.newItem();
 
-			Win_Modal w = new Win_Modal();
-			if (w.ShowDialog(item, null) == true)
+			if (VM_Dialog.Show<UC.UC_EditItem>($"Добавление {curDic}", new { Value = item }))
 			{
 				ApplyAction(DataAction.Insert, item);
 
@@ -120,8 +119,8 @@ namespace POS.Client.VM
 		{
 			if (Items.HasSelected)
 			{
-				Win_Modal w = new Win_Modal();
-				if (w.ShowDialog(Items.SelectedItem, null) == true)
+				//var vm = new CM_Property_Value(Items.SelectedItem) { IsEditMode = true };
+				if (VM_Dialog.Show<UC.UC_EditItem>($"Редактирование {curDic}", new { Value = Items.SelectedItem }))
 				{
 					ApplyAction(DataAction.Update, Items.SelectedItem);
 

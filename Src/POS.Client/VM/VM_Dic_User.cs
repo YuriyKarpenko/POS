@@ -15,23 +15,27 @@ namespace POS.Client.VM
 
 		public override void ActEdit(object sender, ExecutedRoutedEventArgs e)
 		{
-			if (Items.SelectedItem == null) return;
-
-			var item = Items.SelectedItem;
-			Win_Modal w = new Win_Modal();
-
-			//	Необходимо, чтобы [UserGroup] принадлежал коллекции [UserGroups]
-			//(item as Data.Types.User).UserGroup = (item as Data.Types.User).UserGroup
-			//    .Where(x => x.Id == (item as Data.Types.User).UserGroup.Id).Single();
-
-			w.DataContext = item;
-			if (w == null || item == null) return;
-			bool? res = w.ShowDialog();
-			if (res == true)
+			if (Items.HasSelected)
 			{
-				ApplyAction(Data.Model.DataAction.Update, item);
-				Items.Reset();
-				//Cmd = modifieCmd.Edit;
+
+				//var item = Items.SelectedItem;
+				//Win_Modal w = new Win_Modal();
+
+				//	Необходимо, чтобы [UserGroup] принадлежал коллекции [UserGroups]
+				//(item as Data.Types.User).UserGroup = (item as Data.Types.User).UserGroup
+				//    .Where(x => x.Id == (item as Data.Types.User).UserGroup.Id).Single();
+
+				//w.DataContext = item;
+				//if (w == null || item == null)
+				//	return;
+				if (VM_Dialog.Show<UC.UC_EditItem>($"Редактирование {curDic}", new { Value = Items.SelectedItem }))
+				//	bool? res = w.ShowDialog();
+				//if (res == true)
+				{
+					ApplyAction(Data.Model.DataAction.Update, Items.SelectedItem);
+					Items.Reset();
+					//Cmd = modifieCmd.Edit;
+				}
 			}
 		}
 

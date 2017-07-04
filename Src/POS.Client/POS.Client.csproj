@@ -142,9 +142,6 @@
     <Compile Include="V\V_Manager.xaml.cs">
       <DependentUpon>V_Manager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Win_Modal.xaml.cs">
-      <DependentUpon>Win_Modal.xaml</DependentUpon>
-    </Compile>
     <Page Include="UC\ArrowClock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -218,10 +215,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="V\V_Manager.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Win_Modal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

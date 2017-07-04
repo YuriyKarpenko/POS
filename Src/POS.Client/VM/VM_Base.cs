@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Controls;
 
 using IT;
+using IT.WPF;
 
 namespace POS.Client.VM
 {
@@ -71,5 +73,42 @@ namespace POS.Client.VM
 
 		#endregion
 
+	}
+
+	class VM_BaseWindow : VM_Base
+	{
+		protected override void Init_Command_Internal(Window w)
+		{
+			this.Debug("()");
+			try
+			{
+				base.Init_Command_Internal(w);
+				w.CommandBindings.Add(ApplicationCommands.Close, this.Act_Close);
+				w.CommandBindings.Add(SystemCommands.CloseWindowCommand, this.Act_Close);
+				w.CommandBindings.Add(V.Commands.Nav_Cancel, this.Act_Close);
+			}
+			catch (Exception ex)
+			{
+				this.Error(ex, "()");
+				throw;
+			}
+		}
+
+		protected virtual void Act_Close(ExecutedRoutedEventArgs e)
+		{
+			this.Debug("()");
+			try
+			{
+				if (this.CurrentWindow != null)
+				{
+					this.CurrentWindow.DialogResult = false;
+					this.CurrentWindow.Close();
+				}
+			}
+			catch (Exception ex)
+			{
+				this.Error(ex, "()");
+			}
+		}
 	}
 }

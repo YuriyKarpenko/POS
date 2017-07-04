@@ -48,7 +48,7 @@ namespace POS.Client.VM
 		{
 			base.Init_Command_Internal(w);
 
-			w.CommandBindings.Add(ApplicationCommands.Save, this.Act_Save_Intrnal, this.canSave ?? this.canSaveDef);
+			w.CommandBindings.Add(V.Commands.Nav_Save, this.Act_Save_Intrnal, this.canSave ?? this.canSaveDef);
 		}
 
 		protected virtual void Act_Save_Intrnal(ExecutedRoutedEventArgs e)
