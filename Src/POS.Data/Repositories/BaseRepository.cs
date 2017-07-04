@@ -17,9 +17,10 @@ namespace POS.Data.Repositories
 		T Get(int id);
 #endif
 		IEnumerable<T> Select(Func<IOrderedQueryable<T>, IEnumerable<T>> select);
-		int Delete(T item);
-		int Insert(T item);
-		int Update(T item);
+		//int Delete(T item);
+		//int Insert(T item);
+		//int Update(T item);
+		int ApplyAction(DataAction act, T item);
 	}
 
 
@@ -66,27 +67,27 @@ namespace POS.Data.Repositories
 			}
 		}
 
-		public int Delete(T value)
-		{
-			return ApplyAction(DataAction.Delete, value);
-		}
+		//public int Delete(T value)
+		//{
+		//	return ApplyAction(DataAction.Delete, value);
+		//}
 
-		public int Insert(T value)
-		{
-			return ApplyAction(DataAction.Insert, value);
-		}
+		//public int Insert(T value)
+		//{
+		//	return ApplyAction(DataAction.Insert, value);
+		//}
 
-		public int Update(T value)
-		{
-			return ApplyAction(DataAction.Update, value);
-		}
+		//public int Update(T value)
+		//{
+		//	return ApplyAction(DataAction.Update, value);
+		//}
 
 
 		protected virtual void OnDelete(T entity) { }
 		protected virtual void OnInsert(T entity) { }
 		protected virtual void OnUpdate(T entity) { }
 
-		protected virtual int ApplyAction(DataAction act, T item)
+		public virtual int ApplyAction(DataAction act, T item)
 		{
 			try
 			{

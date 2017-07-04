@@ -15,35 +15,16 @@
   <wsdl:message name="Service1_UseAPI_OutputMessage">
     <wsdl:part name="parameters" element="tns:UseAPIResponse" />
   </wsdl:message>
-  <wsdl:message name="Service1_ApplyAction_InputMessage">
-    <wsdl:part name="parameters" element="tns:ApplyAction" />
-  </wsdl:message>
-  <wsdl:message name="Service1_ApplyAction_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ApplyActionResponse" />
-  </wsdl:message>
   <wsdl:portType name="Service1">
     <wsdl:operation name="UseAPI">
       <wsdl:input wsaw:Action="http://tempuri.org/Service1/UseAPI" message="tns:Service1_UseAPI_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/Service1/UseAPIResponse" message="tns:Service1_UseAPI_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ApplyAction">
-      <wsdl:input wsaw:Action="http://tempuri.org/Service1/ApplyAction" message="tns:Service1_ApplyAction_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/Service1/ApplyActionResponse" message="tns:Service1_ApplyAction_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_Service1" type="tns:Service1">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="UseAPI">
       <soap:operation soapAction="http://tempuri.org/Service1/UseAPI" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ApplyAction">
-      <soap:operation soapAction="http://tempuri.org/Service1/ApplyAction" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

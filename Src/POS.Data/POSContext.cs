@@ -17,11 +17,14 @@ namespace POS.Data
 			Database.SetInitializer(new DropCreateDatabaseIfModelChanges<POSContext>());
 		}
 
+		static POSContext context;
+		public static POSContext Context(string _connStr) { return context ?? (context = new POSContext(_connStr)); }
+
 		public static TRes UsingContext<TRes>(string _connStr, Func<POSContext, TRes> action)
 		{
 			try
 			{
-				using (var conn = new POSContext(_connStr))
+				using (var conn = Context(_connStr))
 				{
 					return action(conn);
 				}
@@ -30,6 +33,10 @@ namespace POS.Data
 			{
 				IT.Log.Logger.ToLogFmt(null, System.Diagnostics.TraceLevel.Error, ex, $"({_connStr})");
 				throw;
+			}
+			finally	//	после изменения данных создавать новый context
+			{
+				context = null;
 			}
 		}
 

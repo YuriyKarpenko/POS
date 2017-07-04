@@ -15,20 +15,4 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ApplyAction">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/POS.Data.Model" minOccurs="0" name="tab" type="q3:Tables" />
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/POS.Data.Model" minOccurs="0" name="act" type="q4:DataAction" />
-        <xs:element minOccurs="0" name="serializedItem" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ApplyActionResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="ApplyActionResult" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
 </xs:schema>
