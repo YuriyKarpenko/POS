@@ -14,6 +14,11 @@
 			<Setter Property="Padding" Value="0" />
 			<!--Setter Property="HorizontalAlignment" Value="Right" /-->
 			<Setter Property="VerticalAlignment" Value="Bottom" />
+			<Style.Triggers>
+				<Trigger Property="Validation.HasError" Value="true">
+					<Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+				</Trigger>
+			</Style.Triggers>
 		</Style>
 
 		<Style BasedOn="{StaticResource control}" TargetType="{x:Type Label}" >
@@ -50,5 +55,5 @@
 
 	</UserControl.Resources>
 
-	<Grid v:GridBehaviour.PropertyGrid_Dictionary="{Binding List}" v:GridBehaviour.PropertyGrid_Value="{Binding Value}" IsEnabled="{Binding IsEnabled}"/>
+	<Grid v:GridBehaviour.PropertyGrid_Dictionary="{Binding List}" v:GridBehaviour.PropertyGrid_ValidateValue="{Binding Value, ValidatesOnDataErrors=True}" IsEnabled="{Binding IsEnabled}"/>
 </UserControl>

@@ -44,9 +44,11 @@ namespace POS.Data.Model
 	[Serializable]
 	public abstract class PersistedModel : BaseModel, IPersistedModel
 	{
-		[Display(Name ="Дата создания", Order = 4), Editable(false)]
+		[Required(AllowEmptyStrings = false, ErrorMessage = "Поле обязательно")]
+		[Display(Name = "Дата создания", Order = 4), Editable(false)]
 		public DateTime DateCreated { get; set; }
-		[Display(Name ="Дата изменения", Order = 6), Editable(false)]
+		[Required(AllowEmptyStrings = false, ErrorMessage = "Поле обязательно")]
+		[Display(Name = "Дата изменения", Order = 6), Editable(false)]
 		public DateTime DateLastModified { get; set; }
 
 		public PersistedModel()
@@ -60,9 +62,10 @@ namespace POS.Data.Model
 	[Serializable]
 	public abstract class DictionaryModel : PersistedModel
 	{
-		[Display(Name ="Название", Order = 8)]
+		[Required(AllowEmptyStrings = false, ErrorMessage = "Поле обязательно")]
+		[Display(Name = "Название", Order = 8)]
 		public string Name { get; set; }
-		[Display(Name ="Скрыть", Order = 2)]
+		[Display(Name = "Скрыть", Order = 2)]
 		public bool Hidden { get; set; }
 	}
 
@@ -96,36 +99,36 @@ namespace POS.Data.Model
 
 	public class PersonInfo
 	{
-		[Required(AllowEmptyStrings =false, ErrorMessage ="Поле обязательно")]
-		[Display(Name ="Карта", Order = 11), Editable(true)]
+		[Required(AllowEmptyStrings = false, ErrorMessage = "Поле обязательно")]
+		[Display(Name = "Карта", Order = 11), Editable(true)]
 		public string Card { get; set; }
 
-		[Display(Name ="Фамилия", Order = 12), Editable(true)]
+		[Display(Name = "Фамилия", Order = 12), Editable(true)]
 		public string LastName { get; set; }
 
 		[Required(AllowEmptyStrings = false, ErrorMessage = "Поле обязательно")]
-		[Display(Name ="Имя", Order = 13), Editable(true)]
+		[Display(Name = "Имя", Order = 13), Editable(true)]
 		public string FirstName { get; set; }
 
-		[Display(Name ="Отчество", Order = 14), Editable(true)]
+		[Display(Name = "Отчество", Order = 14), Editable(true)]
 		public string MiddleName { get; set; }
 
-		[Display(Name ="ФИО", Order = 15), Editable(false)]
+		[Display(Name = "ФИО", Order = 15), Editable(false)]
 		public string Name => $"{FirstName} {MiddleName} {LastName}";
 
-		[Display(Name ="Пол (м)", Order = 16), Editable(true)]
+		[Display(Name = "Пол (м)", Order = 16), Editable(true)]
 		public bool SexMale { get; set; }
 
-		[Display(Name ="Дата рождения", Order = 17), Editable(true)]
+		[Display(Name = "Дата рождения", Order = 17), Editable(true)]
 		public DateTime? BirthDay { get; set; }
 
-		[Display(Name ="Возраст", Order = 18), Editable(false)]
+		[Display(Name = "Возраст", Order = 18), Editable(false)]
 		public int Age => DateTime.Today.Year - BirthDay?.Year ?? 1900;
 
-		[Display(Name ="Телефон", Order = 19), Editable(false)]
+		[Display(Name = "Телефон", Order = 19), Editable(false)]
 		public string Phone { get; set; }
 
-		[Display(Name ="Скрыть", Order = 2)]
+		[Display(Name = "Скрыть", Order = 2)]
 		public bool Hidden { get; set; }
 
 	}

@@ -112,6 +112,7 @@
     <Compile Include="VM\List_Current_Helper.cs" />
     <Compile Include="VM\Manager\VM_Manager.cs" />
     <Compile Include="VM\PropertyRecord.cs" />
+    <Compile Include="VM\Validation.cs" />
     <Compile Include="VM\VM_Base.cs" />
     <Compile Include="VM\VM_Dialog.cs" />
     <Compile Include="VM\VM_Dictionary.cs" />

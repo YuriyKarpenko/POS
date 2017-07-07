@@ -14,6 +14,7 @@ using System.Windows.Data;
 
 using IT;
 
+using POS.Client.VM;
 
 namespace POS.Client.V
 {
@@ -86,91 +87,37 @@ namespace POS.Client.V
 			var value = e.NewValue as IEnumerable<object>;
 			if (gr != null && value != null)
 			{
-				InitGrid(gr, value);
+				var arg = value.ToDictionary(i => i.GetType().GetProperty("Key").GetValue(i).ToString(), i => i.GetType().GetProperty("Value"));
+				InitGrid(gr, arg, "Value.{0}", false);
 			}
 		}
 
 #endif
 
-		private static void InitGrid(Grid gr, IEnumerable<object> props)
-		{
-			InitGridBase(gr, row =>
-			{
-				if (props != null)
-				{
-					foreach (var prop in props)
-					{
-						//	строка
-						gr.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
-						//	левая колонка
-						gr.Insert(new TextBlock() { Text = prop.GetType().GetProperty("Key").GetValue(prop) + " :" }, 0, row);
-						//	правая колонка
-						var ctrl = Grid_GenerateControl(prop.GetType().GetProperty("Value"), null);
-						ctrl.DataContext = prop;
-						gr.Insert(ctrl, 2, row);
-
-						row++;
-					}
-				}
-				return row;
-			});
-		}
-
 		#endregion
 
 		#region PropertyGrid_Type
 
-		/// <summary>
-		/// Type of value
-		/// </summary>
-		private static readonly DependencyProperty PropertyGrid_TypeProperty = DependencyProperty.RegisterAttached(
-			"PropertyGrid_Type", typeof(Type), typeof(GridBehaviour), new PropertyMetadata(null, PropertyGrid_TypeChangedCallback));
+		///// <summary>
+		///// Type of value
+		///// </summary>
+		//private static readonly DependencyProperty PropertyGrid_TypeProperty = DependencyProperty.RegisterAttached(
+		//	"PropertyGrid_Type", typeof(Type), typeof(GridBehaviour), new PropertyMetadata(null, PropertyGrid_TypeChangedCallback));
 
-		private static Type GetPropertyGrid_Type(DependencyObject obj) { return (Type)obj.GetValue(PropertyGrid_TypeProperty); }
+		//private static Type GetPropertyGrid_Type(DependencyObject obj) { return (Type)obj.GetValue(PropertyGrid_TypeProperty); }
 
-		private static void SetPropertyGrid_Type(DependencyObject obj, object value) { obj.SetValue(PropertyGrid_TypeProperty, value); }
+		//private static void SetPropertyGrid_Type(DependencyObject obj, object value) { obj.SetValue(PropertyGrid_TypeProperty, value); }
 
-		private static void PropertyGrid_TypeChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-		{
-			var gr = d as Grid;
-			if (gr != null && e.OldValue != e.NewValue)
-			{
-				var pp = GetProperties((Type)e.NewValue, true);
-				//SetPropertyGrid_Properties(d, pp);
-				InitGrid(gr, pp);
-			}
-		}
-
-		private static void InitGrid(Grid gr, IEnumerable<PropertyInfo> props)
-		{
-			InitGridBase(gr, row =>
-			{
-				if (props != null)
-				{
-					foreach (var pi in props)
-					{
-						gr.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
-						var el = Grid_GenerateControl(pi, null);
-						if(el == null)
-						{
-							//	генерация внутреннего элемента
-							var res = new Grid();
-							var val = pi.GetValue(GetPropertyGrid_Value(gr));
-							SetPropertyGrid_Value(res, val);
-							el = new Expander() { Content = res, Header = pi.GetNameFromAttributes(pi.Name) };
-							Grid.SetColumnSpan(el, 3);
-							gr.Insert(el, 0, row);
-						}else
-						{
-							gr.Insert(new TextBlock() { Text = pi.GetNameFromAttributes(pi.Name) + " :" }, 0, row);
-							gr.Insert(el, 2, row);
-						}
-						row++;
-					}
-				}
-				return row;
-			});
-		}
+		//private static void PropertyGrid_TypeChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		//{
+		//	var gr = d as Grid;
+		//	if (gr != null && e.OldValue != e.NewValue)
+		//	{
+		//		var pp = GetProperties((Type)e.NewValue, true);
+		//		//SetPropertyGrid_Properties(d, pp);
+		//		InitGrid(gr, pp);
+		//	}
+		//}
 
 		#endregion
 
@@ -188,13 +135,41 @@ namespace POS.Client.V
 			var gr = d as Grid;
 			if (gr != null)
 			{
-				//gr.DataContext = e.NewValue;
 				var t = e.NewValue?.GetType();
-				SetPropertyGrid_Type(d, t);
+				var pp = GetProperties(t, true);
+				var args = pp.ToDictionary(i => i.GetNameFromAttributes(i.Name), i => i);
+				InitGrid(gr, args, "Value.{0}", false);
+				//SetPropertyGrid_Type(d, t);
 				foreach (var el in gr.Children.OfType<FrameworkElement>())
 				{
-					el.DataContext = e.NewValue;
+					el.DataContext = el.DataContext;
 					//el.IsEnabled = (e.NewValue as VM.ICM_Property)?.IsEditMode ?? false;
+				}
+			}
+		}
+
+		#endregion
+
+		#region PropertyGrid_ValidateValue
+
+		public static readonly DependencyProperty PropertyGrid_ValidateValueProperty = DependencyProperty.RegisterAttached(
+			"PropertyGrid_ValidateValue", typeof(IValidateMember), typeof(GridBehaviour), new PropertyMetadata(null, PropertyGrid_ValidateValueChangedCallback));
+
+		public static IValidateMember GetPropertyGrid_ValidateValue(DependencyObject obj) { return (IValidateMember)obj.GetValue(PropertyGrid_ValueProperty); }
+
+		public static void SetPropertyGrid_ValidateValue(DependencyObject obj, IValidateMember value) { obj.SetValue(PropertyGrid_ValueProperty, value); }
+
+		static void PropertyGrid_ValidateValueChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			var gr = d as Grid;
+			if (gr != null)
+			{
+				IValidateMember t = (IValidateMember)e.NewValue;
+				var args = t.Names.ToDictionary(i => t.GetCaption(i), i => t.GetProperty(i));
+				InitGrid(gr, args, t.BindingFormatString, true);
+				foreach (var el in gr.Children.OfType<FrameworkElement>())
+				{
+					el.DataContext = t;
 				}
 			}
 		}
@@ -273,6 +248,37 @@ namespace POS.Client.V
 			}
 		}
 
+		private static void InitGrid(Grid gr, IDictionary<string, PropertyInfo> props, string bindingFormat, bool isValidate)
+		{
+			InitGridBase(gr, row =>
+			{
+				if (props != null)
+				{
+					foreach (var pi in props)
+					{
+						gr.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
+						var el = Grid_GenerateControl(pi.Value, bindingFormat, isValidate);
+						if (el == null)
+						{
+							//	генерация внутреннего элемента
+							//var res = new Grid();
+							//var val = pi.Value.GetValue(GetPropertyGrid_Value(gr));
+							//SetPropertyGrid_Value(res, val);
+							//el = new Expander() { Content = res, Header = pi.Key };
+							//Grid.SetColumnSpan(el, 3);
+							//gr.Insert(el, 0, row);
+						}
+						else
+						{
+							gr.Insert(new TextBlock() { Text = pi.Key + " :" }, 0, row);
+							gr.Insert(el, 2, row);
+						}
+						row++;
+					}
+				}
+				return row;
+			});
+		}
 
 		#endregion
 
@@ -444,7 +450,26 @@ namespace POS.Client.V
 			}
 		}
 
-		private static FrameworkElement Grid_GenerateControl(PropertyInfo pi, Func<Type, FrameworkElement> getUserControl)
+		private static Binding GetBinding(PropertyInfo pi, string bindingFormat, bool isValidate, BindingMode? mode = null)
+		{
+			mode = mode ?? (pi.CanWrite ? BindingMode.TwoWay : BindingMode.OneWay);
+			var b = new Binding(string.Format(bindingFormat, pi.Name)).Init(isValidate, mode);
+			return b;
+		}
+		private static Binding Init(this Binding b, bool validate, BindingMode? mode)
+		{
+			if (mode.HasValue)
+				b.Mode = mode.Value;
+
+			b.NotifyOnValidationError = validate;
+			b.ValidatesOnDataErrors = validate;     //	for IDataErrorInfo
+			//b.ValidatesOnExceptions = validate;
+			b.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+			
+			return b;
+		}
+
+		private static FrameworkElement Grid_GenerateControl(PropertyInfo pi, string bindingFormat, bool isValidate/*, Func<Type, FrameworkElement> getUserControl*/)
 		{
 			var isEnabled = pi.CanWrite && (pi.GetCustomAttribute<EditableAttribute>()?.AllowEdit ?? true);
 			FrameworkElement res = null;
@@ -464,7 +489,7 @@ namespace POS.Client.V
 					//IsTextSearchEnabled = false,
 				};
 				BindingOperations.SetBinding(res, ItemsControl.ItemsSourceProperty, new Binding(lookUp.DataSource));
-				BindingOperations.SetBinding(res, Selector.SelectedValueProperty, new Binding(lookUp.LookupMember));
+				BindingOperations.SetBinding(res, Selector.SelectedValueProperty, new Binding(lookUp.LookupMember).Init(true, null));
 				return res;
 			}
 
@@ -474,12 +499,12 @@ namespace POS.Client.V
 				case "bool":
 				case "boolean":
 					res = new CheckBox();
-					res.SetBinding(ToggleButton.IsCheckedProperty, new Binding(pi.Name) { Mode = pi.CanWrite ? BindingMode.TwoWay : BindingMode.OneWay });
+					res.SetBinding(ToggleButton.IsCheckedProperty, GetBinding(pi, bindingFormat, isValidate));
 					break;
 
 				case "datetime":
 					res = new DatePicker() { FirstDayOfWeek = DayOfWeek.Monday, SelectedDateFormat = DatePickerFormat.Short };
-					res.SetBinding(DatePicker.SelectedDateProperty, new Binding(pi.Name) { Mode = pi.CanWrite ? BindingMode.TwoWay : BindingMode.OneWay });
+					res.SetBinding(DatePicker.SelectedDateProperty, GetBinding(pi, bindingFormat, isValidate));
 					break;
 
 				case "int":
@@ -489,7 +514,7 @@ namespace POS.Client.V
 				case "string":
 				case "object":
 					res = new TextBox();
-					res.SetBinding(TextBox.TextProperty, new Binding(pi.Name) { Mode = pi.CanWrite ? BindingMode.TwoWay : BindingMode.OneWay });
+					res.SetBinding(TextBox.TextProperty, GetBinding(pi, bindingFormat, isValidate));
 					break;
 
 				default:
@@ -508,17 +533,17 @@ namespace POS.Client.V
 						};
 						//BindingOperations.SetBinding(res, ItemsControl.ItemsSourceProperty, new Binding(lookUp.DataSource));
 						//BindingOperations.SetBinding(res, Selector.SelectedValueProperty, new Binding(lookUp.LookupMember));
-						BindingOperations.SetBinding(res, Selector.SelectedItemProperty, new Binding(pi.Name));
+						BindingOperations.SetBinding(res, Selector.SelectedItemProperty, GetBinding(pi, bindingFormat, isValidate));
 					}
 					//	сложные типы
 					else if (t.IsClass && ti.DeclaredProperties.Any())
 					{
-						return getUserControl?.Invoke(t);
+						//return getUserControl?.Invoke(t);
 					}
 					else
 					{
 						res = new TextBlock();
-						res.SetBinding(TextBlock.TextProperty, new Binding(pi.Name) { Mode = BindingMode.OneWay });
+						res.SetBinding(TextBlock.TextProperty, GetBinding(pi, bindingFormat, isValidate, BindingMode.OneWay));
 					}
 					break;
 			}
