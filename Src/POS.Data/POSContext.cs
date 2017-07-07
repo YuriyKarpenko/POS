@@ -29,11 +29,11 @@ namespace POS.Data
 					return action(conn);
 				}
 			}
-			catch (Exception ex)
-			{
-				IT.Log.Logger.ToLogFmt(null, System.Diagnostics.TraceLevel.Error, ex, $"({_connStr})");
-				throw;
-			}
+			//catch (Exception ex)
+			//{
+			//	IT.Log.Logger.ToLogFmt(null, System.Diagnostics.TraceLevel.Error, ex, $"({_connStr})");
+			//	throw;
+			//}
 			finally	//	после изменения данных создавать новый context
 			{
 				context = null;

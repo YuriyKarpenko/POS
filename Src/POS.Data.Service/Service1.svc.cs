@@ -34,7 +34,7 @@ namespace POS.Data.Service
 			}
 			catch (Exception ex)
 			{
-				res.Error = ex;
+				res.Error = ex.Message;
 				res.Result = ResultAPI.ErrorDB;
 			}
 
@@ -58,7 +58,7 @@ namespace POS.Data.Service
 			catch (Exception ex)
 			{
 				this.Error(ex, $"({request})");
-				return new ResponceAPI() { Error = ex, Result = ResultAPI.ErrorOther };
+				return new ResponceAPI() { Error = ex.Message, Result = ResultAPI.ErrorOther };
 			}
 		}
 

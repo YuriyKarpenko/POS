@@ -21,7 +21,7 @@ namespace POS.Data.Repositories
 		private static string GetValidationMessages(DbEntityValidationException e)
 		{
 			var newMessage = new StringBuilder();
-			newMessage.AppendLine(e.Message);
+			//newMessage.AppendLine(e.Message);
 
 			foreach (var entityValidationError in e.EntityValidationErrors)
 			{

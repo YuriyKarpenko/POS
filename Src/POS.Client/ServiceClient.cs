@@ -32,7 +32,7 @@ namespace POS.Client
 			catch (Exception ex)
 			{
 				this.Error(ex, "()");
-				return new ResponceAPI() { Error = ex, Result = ResultAPI.ErrorService };
+				return new ResponceAPI() { Error = ex.Message, Result = ResultAPI.ErrorService };
 			}
 		}
 
@@ -87,13 +87,14 @@ namespace POS.Client
 					}
 					else
 					{
-
+						//this.Error(null, $"({tab}, {act}, {item}) {res.Error}");
+						throw new Exception(res.Error);
 					}
 				}
 			}
 			catch (Exception ex)
 			{
-				this.Error(ex, $"({tab}, {act}, {item})");
+				this.Warn(ex, $"({tab}, {act}, {item})");
 				throw;
 			}
 

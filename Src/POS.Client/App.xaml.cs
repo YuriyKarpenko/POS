@@ -35,7 +35,7 @@ namespace POS.Client
 			switch (e.Value1)
 			{
 				case TraceLevel.Error:
-					MessageBox.Show(e.Value2 + "\n" + e.Value3.ToString(), Ap.AppCaption, MessageBoxButton.OK, MessageBoxImage.Error);
+					MessageBox.Show(e.Value2 + "\n" + e.Value3?.Message, Ap.AppCaption, MessageBoxButton.OK, MessageBoxImage.Error);
 					break;
 			}
 		}
