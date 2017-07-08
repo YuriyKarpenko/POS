@@ -14,7 +14,7 @@ using System.Windows.Data;
 
 using IT;
 
-using POS.Client.VM;
+using POS.Client.M;
 
 namespace POS.Client.V
 {

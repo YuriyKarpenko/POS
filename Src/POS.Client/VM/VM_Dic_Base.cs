@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -33,18 +34,19 @@ namespace POS.Client.VM
 			Items = new SelectorPropertyWPF<T>(LoadAsync);
 		}
 
-		protected virtual void LoadAsync(ObservableCollection<T> _items)
+		protected virtual void LoadAsync(Action<ObservableCollection<T>> setItems)
 		{
 			this.Debug("()");
 			try
 			{
 				var where = new Dictionary<string, object>();
-				//where.Add("Id", 1);
+				where.Add(nameof(DictionaryModel.Hidden), 0);
+
 				var str = ServiceClient.Instance.Dictionary_Get(curDic, where);
 				if (!string.IsNullOrEmpty(str))
 				{
 					var coll = JsonConvert.DeserializeObject<IEnumerable<T>>(str);
-					_items.AddRange(coll);
+					setItems(new ObservableCollection<T>(coll));
 				}
 			}
 			catch (Exception ex)
@@ -60,12 +62,12 @@ namespace POS.Client.VM
 			try
 			{
 				var res = ServiceClient.Instance.Dictionary_Set(curDic, act, item);
-				Contract.Requires(res == 1, $"Проблемы при '{act}' записи '{item}'");
+				Contract.Requires(res == 1, $"Проблемы при '{act}' записи '{curDic}'");
 				return res;
 			}
 			catch (Exception ex)
 			{
-				this.Error(ex, $"({curDic}, {act}, {item})");
+				this.Error(ex, $"({curDic}, {act}, )");
 				//throw;
 			}
 			return 0;
@@ -97,7 +99,8 @@ namespace POS.Client.VM
 		{
 			var item = this.newItem();
 
-			if (VM_Dialog.Show<UC.UC_EditItem>($"Добавление {curDic}", new { Value = item }))
+			var vm = new M.M_ValidationWrapper<T>(item);
+			if (VM_Dialog.Show<UC.UC_EditItem>($"Добавление {curDic}", new { Value = vm}, null, vm.CanSave))
 			{
 				ApplyAction(DataAction.Insert, item);
 
@@ -119,8 +122,8 @@ namespace POS.Client.VM
 		{
 			if (Items.HasSelected)
 			{
-				//var vm = new CM_Property_Value(Items.SelectedItem) { IsEditMode = true };
-				if (VM_Dialog.Show<UC.UC_EditItem>($"Редактирование {curDic}", new { Value = Items.SelectedItem }))
+				var vm = new M.M_ValidationWrapper<T>(Items.SelectedItem);
+				if (VM_Dialog.Show<UC.UC_EditItem>($"Редактирование {curDic}", new { Value = vm }, null, vm.CanSave))
 				{
 					ApplyAction(DataAction.Update, Items.SelectedItem);
 

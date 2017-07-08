@@ -5,12 +5,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Dynamic;
 using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
+using System.Windows.Input;
 using System.Reflection;
 
 using IT;
 
-namespace POS.Client.VM
+namespace POS.Client.M
 {
 	public interface IValidateMember
 	{
@@ -62,6 +62,9 @@ namespace POS.Client.VM
 
 		public M_Property<T> Value { get; private set; }
 
+		public Action<CanExecuteRoutedEventArgs> CanSave => e => e.CanExecute = string.IsNullOrEmpty(Error);
+
+		#region IDataErrorInfo
 
 		public string this[string columnName]
 		{
@@ -87,18 +90,21 @@ namespace POS.Client.VM
 			get
 			{
 				var errors1 = validators
-					.Join(Value, i => i.Key, i => i.Key, (v, pg) => v.Value.Where(a => !a.IsValid(pg.Value)))
+					//.Join(Value, i => i.Key, i => i.Key, (v, pg) => v.Value.Where(a => !a.IsValid(pg.Value)))
+					.Select(i => i.Value.Where(a => !a.IsValid(Value[i.Key])))
 					.SelectMany(i => i.Select(a => a.ErrorMessage))
 					.ToArray();
-				var errors = (from validator in this.validators
-							  from attribute in validator.Value
-							  where !attribute.IsValid(Value[validator.Key])
-							  select attribute.ErrorMessage)
-							 .ToArray();
+				//var errors = (from validator in this.validators
+				//			  from attribute in validator.Value
+				//			  where !attribute.IsValid(Value[validator.Key])
+				//			  select attribute.ErrorMessage)
+				//			 .ToArray();
 
-				return string.Join(Environment.NewLine, errors);
+				return string.Join(Environment.NewLine, errors1);
 			}
 		}
+
+		#endregion
 
 		public M_ValidationBase(T value)
 		{
@@ -109,14 +115,15 @@ namespace POS.Client.VM
 
 	class M_ValidationWrapper<T> : M_ValidationBase<T>, IValidateMember
 	{
-		private static IEnumerable<string> NAMES = M_Property<T>.Properties
+		protected List<string> names = M_Property<T>.Properties
 			.OrderBy(i => i.GetCustomAttribute<DisplayAttribute>()?.GetOrder() ?? 10)
-			.Select(i => i.Name);
+			.Select(i => i.Name)
+			.ToList();
 
 		#region IValidateMember
 
 		public string BindingFormatString => "{0}";
-		public IEnumerable<string> Names => NAMES;
+		public IEnumerable<string> Names => names;
 		public Func<string, PropertyInfo> GetProperty => Value.GetProperty;
 		public Func<string, string> GetCaption => name => GetProperty(name).GetNameFromAttributes(name);
 
