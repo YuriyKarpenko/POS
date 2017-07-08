@@ -101,9 +101,6 @@ namespace POS.Data.Model
 
 	public class PersonInfo
 	{
-		//[Display(Name = "Скрыть", Order = 2)]
-		//public bool Hidden { get; set; }
-
 		[Required(AllowEmptyStrings = false, ErrorMessage = "Поле обязательно")]
 		[Display(Name = "Карта", Order = 11), Editable(true)]
 		public string Card { get; set; }

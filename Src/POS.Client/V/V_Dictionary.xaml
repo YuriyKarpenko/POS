@@ -31,11 +31,17 @@
 		<DataTemplate DataType="{x:Type vm:VM_Dic_Division}">
 			<v:V_Edit_List />
 		</DataTemplate>
+
+		<DataTemplate DataType="{x:Type vm:VM_Dic_PriceList}">
+			<v:V_Edit_List />
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type vm:VM_Dic_Price}">
+			<v:V_Edit_List />
+		</DataTemplate>
 		
 		<DataTemplate DataType="{x:Type vm:VM_Dic_UserGroup}">
 			<v:V_Edit_List />
 		</DataTemplate>
-		
 		<DataTemplate DataType="{x:Type vm:VM_Dic_User}">
 			<v:V_Edit_List />
 		</DataTemplate>

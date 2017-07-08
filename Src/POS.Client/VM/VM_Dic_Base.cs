@@ -40,7 +40,7 @@ namespace POS.Client.VM
 			try
 			{
 				var where = new Dictionary<string, object>();
-				where.Add(nameof(DictionaryModel.Hidden), 0);
+				where.Add(nameof(DictionaryModel.Hidden), false);
 
 				var str = ServiceClient.Instance.Dictionary_Get(curDic, where);
 				if (!string.IsNullOrEmpty(str))
@@ -73,9 +73,14 @@ namespace POS.Client.VM
 			return 0;
 		}
 
-		protected virtual T newItem()
+		protected virtual T GetNewItem()
 		{
 			return new T();
+		}
+
+		protected virtual M.M_ValidationWrapper<T> GetModelWrapper(T item)
+		{
+			return new M.M_ValidationWrapper<T>(item);
 		}
 
 		#region actions
@@ -95,11 +100,11 @@ namespace POS.Client.VM
 			e.CanExecute = Items.HasSelected;
 		}
 
-		public virtual void ActAdd(object sender, ExecutedRoutedEventArgs e)
+		protected virtual void ActAdd(object sender, ExecutedRoutedEventArgs e)
 		{
-			var item = this.newItem();
+			var item = this.GetNewItem();
 
-			var vm = new M.M_ValidationWrapper<T>(item);
+			var vm = GetModelWrapper(item);
 			if (VM_Dialog.Show<UC.UC_EditItem>($"Добавление {curDic}", new { Value = vm}, null, vm.CanSave))
 			{
 				ApplyAction(DataAction.Insert, item);
@@ -108,7 +113,7 @@ namespace POS.Client.VM
 			}
 		}
 
-		public virtual void ActDelete(object sender, ExecutedRoutedEventArgs e)
+		protected virtual void ActDelete(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (Items.HasSelected)
 			{
@@ -118,11 +123,11 @@ namespace POS.Client.VM
 			}
 		}
 
-		public virtual void ActEdit(object sender, ExecutedRoutedEventArgs e)
+		protected virtual void ActEdit(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (Items.HasSelected)
 			{
-				var vm = new M.M_ValidationWrapper<T>(Items.SelectedItem);
+				var vm = GetModelWrapper(Items.SelectedItem);
 				if (VM_Dialog.Show<UC.UC_EditItem>($"Редактирование {curDic}", new { Value = vm }, null, vm.CanSave))
 				{
 					ApplyAction(DataAction.Update, Items.SelectedItem);
@@ -147,11 +152,15 @@ namespace POS.Client.VM
 		public VM_Dic_Division(VM_Workspace parent) : base(parent, "Цех", Tables.Division) { }
 	}
 
+	internal class VM_Dic_PriceList : VM_Dic_Base<PriceList>
+	{
+		public VM_Dic_PriceList(VM_Workspace parent) : base(parent, "Прайс-листы", Tables.PriceList) { }
+	}
+
 	internal class VM_Dic_UserGroup : VM_Dic_Base<UserGroup>
 	{
 		public VM_Dic_UserGroup(VM_Workspace parent) : base(parent, "Группы пользователей", Tables.UserGroup) { }
 	}
-
 
 	#endregion
 }

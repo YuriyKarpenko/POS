@@ -18,13 +18,19 @@ namespace POS.Client.V
 		public static readonly RoutedUICommand Nav_Edit = new RoutedUICommand("Изменить", "Nav_Edit", typeof(Commands));
 		public static readonly RoutedUICommand Nav_Save = new RoutedUICommand("Сохранить", "Nav_Save", typeof(Commands));
 
+		//	справочники
 		public static readonly RoutedUICommand Dic = new RoutedUICommand("Справочники", "Dic", typeof(Commands));
+
 		public static readonly RoutedUICommand Dic_Division = new RoutedUICommand("Цеха", "Dic_Division", typeof(Commands));
-		//public static readonly RoutedUICommand Dic_MenuGroup = new RoutedUICommand("Меню", "Dic_MenuGroup", typeof(Commands));
+
+		public static readonly RoutedUICommand Dic_MenuGroup = new RoutedUICommand("Группы меню", "Dic_MenuGroup", typeof(Commands));
 		public static readonly RoutedUICommand Dic_MenuItem = new RoutedUICommand("Меню", "Dic_MenuItem", typeof(Commands));
+
 		public static readonly RoutedUICommand Dic_PriceList = new RoutedUICommand("Прайс листы", "Dic_PriceList", typeof(Commands));
-		public static readonly RoutedUICommand Dic_User = new RoutedUICommand("Пользователи", "Dic_User", typeof(Commands));
+		public static readonly RoutedUICommand Dic_Price = new RoutedUICommand("Прайс лист", "Dic_Price", typeof(Commands));
+
 		public static readonly RoutedUICommand Dic_UserGroup = new RoutedUICommand("Группы пльзовтелей", "Dic_UserGroup", typeof(Commands));
+		public static readonly RoutedUICommand Dic_User = new RoutedUICommand("Пользователи", "Dic_User", typeof(Commands));
 
 
 		static Commands()

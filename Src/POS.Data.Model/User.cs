@@ -9,7 +9,7 @@ namespace POS.Data.Model
 	/// Пользователи
 	/// </summary>
 	[Serializable]
-	public partial class User : PersistedModel
+	public partial class User : DictionaryModel
 	{
 		[Browsable(false)]
 		[Required]
@@ -19,14 +19,17 @@ namespace POS.Data.Model
 		public int UserGroupId { get; set; }
 #endif
 
-		[Display(Name = "", Order = 10), Editable(true)]
-		public int? Code { get; set; }
+		[Display(Name = "Код авторизации", Order = 10), Editable(false)]
+		public int? Code { get; set; }			//	set on login
+
+		[Display(Name = "Пароль", Order = 10), Editable(true)]
+		public string Password { get; set; }	//	Name is login
 
 		//[EnumDataType(typeof(Role))]
-		[Display(Name = "", Order = 10), Editable(true)]
+		[Display(Name = "Роль", Order = 10), Editable(true)]
 		public Role Role { get; set; }
 
-		[Display(Name = "", Order = 10), Editable(false)]
+		[Display(Name = "Информация о пользователе", Order = 10), Editable(false)]
 		public PersonInfo PersonInfo { get; set; }
 
 		[Browsable(false)]

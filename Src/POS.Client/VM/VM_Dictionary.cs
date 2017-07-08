@@ -36,6 +36,13 @@ namespace POS.Client.VM
 				return new[]
 				{
 					V.Commands.Dic_Division,
+
+					V.Commands.Dic_MenuGroup,
+					V.Commands.Dic_MenuItem,
+
+					V.Commands.Dic_PriceList,
+					V.Commands.Dic_Price,
+
 					V.Commands.Dic_UserGroup,
 					V.Commands.Dic_User
 				};
@@ -47,20 +54,27 @@ namespace POS.Client.VM
 			base.Init_Command_Internal(uc);
 
 			uc.CommandBindings.Add(V.Commands.Dic_Division, ActDivision);
-			uc.CommandBindings.Add(V.Commands.Dic_User, ActUsers);
+
+			//uc.CommandBindings.Add(V.Commands.Dic_MenuGroup, ActMenuGroup);
+			//uc.CommandBindings.Add(V.Commands.Dic_MenuItem, Act);
+
+			uc.CommandBindings.Add(V.Commands.Dic_PriceList, ActPriceList);
+			uc.CommandBindings.Add(V.Commands.Dic_Price, ActPrice);
+
 			uc.CommandBindings.Add(V.Commands.Dic_UserGroup, ActUserGroups);
+			uc.CommandBindings.Add(V.Commands.Dic_User, ActUsers);
 		}
 
-		void ActDivision(RoutedEventArgs e)
+		void Act_Dic<TViewModel>(Func<VM_Workspace, VM_Workspace> createVm) where TViewModel : VM_Workspace
 		{
-			//this.Debug("()");
+			this.Debug("()");
 			try
 			{
-				CurrentDic = Workspaces.OfType<VM_Dic_Division>()?.FirstOrDefault();
+				CurrentDic = Workspaces.OfType<TViewModel>()?.FirstOrDefault();
 
 				if (CurrentDic == null)
 				{
-					CurrentDic = new VM_Dic_Division(this);
+					CurrentDic = createVm(this);
 					this.Workspaces.Add(CurrentDic);
 				}
 
@@ -68,52 +82,18 @@ namespace POS.Client.VM
 			}
 			catch (Exception ex)
 			{
-				this.Error(ex, "()");
+				this.Error(ex, $"<{typeof(TViewModel).Name}>()");
 				throw;
 			}
 		}
 
-		void ActUserGroups(RoutedEventArgs e)
-		{
-			//this.Debug("()");
-			try
-			{
-				CurrentDic = Workspaces.OfType<VM_Dic_UserGroup>()?.FirstOrDefault();
-				if (CurrentDic == null)
-				{
-					CurrentDic = new VM_Dic_UserGroup(this);
-					this.Workspaces.Add(CurrentDic);
-				}
-				SetActiveWorkspace(CurrentDic);
-			}
-			catch (Exception ex)
-			{
-				this.Error(ex, "()");
-				throw;
-			}
-		}
+		void ActDivision(RoutedEventArgs e) { Act_Dic<VM_Dic_Division>(i => new VM_Dic_Division(i)); }
 
-		void ActUsers(RoutedEventArgs e)
-		{
-			//this.Debug("()");
-			try
-			{
-				CurrentDic = Workspaces.OfType<VM_Dic_User>()?.FirstOrDefault();
+		void ActPriceList(RoutedEventArgs e) { Act_Dic<VM_Dic_PriceList>(i => new VM_Dic_PriceList(i)); }
+		void ActPrice(RoutedEventArgs e) { Act_Dic<VM_Dic_Price>(i => new VM_Dic_Price(i)); }
 
-				if (CurrentDic == null)
-				{
-					CurrentDic = new VM_Dic_User(this);
-					this.Workspaces.Add(CurrentDic);
-				}
-
-				SetActiveWorkspace(CurrentDic);
-			}
-			catch (Exception ex)
-			{
-				this.Error(ex, "()");
-				throw;
-			}
-		}
+		void ActUserGroups(RoutedEventArgs e) { Act_Dic<VM_Dic_UserGroup>(i => new VM_Dic_UserGroup(i)); }
+		void ActUsers(RoutedEventArgs e) { Act_Dic<VM_Dic_User>(i => new VM_Dic_User(i)); }
 
 		#endregion
 

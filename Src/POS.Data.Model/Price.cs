@@ -7,6 +7,7 @@ namespace POS.Data.Model
 	/// <summary>
 	/// Прайс-листы
 	/// </summary>
+	[LookupBindingProperties("PriceLists", "Name", "Id", "PriceListId")]
 	[Serializable]
 	public partial class Price : PersistedUser2Model
 	{

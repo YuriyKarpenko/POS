@@ -115,6 +115,7 @@
     <Compile Include="VM\VM_Dialog.cs" />
     <Compile Include="VM\VM_Dictionary.cs" />
     <Compile Include="VM\VM_Dic_Base.cs" />
+    <Compile Include="VM\VM_Dic_Price.cs" />
     <Compile Include="VM\VM_Dic_User.cs" />
     <Compile Include="VM\VM_Main.cs" />
     <Compile Include="VM\VM_UserGroupEdit.cs" />
