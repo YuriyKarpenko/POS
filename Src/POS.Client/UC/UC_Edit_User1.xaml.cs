@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace POS.Client.UC
 {
 	/// <summary>
-	/// Interaction logic for UC_Edit_User.xaml
+	/// Interaction logic for UC_Edit_Division.xaml
 	/// </summary>
 	public partial class UC_Edit_User : UserControl
 	{

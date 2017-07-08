@@ -1,68 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
-//using CoderOD.DB35.Common;
+using POS.Data.Model;
 
 namespace POS.Client.VM
 {
 	public class VM_Dic_User : VM_Dic_Base<Data.Model.User>
 	{
+		UserGroup[] userGroups;
+		public UserGroup[] UserGroups => userGroups ?? (userGroups = ServiceClient.Instance.Dictionary_Get<UserGroup>(Data.Model.Tables.UserGroup, null));
+
 		public VM_Dic_User(VM_Workspace parent) : base(parent, "Пользователи", Data.Model.Tables.User) { }
 
+		public override void ActAdd(object sender, ExecutedRoutedEventArgs e)
+		{
+			var item = newItem();
+			if (VM_Dialog.Show<UC.UC_Edit_User>($"Редактирование {curDic}", new M.M_User(item, UserGroups)))
+			{
+				ApplyAction(Data.Model.DataAction.Insert, item);
+				Items.Reset();
+			}
+		}
 
 		public override void ActEdit(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (Items.HasSelected)
 			{
-
-				//var item = Items.SelectedItem;
-				//Win_Modal w = new Win_Modal();
-
-				//	Необходимо, чтобы [UserGroup] принадлежал коллекции [UserGroups]
-				//(item as Data.Types.User).UserGroup = (item as Data.Types.User).UserGroup
-				//    .Where(x => x.Id == (item as Data.Types.User).UserGroup.Id).Single();
-
-				//w.DataContext = item;
-				//if (w == null || item == null)
-				//	return;
-				if (VM_Dialog.Show<UC.UC_EditItem>($"Редактирование {curDic}", new { Value = Items.SelectedItem }))
-				//	bool? res = w.ShowDialog();
-				//if (res == true)
+				if (VM_Dialog.Show<UC.UC_Edit_User>($"Редактирование {curDic}", new M.M_User(Items.SelectedItem, UserGroups)))
 				{
 					ApplyAction(Data.Model.DataAction.Update, Items.SelectedItem);
 					Items.Reset();
-					//Cmd = modifieCmd.Edit;
 				}
 			}
 		}
-
-		public class UserFacade : Data.Model.User
-		{
-			public List_Current_Helper<Data.Model.UserGroup> Helper { get; protected set; }
-			public UserFacade(Data.Model.User user)
-			{
-				this.PersonInfo = user.PersonInfo;
-				//this.CreatedBillItems = user.CreatedBillItems;
-				//this.ModifiedBillItems = user.ModifiedBillItems;
-				//this.Bills = user.Bills;
-				//this.PersonInfo.Card = user.PersonInfo.Card;
-				//this.Checks = user.Checks;
-				this.Code = user.Code;
-				//this.PersonInfo.Hidden = user.PersonInfo.Hidden;
-				this.Id = user.Id;
-				//this.CreatedMenuItems = user.CreatedMenuItems;
-				//this.PersonInfo.Name = user.PersonInfo.Name;
-				//this.PersonInfo.SexMale = user.PersonInfo.SexMale;
-				//this.TrackingState = user.TrackingState;
-				this.UserGroup = user.UserGroup;
-				this.UserGroupId = user.UserGroupId;
-				//this.UserGroups = user.UserGroups;
-				//Helper = new List_Current_Helper<Data.Types.UserGroup>(user.UserGroup, user.UserGroup);
-			}
-		}
-
 	}
 }

@@ -84,6 +84,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="M\M_User.cs" />
     <Compile Include="UC\ArrowClock.xaml.cs">
       <DependentUpon>ArrowClock.xaml</DependentUpon>
     </Compile>
@@ -93,11 +94,8 @@
     <Compile Include="UC\UC_ButtonPanel.xaml.cs">
       <DependentUpon>UC_ButtonPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\UC_Edit_Division.xaml.cs">
-      <DependentUpon>UC_Edit_Division.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_Edit_User.xaml.cs">
-      <DependentUpon>UC_Edit_User.xaml</DependentUpon>
+    <Compile Include="UC\UC_Edit_User1.xaml.cs">
+      <DependentUpon>UC_Edit_User1.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_NavPanel.xaml.cs">
       <DependentUpon>UC_NavPanel.xaml</DependentUpon>
@@ -112,7 +110,7 @@
     <Compile Include="VM\List_Current_Helper.cs" />
     <Compile Include="VM\Manager\VM_Manager.cs" />
     <Compile Include="VM\PropertyRecord.cs" />
-    <Compile Include="VM\Validation.cs" />
+    <Compile Include="M\Validation.cs" />
     <Compile Include="VM\VM_Base.cs" />
     <Compile Include="VM\VM_Dialog.cs" />
     <Compile Include="VM\VM_Dictionary.cs" />
@@ -137,9 +135,6 @@
     <Compile Include="V\V_Edit_List.xaml.cs">
       <DependentUpon>V_Edit_List.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\UC_Edit_Name.xaml.cs">
-      <DependentUpon>UC_Edit_Name.xaml</DependentUpon>
-    </Compile>
     <Compile Include="V\V_Manager.xaml.cs">
       <DependentUpon>V_Manager.xaml</DependentUpon>
     </Compile>
@@ -155,11 +150,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\UC_Edit_Division.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_Edit_User.xaml">
+    <Page Include="UC\UC_Edit_User1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -210,10 +201,6 @@
     <Page Include="V\V_Edit_List.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_Edit_Name.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="V\V_Manager.xaml">
       <SubType>Designer</SubType>
@@ -317,9 +304,7 @@
   <ItemGroup>
     <None Include="Service References\Service\ServicePOS.disco" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="M\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
