@@ -47,6 +47,7 @@ namespace POS.Data.Model
 		[Required(AllowEmptyStrings = false, ErrorMessage = "Поле обязательно")]
 		[Display(Name = "Дата создания", Order = 4), Editable(false)]
 		public DateTime DateCreated { get; set; }
+
 		[Required(AllowEmptyStrings = false, ErrorMessage = "Поле обязательно")]
 		[Display(Name = "Дата изменения", Order = 6), Editable(false)]
 		public DateTime DateLastModified { get; set; }
@@ -65,6 +66,7 @@ namespace POS.Data.Model
 		[Required(AllowEmptyStrings = false, ErrorMessage = "Поле обязательно")]
 		[Display(Name = "Название", Order = 8)]
 		public string Name { get; set; }
+
 		[Display(Name = "Скрыть", Order = 2)]
 		public bool Hidden { get; set; }
 	}
@@ -99,6 +101,9 @@ namespace POS.Data.Model
 
 	public class PersonInfo
 	{
+		//[Display(Name = "Скрыть", Order = 2)]
+		//public bool Hidden { get; set; }
+
 		[Required(AllowEmptyStrings = false, ErrorMessage = "Поле обязательно")]
 		[Display(Name = "Карта", Order = 11), Editable(true)]
 		public string Card { get; set; }
@@ -127,9 +132,6 @@ namespace POS.Data.Model
 
 		[Display(Name = "Телефон", Order = 19), Editable(false)]
 		public string Phone { get; set; }
-
-		[Display(Name = "Скрыть", Order = 2)]
-		public bool Hidden { get; set; }
 
 	}
 

@@ -14,7 +14,7 @@
 				.WillCascadeOnDelete(false);
 
 			HasRequired(e => e.MenuItem)
-				.WithMany(e => e.BillItems)
+				.WithMany(/*e => e.BillItems*/)
 				.HasForeignKey(e => e.MenuItemId)
 				.WillCascadeOnDelete(false);
 		}

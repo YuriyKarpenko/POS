@@ -4,17 +4,57 @@ namespace POS.Data.Model
 {
 	public enum Tables
 	{
-		Bill,
+		/// <summary>
+		/// счет
+		/// </summary>
+		Bill,	
+
+		/// <summary>
+		/// детали счета
+		/// </summary>
 		BillItem,
+
 		//Check,
-		Division,
+
+		/// <summary>
+		/// Подразделение кухни
+		/// </summary>
+		Division,	
+
+		/// <summary>
+		/// Дерево групп меню
+		/// </summary>
 		MenuGroup,
+
+		/// <summary>
+		/// Меню в группе
+		/// </summary>
 		MenuItem,
+
+		/// <summary>
+		/// Параметры системы
+		/// </summary>
 		Option,
-		Price,
+
+		/// <summary>
+		/// Названия прайс-листов
+		/// </summary>
 		PriceList,
-		User,
+
+		/// <summary>
+		/// Прайс-листы
+		/// </summary>
+		Price,
+
+		/// <summary>
+		/// Группы пользователей
+		/// </summary>
 		UserGroup,
+
+		/// <summary>
+		/// Пользователи
+		/// </summary>
+		User,
 	}
 
 	public enum IdColumn

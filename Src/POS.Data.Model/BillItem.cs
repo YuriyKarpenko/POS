@@ -1,8 +1,12 @@
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace POS.Data.Model
 {
+	/// <summary>
+	/// детали счета
+	/// </summary>
 	[Serializable]
 	public partial class BillItem : PersistedUser2Model
 	{
@@ -18,10 +22,15 @@ namespace POS.Data.Model
 #else
 		public int MenuItemId { get; set; }
 #endif
+
+		[Display(Name = "Кол-во", Order = 10), Editable(false)]
 		public decimal Quantity { get; set; }
 
 
-		public Bill Bill { get; set; }
-		public MenuItem MenuItem { get; set; }
+		[Display(Name = "Счет", Order = 10), Editable(false)]
+		public virtual Bill Bill { get; set; }
+
+		[Display(Name = "Продукт", Order = 10), Editable(false)]
+		public virtual MenuItem MenuItem { get; set; }
 	}
 }

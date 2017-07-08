@@ -1,11 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace POS.Data.Model
 {
+	/// <summary>
+	/// счет
+	/// </summary>
+	[Serializable]
 	public class Bill : PersistedUserModel
 	{
+		[Display(Name = "№ счета", Order = 10), Editable(false)]
 		public int BillNumber { get; set; }
 
 		[Browsable(false)]
@@ -14,14 +20,24 @@ namespace POS.Data.Model
 #else
 		public int PriceListId { get; set; }
 #endif
-		public decimal Total { get; set; }
+
+		[Display(Name = "Число гостей", Order = 10), Editable(true)]
 		public int Guests { get; set; }
+
+		[Display(Name = "Итого", Order = 10), Editable(false)]
+		public decimal Total { get; set; }
+
+		[Display(Name = "Скидка", Order = 10), Editable(false)]
+		public decimal Discount { get; set; }
+
+		[Display(Name = "Распечатан", Order = 10), Editable(false)]
 		public bool Printered { get; set; }
 
 
 		[Browsable(false)]
-		public PriceList PriceList { get; set; }
+		public virtual PriceList PriceList { get; set; }
+
 		[Browsable(false)]
-		public ICollection<BillItem> BillItems { get; set; }
+		public virtual ICollection<BillItem> BillItems { get; set; }
 	}
 }

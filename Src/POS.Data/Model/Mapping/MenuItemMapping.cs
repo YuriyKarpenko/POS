@@ -16,7 +16,7 @@
 				.WillCascadeOnDelete(false);
 
 			HasRequired(e => e.MenuGroup)
-				.WithMany(e => e.MenuItems)
+				.WithMany(/*e => e.MenuItems*/)
 				.HasForeignKey(e => e.MenuGroupId)
 				.WillCascadeOnDelete(false);
 
@@ -26,10 +26,10 @@
 				.WillCascadeOnDelete(false);
 
 
-			HasMany(e => e.BillItems)
-				.WithRequired(i => i.MenuItem)
-				.HasForeignKey(e => e.MenuItemId)
-				.WillCascadeOnDelete(false);
+			//HasMany(e => e.BillItems)
+			//	.WithRequired(i => i.MenuItem)
+			//	.HasForeignKey(e => e.MenuItemId)
+			//	.WillCascadeOnDelete(false);
 
 			HasMany(e => e.Prices)
 				.WithRequired(e => e.MenuItem)

@@ -1,9 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace POS.Data.Model
 {
+	/// <summary>
+	/// Дерево групп меню
+	/// </summary>
+	[Serializable]
 	public partial class MenuGroup : DictionaryModel
 	{
 		[Browsable(false)]
@@ -12,14 +17,17 @@ namespace POS.Data.Model
 #else
 		public int? ParentId { get; set; }
 #endif
+		[Display(Name = "Прядок отображения", Order = 10), Editable(false)]
 		public int Order { get; set; }
 
 
-		public MenuGroup Parent { get; set; }
+		public virtual  MenuGroup Parent { get; set; }
+
 		[Browsable(false)]
-		public ICollection<MenuGroup> Children { get; set; }
-		[Browsable(false)]
-		public ICollection<MenuItem> MenuItems { get; set; }
+		public virtual ICollection<MenuGroup> Children { get; set; }
+
+		//[Browsable(false)]
+		//public virtual ICollection<MenuItem> MenuItems { get; set; }
 
 	}
 }
