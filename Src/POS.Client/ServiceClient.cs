@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Newtonsoft.Json;
 
 using IT;
+using Newtonsoft.Json;
 using POS.Data.Model;
 
 namespace POS.Client
@@ -63,6 +60,13 @@ namespace POS.Client
 				throw;
 			}
 
+			return null;
+		}
+		public T[] Dictionary_Get<T>(Tables tab, Dictionary<string, object> where)
+		{
+			var json = Dictionary_Get(tab, where);
+			if (!string.IsNullOrEmpty(json))
+				return JsonConvert.DeserializeObject<T[]>(json);
 			return null;
 		}
 
